@@ -1,0 +1,5 @@
+# compiled es6
+lib/
+
+# node modules
+node_modules/

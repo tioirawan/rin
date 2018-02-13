@@ -1,0 +1,36 @@
+{
+  "name": "rin",
+  "version": "0.0.1",
+  "description": "simple multi purpose discord bot",
+  "main": "lib/bot.js",
+  "scripts": {
+    "dev": "npm run build && node lib/bot.js",
+    "start": "NODE_ENV=production npm run build && node lib/bot.js",
+    "build": "babel src -d lib"
+  },
+  "author": "indmind",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^11.3.0",
+    "mathjs": "^3.20.2",
+    "urban-dictionary": "^1.0.6",
+    "winston": "^2.4.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.2.1",
+    "babel-preset-env": "^1.6.1",
+    "eslint": "^4.17.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-prettier": "^2.6.0",
+    "prettier": "^1.10.2"
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "keywords": [
+    "discord",
+    "bot"
+  ]
+}

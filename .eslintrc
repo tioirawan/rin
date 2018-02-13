@@ -1,0 +1,28 @@
+{
+    "env": {
+        "node": true,
+        "es6": true
+    },
+    "plugins": [
+        "prettier"
+    ],
+    "extends": [
+        "eslint:recommended",
+        "prettier"
+    ],
+    "parser": "babel-eslint",
+    "rules": {
+        "prettier/prettier": [
+            "warn",
+            {
+                "singleQuote": true,
+                "semi": false,
+                "trailingComma": "none",
+                "bracketSpacing": true,
+                "tabWidth": 4,
+                "arrowParens": "avoid"
+            }
+        ],
+        "no-console": "warn"
+    }
+}
