@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "npm run build && node lib/bot.js",
     "start": "NODE_ENV=production npm run build && node lib/bot.js",
-    "build": "babel src -d lib"
+    "build": "babel src -d lib",
+    "test": "jest"
   },
   "author": "indmind",
   "license": "MIT",
@@ -21,11 +22,15 @@
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.2.1",
+    "babel-jest": "^22.2.2",
     "babel-preset-env": "^1.6.1",
     "eslint": "^4.17.0",
     "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-jest": "^21.12.1",
     "eslint-plugin-prettier": "^2.6.0",
-    "prettier": "^1.10.2"
+    "jest": "^22.3.0",
+    "prettier": "^1.10.2",
+    "regenerator-runtime": "^0.11.1"
   },
   "directories": {
     "lib": "lib"

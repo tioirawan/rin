@@ -4,9 +4,11 @@
         "es6": true
     },
     "plugins": [
-        "prettier"
+        "prettier",
+        "jest"
     ],
     "extends": [
+        "plugin:jest/recommended",
         "eslint:recommended",
         "prettier"
     ],
