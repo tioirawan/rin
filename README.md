@@ -6,7 +6,7 @@ Simple Multi Purpose Discord Bot
 `$ npm install`
 
 ## Build
-`$ DISCORD_TOKEN=your_token npm run build`
+`$ npm run build`
 
 ## Development
 `$ DISCORD_TOKEN=your_token npm run dev`
