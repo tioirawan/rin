@@ -48,7 +48,8 @@ export default class Udict {
 
         if (fixedCommand[1]) {
             let depth = parseInt(fixedCommand[1])
-            if (isNaN(depth)) throw 'invalid depth!'
+
+            if (isNaN(depth)) return 'invalid depth!'
 
             entries = entries.slice(0, depth)
         } else {
@@ -62,6 +63,7 @@ export default class Udict {
         result += entries
             .map((entry, index) => `${index + 1}. ${this.compose(entry)}`)
             .join('\n')
+
         return result
     }
 
@@ -91,7 +93,7 @@ export default class Udict {
             if (!id) reject('empty id! usage `id <id>`')
 
             ud.defid(id, (error, entry, tags, sounds) => {
-                if (error) reject("Hufft... I can't find anything :pensive:")
+                if (error) reject("It's a fake id!!!!!! :angry::angry:")
                 resolve({
                     entry,
                     tags,
@@ -104,7 +106,7 @@ export default class Udict {
     random() {
         return new Promise((resolve, reject) => {
             ud.random((error, entry) => {
-                if (error) reject('')
+                if (error) reject('Whoops... something error happened!')
                 resolve(entry)
             })
         })
