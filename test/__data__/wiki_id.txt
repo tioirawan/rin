@@ -1,7 +1,0 @@
-**Translation**
-
-Translation is the communication of the meaning of a source-language text by means of an equivalent target-language text. The English language draws a terminological distinction (not all languages do) between translating (a written text) and interpreting (oral or sign-language communication between users of different languages); under this distinction, translation can begin only after the appearance of writing within a language community.
-A translator always risks inadvertently introducing source-language words, grammar, or syntax into the target-language rendering. On the other hand, such "spill-overs" have sometimes imported useful source-language calques and loanwords that have enriched target languages. Translators, including early translators of sacred texts, have helped shape the very languages into which they have translated.
-Because of the laboriousness of the translation process, since the 1940s efforts have been made, with varying degrees of success, to automate translation or to mechanically aid the human translator. More recently, the rise of the Internet has fostered a world-wide market for translation services and has facilitated "language localization".
-
-https://en.wikipedia.org/wiki/Translation
