@@ -3,6 +3,7 @@ import logger from 'winston'
 
 import Udict from './command/udict'
 import Calc from './command/calc'
+import Wiki from './command/wiki'
 
 const env = process.env.NODE_ENV || 'development'
 
@@ -16,7 +17,8 @@ const client = new Discord.Client()
 
 const command = {
     udict: new Udict(),
-    calc: new Calc()
+    calc: new Calc(),
+    wiki: new Wiki()
 }
 
 client.on('ready', () => {
@@ -27,18 +29,20 @@ client.on('message', async ctx => {
     const message = ctx.content
     const args = message.split(' ')
 
-    logger.info(`${ctx.author.username}(${ctx.author.id}): ${message}`)
-
     if (args[0] == client.user.username) {
+        logger.info(`${ctx.author.username}(${ctx.author.id}): ${message}`)
+
         const cmd = args[1]
         const subcmd = args.slice(1)
+        const cmdLists = Object.keys(command)
 
         let result = ''
 
-        if (Object.keys(command).includes(cmd)) {
+        if (cmdLists.includes(cmd)) {
             result = await command[cmd].handle(subcmd)
         } else {
-            result = 'Hello!'
+            const cmdListString = cmdLists.map(cmd => `\`${cmd}\``).join('\n')
+            result = `Hello! you can use the following command:\n${cmdListString}`
         }
 
         if (result.length > 2000) {
