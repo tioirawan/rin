@@ -1,6 +1,25 @@
 import wiki from 'wikijs'
 
 export default class Wiki {
+    constructor() {
+        this.VARIABLE = {
+            default: 'Hah??? you can use `search`, `random`, or `geo` command',
+            emptyQuery: 'empty query, like your life...',
+            searchNotFound: "I can't find anything m8",
+            emptyID: 'empty id :kissing_heart:',
+            idNotFound: "I can't find anything :eyes:",
+            notEnoughInformation: 'I am not a god... not enough information!',
+            resultTooBig:
+                "Sorry, I can't show all the results because it's too **BIG**",
+            unknownError: 'unknown error',
+            geoInvalid: {
+                latitude: 'invalid latitude',
+                longitude: 'invalid longitude',
+                radius: 'invalid radius'
+            }
+        }
+    }
+
     async handle(command) {
         switch (command[1]) {
             case 'search':
@@ -17,7 +36,7 @@ export default class Wiki {
             case 'id':
                 return await this.id(command[2])
             default:
-                return 'Hah??? you can use `search`, `random`, or `geo` command'
+                return this.VARIABLE.default
         }
     }
 
@@ -28,8 +47,12 @@ export default class Wiki {
         let summary = await data.summary()
         let template = await this.template(title, summary, url)
 
-        while (template.length > 2000) {
-            summary = summary.split('.')[0]
+        const paragraph = summary.split('.')
+
+        let idx = paragraph.length
+
+        while (template.length > 2000 && idx > 0) {
+            summary = paragraph.slice(0, idx--).join('.')
 
             template = await this.template(title, summary, url)
         }
@@ -42,12 +65,12 @@ export default class Wiki {
     }
 
     async search(query) {
-        if (!query) return 'empty query, like your life...'
+        if (!query) return this.VARIABLE.emptyQuery
 
         const response = await wiki().search(query)
 
         if (!response.results.length) {
-            return "I can't find anything m8"
+            return this.VARIABLE.searchNotFound
         }
 
         const data = await wiki().page(response.results[0])
@@ -64,7 +87,7 @@ export default class Wiki {
     }
 
     async id(id) {
-        if (!id) return 'empty id :kissing_heart:'
+        if (!id) return this.VARIABLE.emptyID
 
         let response
 
@@ -74,14 +97,14 @@ export default class Wiki {
             return err.message
         }
 
-        if (response.raw.pageid == 0) return "I can't find anything :eyes:"
+        if (response.raw.pageid == 0) return this.VARIABLE.idNotFound
 
         return await this.compose(response)
     }
 
     async geo(command) {
         if (command.length < 2) {
-            return 'I am not a god... not enough information!'
+            return this.VARIABLE.notEnoughInformation
         }
 
         let err
@@ -111,8 +134,7 @@ export default class Wiki {
         }
 
         if (concated < results.length) {
-            template +=
-                "\n\nSorry, I can't show all the results because it's too **BIG**"
+            template += `\n\n${this.VARIABLE.resultTooBig}`
         }
 
         return template
@@ -121,13 +143,13 @@ export default class Wiki {
     errGeoMap(num) {
         switch (num) {
             case 0:
-                return 'invalid latitude'
+                return this.VARIABLE.geoInvalid.latitude
             case 1:
-                return 'invalid longitude'
+                return this.VARIABLE.geoInvalid.longitude
             case 2:
-                return 'invalid radius'
+                return this.VARIABLE.geoInvalid.radius
             default:
-                return 'unknown error'
+                return this.VARIABLE.unknownError
         }
     }
 }
