@@ -5,8 +5,6 @@ import Udict from '../command/udict'
 import Calc from '../command/calc'
 import Wiki from '../command/wiki'
 
-const pack = require(__dirname + '/../../package.json')
-
 const env = process.env.NODE_ENV || 'development'
 
 logger.remove(logger.transports.Console)
@@ -23,8 +21,20 @@ const command = {
     wiki: new Wiki()
 }
 
+const cmdLists = Object.keys(command)
+const cmdListString = cmdLists.map(cmd => `\`${cmd}\``).join('\n')
+const defaultReply = `Hello! I am Rin an open source multi-purpose bot https://github.com/indmind/rin \n you can use the following command:\n${cmdListString}`
+
+app.telegram.getMe().then(botInfo => {
+    app.options.username = botInfo.username
+})
+
 app.command('start', async ctx => {
-    ctx.reply('Hello! I am rin')
+    const userName = ctx.message.from.first_name + ctx.message.from.last_name
+
+    logger.info(`${userName}(${ctx.message.from.id}): /start`)
+
+    ctx.reply(defaultReply)
 })
 
 app.on('text', async ctx => {
@@ -33,27 +43,25 @@ app.on('text', async ctx => {
 
     const args = message.split(' ')
 
-    if (args[0] == pack.name) {
-        logger.info(`${userName}(${ctx.message.from.id}): ${message}`)
+    logger.info(`${userName}(${ctx.message.from.id}): ${message}`)
 
-        const cmd = args[1]
-        const subcmd = args.slice(1)
-        const cmdLists = Object.keys(command)
+    const cmd = args[0]
 
-        let result = ''
+    let result = ''
 
-        if (cmdLists.includes(cmd)) {
-            const response = await command[cmd].handle(subcmd)
-            result = response.replace(/\s*:.*?:\s*/g, '')
-        } else {
-            const cmdListString = cmdLists.map(cmd => `\`${cmd}\``).join('\n')
-            result = `Hello! you can use the following command:\n${cmdListString}`
-        }
-
-        if (result.length > 4000) {
-            ctx.reply("Sorry It's too big to send")
-        } else ctx.replyWithMarkdown(result)
+    if (cmdLists.includes(cmd)) {
+        const response = await command[cmd].handle(args)
+        result = response
+            .replace(/\s*:.*?:\s*/g, '')
+            .replace(/\*\*+/g, '*')
+            .replace(/__+/g, '_')
+    } else {
+        result = defaultReply
     }
+
+    if (result.length > 4000) {
+        ctx.reply("Sorry It's too big to send")
+    } else ctx.replyWithMarkdown(result)
 })
 
 app.catch(err => {
