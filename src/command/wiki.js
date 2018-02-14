@@ -61,7 +61,7 @@ export default class Wiki {
     }
 
     async template(title, summary, url) {
-        return `**${title}**\n\n${summary}\n\n${url}`
+        return `**${title}**\n\n${summary}\n\n[Wikipedia](${url})`
     }
 
     async search(query) {
