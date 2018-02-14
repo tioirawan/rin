@@ -1,9 +1,11 @@
-import Discord from 'discord.js'
+import Telegraf from 'telegraf'
 import logger from 'winston'
 
 import Udict from '../command/udict'
 import Calc from '../command/calc'
 import Wiki from '../command/wiki'
+
+const pack = require(__dirname + '/../../package.json')
 
 const env = process.env.NODE_ENV || 'development'
 
@@ -13,7 +15,7 @@ logger.add(logger.transports.Console, {
 })
 logger.level = env === 'development' ? 'debug' : 'info'
 
-const client = new Discord.Client()
+const app = new Telegraf(process.env.TOKEN)
 
 const command = {
     udict: new Udict(),
@@ -21,16 +23,18 @@ const command = {
     wiki: new Wiki()
 }
 
-client.on('ready', () => {
-    logger.info(`Logged in as ${client.user.tag}!`)
+app.command('start', async ctx => {
+    ctx.reply('Hello! I am rin')
 })
 
-client.on('message', async ctx => {
-    const message = ctx.content
+app.on('text', async ctx => {
+    const userName = ctx.message.from.first_name + ctx.message.from.last_name
+    const message = ctx.message.text
+
     const args = message.split(' ')
 
-    if (args[0] == client.user.username) {
-        logger.info(`${ctx.author.username}(${ctx.author.id}): ${message}`)
+    if (args[0] == pack.name) {
+        logger.info(`${userName}(${ctx.message.from.id}): ${message}`)
 
         const cmd = args[1]
         const subcmd = args.slice(1)
@@ -39,16 +43,22 @@ client.on('message', async ctx => {
         let result = ''
 
         if (cmdLists.includes(cmd)) {
-            result = await command[cmd].handle(subcmd)
+            const response = await command[cmd].handle(subcmd)
+            result = response.replace(/\s*:.*?:\s*/g, '')
         } else {
             const cmdListString = cmdLists.map(cmd => `\`${cmd}\``).join('\n')
             result = `Hello! you can use the following command:\n${cmdListString}`
         }
 
-        if (result.length > 2000) {
-            ctx.reply("Sorry It's too big to send :disappointed:")
-        } else ctx.reply(result)
+        if (result.length > 4000) {
+            ctx.reply("Sorry It's too big to send")
+        } else ctx.replyWithMarkdown(result)
     }
 })
 
-client.login(process.env.TOKEN)
+app.catch(err => {
+    logger.error('Ooops ')
+    logger.error(err)
+})
+
+app.startPolling()
