@@ -42,7 +42,7 @@ client.on('message', async ctx => {
             result = await command[cmd].handle(subcmd)
         } else {
             const cmdListString = cmdLists.map(cmd => `\`${cmd}\``).join('\n')
-            result = `Hello! you can use the following command:\n${cmdListString}`
+            result = `Hello! I am Rin an open source multi-purpose bot https://github.com/indmind/rin \n you can use the following command:\n${cmdListString}`
         }
 
         if (result.length > 2000) {
