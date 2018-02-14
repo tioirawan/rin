@@ -1,6 +1,19 @@
 import ud from 'urban-dictionary'
 
 export default class Udict {
+    constructor() {
+        this.VARIABLE = {
+            default:
+                ':confused: what do you want? you can use `search` `id` or `random` command',
+            invalidDepth: 'invalid depth!',
+            emptyTerm: 'empty term! usage `search <term> *<depth>`',
+            termNotFound: "Hufft... I can't find anything :pensive:",
+            emptyID: 'empty id! usage `id <id>`',
+            idNotFound: "It's a fake id!!!!!! :angry::angry:",
+            unknownError: 'Whoops... something error happened!'
+        }
+    }
+
     async handle(command) {
         switch (command[1]) {
             case 'search':
@@ -14,7 +27,7 @@ export default class Udict {
                     return err
                 }
             default:
-                return ':confused: what do you want? you can use `search` `id` or `random` command'
+                return this.VARIABLE.default
         }
     }
 
@@ -49,7 +62,7 @@ export default class Udict {
         if (fixedCommand[1]) {
             let depth = parseInt(fixedCommand[1])
 
-            if (isNaN(depth)) return 'invalid depth!'
+            if (isNaN(depth)) return this.VARIABLE.invalidDepth
 
             entries = entries.slice(0, depth)
         } else {
@@ -75,10 +88,10 @@ export default class Udict {
 
     term(term) {
         return new Promise((resolve, reject) => {
-            if (!term) reject('empty term! usage `search <term> *<depth>`')
+            if (!term) reject(this.VARIABLE.emptyTerm)
 
             ud.term(term, (error, entries, tags, sounds) => {
-                if (error) reject("Hufft... I can't find anything :pensive:")
+                if (error) reject(this.VARIABLE.termNotFound)
                 resolve({
                     entries,
                     tags,
@@ -90,10 +103,10 @@ export default class Udict {
 
     id(id) {
         return new Promise((resolve, reject) => {
-            if (!id) reject('empty id! usage `id <id>`')
+            if (!id) reject(this.VARIABLE.emptyID)
 
             ud.defid(id, (error, entry, tags, sounds) => {
-                if (error) reject("It's a fake id!!!!!! :angry::angry:")
+                if (error) reject(this.VARIABLE.idNotFound)
                 resolve({
                     entry,
                     tags,
@@ -106,7 +119,7 @@ export default class Udict {
     random() {
         return new Promise((resolve, reject) => {
             ud.random((error, entry) => {
-                if (error) reject('Whoops... something error happened!')
+                if (error) reject(this.VARIABLE.unknownError)
                 resolve(entry)
             })
         })
