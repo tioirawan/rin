@@ -1,9 +1,9 @@
 import Discord from 'discord.js'
 import logger from 'winston'
 
-import Udict from './command/udict'
-import Calc from './command/calc'
-import Wiki from './command/wiki'
+import Udict from '../command/udict'
+import Calc from '../command/calc'
+import Wiki from '../command/wiki'
 
 const env = process.env.NODE_ENV || 'development'
 

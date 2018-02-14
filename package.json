@@ -2,10 +2,10 @@
   "name": "rin",
   "version": "0.0.2",
   "description": "simple multi purpose discord bot",
-  "main": "lib/bot.js",
+  "main": "lib/main.js",
   "scripts": {
-    "dev": "npm run build && node lib/bot.js",
-    "start": "NODE_ENV=production npm run build && node lib/bot.js",
+    "dev": "npm run build && node lib/main.js",
+    "start": "NODE_ENV=production npm run build && node lib/main.js",
     "build": "babel src -d lib",
     "test": "jest"
   },
