@@ -19,19 +19,25 @@ export default class Udict {
             case 'search':
                 return await this.searchTerm(command)
             case 'id':
-                return await this.searchID(command[2])
+                return await this.searchID(command)
             case 'random':
-                try {
-                    return this.compose(await this.random())
-                } catch (err) {
-                    return err
-                }
+                return await this.getRandom()
             default:
                 return this.VARIABLE.default
         }
     }
 
-    async searchID(id) {
+    async getRandom() {
+        try {
+            return this.compose(await this.random())
+        } catch (err) {
+            return err
+        }
+    }
+
+    async searchID(command) {
+        const id = command[2]
+
         let response
 
         try {

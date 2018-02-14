@@ -23,18 +23,13 @@ export default class Wiki {
     async handle(command) {
         switch (command[1]) {
             case 'search':
-                return await this.search(
-                    command
-                        .slice(2)
-                        .join(' ')
-                        .replace(/['"]+/g, '')
-                )
+                return await this.search(command)
+            case 'geo':
+                return await this.geo(command)
+            case 'id':
+                return await this.id(command)
             case 'random':
                 return await this.random()
-            case 'geo':
-                return await this.geo(command.slice(2))
-            case 'id':
-                return await this.id(command[2])
             default:
                 return this.VARIABLE.default
         }
@@ -61,10 +56,16 @@ export default class Wiki {
     }
 
     async template(title, summary, url) {
-        return `**${title}**\n\n${summary}\n\n[Wikipedia](${url})`
+        const urlMarkdown = process.env.VENDOR == 'telegram' ? `[${url}]` : url
+        return `**${title}**\n\n${summary}\n\n${urlMarkdown}`
     }
 
-    async search(query) {
+    async search(command) {
+        const query = command
+            .slice(2)
+            .join(' ')
+            .replace(/['"]+/g, '')
+
         if (!query) return this.VARIABLE.emptyQuery
 
         const response = await wiki().search(query)
@@ -86,7 +87,9 @@ export default class Wiki {
         return await this.compose(data)
     }
 
-    async id(id) {
+    async id(command) {
+        const id = command[2]
+
         if (!id) return this.VARIABLE.emptyID
 
         let response
@@ -103,13 +106,15 @@ export default class Wiki {
     }
 
     async geo(command) {
-        if (command.length < 2) {
+        const params = command.slice(2)
+
+        if (params.length < 2) {
             return this.VARIABLE.notEnoughInformation
         }
 
         let err
 
-        const parameters = command.map((cmd, idx) => {
+        const parameters = params.map((cmd, idx) => {
             const numCmd = parseFloat(cmd)
             if (isNaN(numCmd)) err = this.errGeoMap(idx)
 
