@@ -16,3 +16,7 @@ deploy:
   on:
     repo: indmind/rin
     branch: master
+  run:
+    - "config:set NPM_CONFIG_PRODUCTION=false"
+    - "config:set DISCORD_TOKEN=$DISCORD_TOKEN"
+    - "config:set DISCORD_TOKEN=$DISCORD_TOKEN"

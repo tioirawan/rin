@@ -6,7 +6,7 @@
   "scripts": {
     "build": "rm lib/ -rf && ./node_modules/.bin/babel src -d lib",
     "main": "node lib/main.js",
-    "start": "pm run build && npm run main",
+    "start": "npm run build && npm run main",
     "lint": "./node_modules/.bin/eslint .",
     "fix": "./node_modules/.bin/eslint --fix .",
     "test": "jest",
