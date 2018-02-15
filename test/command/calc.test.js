@@ -1,4 +1,4 @@
-import Calc from '../../lib/command/calc'
+import Calc from '../../src/command/calc'
 
 describe('command.calc', () => {
     const calc = new Calc()

@@ -1,7 +1,7 @@
-import Wiki from '../../lib/command/wiki'
+import Wiki from '../../src/command/wiki'
 
 describe('command.wiki', () => {
-    jest.setTimeout(20000)
+    jest.setTimeout(30000)
     let wiki = new Wiki()
 
     it('should return correct data from search command', async () => {

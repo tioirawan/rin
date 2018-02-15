@@ -1,4 +1,4 @@
-import Udict from '../../lib/command/udict'
+import Udict from '../../src/command/udict'
 import fs from 'fs'
 import path from 'path'
 
