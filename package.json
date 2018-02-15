@@ -4,9 +4,12 @@
   "description": "simple multi purpose bot",
   "main": "lib/main.js",
   "scripts": {
-    "dev": "npm run build && node lib/main.js",
-    "start": "NODE_ENV=production npm run build && node lib/main.js",
-    "build": "babel src -d lib",
+    "build": "rm lib/ -rf && babel src -d lib",
+    "main": "node lib/main.js",
+    "dev": "npm run build && npm run main",
+    "start": "NODE_ENV=production npm run build && npm run main",
+    "lint": "./node_modules/.bin/eslint .",
+    "fix": "./node_modules/.bin/eslint --fix .",
     "test": "jest"
   },
   "author": "indmind",
