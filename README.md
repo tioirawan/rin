@@ -21,11 +21,11 @@ it's just simple transpile es6 using babel
 
 `$ npm start` 
 
-default vendor is using `src/vendor/cli.js`
+default is using `src/vendor/cli.js`
 
-for discord or telegram add `VENDOR` env
+for discord or telegram set `STATUS=production` and vendor token
 
-`$ TOKEN=your_token VENDOR=discord/telegram npm start`
+`$ DISCORD_TOKEN=your_discord_token TELEGRAM_TOKEN=your_telegram_token STATUS=production npm start`
 
 to create subcommand create a file in `src/command` folder, create a class that have a method called `handle` and export it
 
