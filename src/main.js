@@ -1,1 +1,1 @@
-require(`./vendor/${process.env.VENDOR || 'discord'}`)
+require(`./vendor/${process.env.VENDOR || 'cli'}`)
