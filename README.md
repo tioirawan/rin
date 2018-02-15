@@ -1,6 +1,9 @@
 # Rin
 
-Simple Multi-Purpose Bot
+[![Build Status](https://travis-ci.org/indmind/rin.svg?branch=master)](https://travis-ci.org/indmind/rin)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/indmind/rin/blob/master/LICENSE)
+
+a simple Multi-Purpose Bot
 
 ## Installation
 
