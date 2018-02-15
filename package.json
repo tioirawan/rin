@@ -6,11 +6,11 @@
   "scripts": {
     "build": "rm lib/ -rf && ./node_modules/.bin/babel src -d lib",
     "main": "node lib/main.js",
-    "dev": "npm run build && npm run main",
-    "start": "NODE_ENV=production npm run build && npm run main",
+    "start": "pm run build && npm run main",
     "lint": "./node_modules/.bin/eslint .",
     "fix": "./node_modules/.bin/eslint --fix .",
-    "test": "jest"
+    "test": "jest",
+    "prestart": "npm run build"
   },
   "author": "indmind",
   "license": "MIT",

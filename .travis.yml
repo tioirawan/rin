@@ -19,7 +19,3 @@ deploy:
   on:
     repo: indmind/rin
     branch: master
-  run:
-    - "heroku config:set NPM_CONFIG_PRODUCTION=false"
-    - "heroku config:set DISCORD_TOKEN=$DISCORD_TOKEN"
-    - "heroku config:set DISCORD_TOKEN=$DISCORD_TOKEN"
