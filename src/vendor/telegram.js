@@ -1,6 +1,8 @@
 import Telegraf from 'telegraf'
 import logger from 'winston'
 
+import Rin from '../core/rin'
+
 import Udict from '../command/udict'
 import Calc from '../command/calc'
 import Wiki from '../command/wiki'
@@ -14,6 +16,7 @@ logger.add(logger.transports.Console, {
 logger.level = env === 'development' ? 'debug' : 'info'
 
 const app = new Telegraf(process.env.TOKEN)
+const rin = new Rin()
 
 const command = {
     udict: new Udict(),
@@ -23,7 +26,7 @@ const command = {
 
 const cmdLists = Object.keys(command)
 const cmdListString = cmdLists.map(cmd => `\`${cmd}\``).join('\n')
-const defaultReply = `Hello! I am Rin an open source multi-purpose bot https://github.com/indmind/rin \n you can use the following command:\n${cmdListString}`
+const defaultReply = `Hello! I am Rin an open source multi-purpose bot https://github.com/indmind/rin feel free to contribute!\n you can use the following command:\n${cmdListString}`
 
 app.telegram.getMe().then(botInfo => {
     app.options.username = botInfo.username
@@ -51,10 +54,7 @@ app.on('text', async ctx => {
 
     if (cmdLists.includes(cmd)) {
         const response = await command[cmd].handle(args)
-        result = response
-            .replace(/\s*:.*?:\s*/g, '')
-            .replace(/\*\*+/g, '*')
-            .replace(/__+/g, '_')
+        result = rin.telegramize(response)
     } else {
         result = defaultReply
     }
