@@ -16,7 +16,10 @@ export default class Calc {
             return this.VARIABLE.emptyExpression
         }
 
-        const expression = command.slice(1).join(' ')
+        const expression = command
+            .slice(1)
+            .join(' ')
+            .replace(/['"]+/g, '')
 
         let result
 
