@@ -1,11 +1,21 @@
 language: node_js
 node_js:
-  - "8.9"
+- '8.9'
 cache:
   directories:
-    - "node_modules"
+  - node_modules
+addons:
+  sauce_connect: true
 sudo: false
 script:
-  - npm run lint
-  - npm run build
-  - npm test
+- npm run lint
+- npm run build
+- npm test
+deploy:
+  provider: heroku
+  api_key:
+    secure: rHj6PcoluGRFFNljBRImqaJzLJF/JL6GevapREK9XGFkQsXfJlz+e9mQCCJxnhfjDaKD3jG6Al/TahjBAnVRfysDG52BytSAE9ryM4kmYy95HzWmjuGqWFgrVPbf7a9Xsj+hD7OzC4XOJvOjvOzWLCJJNB5Cf/flpYDE78ocrb5sF6K8k8FHyvhLxcNBKLDIrYFtH1HexvuiD7uD5g3vIp3nrwSfrg1/9dnoxywQHoCgfDL5G5IaspGJ3xMj3LIP+paTEEPNPKrk2rNa97mlNuRlm2evMSlMe7+Y6tSTAXH1c41l7cvHzyT0auiijDUmtu3s5qq3/4KSdXXWrutDsqjs+M2qE7m/PEKgM73MHRyCXCJnD6Zs0NY812G9piDWE5cPqY51OSLbKeuePdbrGK8v9P7EEiJDONap8HuirO6q9oZ8u6W9zPjONH/cHAIHZWpX4fprguSy7XPqvNtJxCwClgyz+RW1MOuidfYjCyRa9Kg8QQf3P0jxlli80DHg6CXJ8dT8Bd0PR0qwej7Dxw0j6vew03hvUQ3X3W/qs6kf03Z7LHFZ5ozjL1ptqG5Dc5BVbpoJztwgKHhtbpE5x8VBuX6OjDCBrUdBPYcEPr539/gYXBQje8059ZHdHMSHxles+3++GRMCHdrWsr26SYwMF53G18CJtIu2EYp8gNg=
+  app: rincloud
+  on:
+    repo: indmind/rin
+    branch: deploy
