@@ -12,11 +12,11 @@ export default class Wiki {
             resultTooBig:
                 "Sorry, I can't show all the results because it's too **BIG**",
             unknownError: 'unknown error',
-            geoInvalid: {
-                latitude: 'invalid latitude',
-                longitude: 'invalid longitude',
-                radius: 'invalid radius'
-            }
+            geoInvalid: [
+                'invalid latitude',
+                'invalid longitude',
+                'invalid radius'
+            ]
         }
     }
 
@@ -116,7 +116,7 @@ export default class Wiki {
 
         const parameters = params.map((cmd, idx) => {
             const numCmd = parseFloat(cmd)
-            if (isNaN(numCmd)) err = this.errGeoMap(idx)
+            if (isNaN(numCmd)) err = this.VARIABLE.geoInvalid[idx]
 
             return numCmd
         })
@@ -143,18 +143,5 @@ export default class Wiki {
         }
 
         return template
-    }
-
-    errGeoMap(num) {
-        switch (num) {
-            case 0:
-                return this.VARIABLE.geoInvalid.latitude
-            case 1:
-                return this.VARIABLE.geoInvalid.longitude
-            case 2:
-                return this.VARIABLE.geoInvalid.radius
-            default:
-                return this.VARIABLE.unknownError
-        }
     }
 }
