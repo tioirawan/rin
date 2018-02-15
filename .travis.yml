@@ -4,9 +4,6 @@ node_js:
 cache:
   directories:
   - node_modules
-sudo: required
-before_script:
-  - wget -qO- https://toolbelt.heroku.com/install.sh | sh
 script:
 - npm run lint
 - npm run build
@@ -20,6 +17,6 @@ deploy:
     repo: indmind/rin
     branch: master
   run:
-    - "heroku config:set NPM_CONFIG_PRODUCTION=false"
-    - "heroku config:set DISCORD_TOKEN=$DISCORD_TOKEN"
-    - "heroku config:set DISCORD_TOKEN=$DISCORD_TOKEN"
+    - "config:set NPM_CONFIG_PRODUCTION=false"
+    - "config:set DISCORD_TOKEN=$DISCORD_TOKEN"
+    - "config:set DISCORD_TOKEN=$DISCORD_TOKEN"

@@ -19,7 +19,7 @@ it's just simple transpile es6 using babel
 
 ## Development
 
-`$ npm run dev` 
+`$ npm start` 
 
 default vendor is using `src/vendor/cli.js`
 
