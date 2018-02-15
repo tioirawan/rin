@@ -1,8 +1,6 @@
-<center> <h1>Rin</h1>
+# Rin
 
-[![Build Status](https://travis-ci.org/indmind/rin.svg?branch=master)](https://travis-ci.org/indmind/rin)
-
-a simple Multi-Purpose Bot
+Simple Multi-Purpose Bot
 
 ## Installation
 
@@ -41,5 +39,3 @@ create a unit test in `test/command` folder for subcommand testing and `test/__d
 ## Contributing
 
 I am very happy if you want to contribute!
-
-</center>
