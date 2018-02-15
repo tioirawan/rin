@@ -4,8 +4,6 @@ node_js:
 cache:
   directories:
   - node_modules
-addons:
-  sauce_connect: true
 sudo: false
 script:
 - npm run lint
@@ -18,4 +16,4 @@ deploy:
   app: rincloud
   on:
     repo: indmind/rin
-    branch: deploy
+    branch: master
