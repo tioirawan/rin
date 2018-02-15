@@ -29,21 +29,25 @@ export default class Udict {
 
     async getRandom() {
         try {
-            return this.compose(await this.random())
+            const result = await this.random()
+
+            return this.compose(result)
         } catch (err) {
-            return err
+            return err.message
         }
     }
 
     async searchID(command) {
         const id = command[2]
 
+        if (!id) return this.VARIABLE.emptyID
+
         let response
 
         try {
             response = await this.id(id)
         } catch (err) {
-            return err
+            return err.message
         }
 
         return this.compose(response.entry)
@@ -52,13 +56,16 @@ export default class Udict {
     async searchTerm(command) {
         const commandQuery = command.slice(2).join(' ')
         const fixedCommand = commandQuery.match(/[^" ]+|("[^"]*")/g) || ['']
+        const term = fixedCommand[0].replace(/['"]+/g, '')
+
+        if (!term) return this.VARIABLE.emptyTerm
 
         let response
 
         try {
-            response = await this.term(fixedCommand[0].replace(/['"]+/g, ''))
+            response = await this.term(term)
         } catch (err) {
-            return err
+            return err.message
         }
 
         const entriesLength = response.entries.length
@@ -94,8 +101,6 @@ export default class Udict {
 
     term(term) {
         return new Promise((resolve, reject) => {
-            if (!term) reject(this.VARIABLE.emptyTerm)
-
             ud.term(term, (error, entries, tags, sounds) => {
                 if (error) reject(this.VARIABLE.termNotFound)
                 resolve({
@@ -109,8 +114,6 @@ export default class Udict {
 
     id(id) {
         return new Promise((resolve, reject) => {
-            if (!id) reject(this.VARIABLE.emptyID)
-
             ud.defid(id, (error, entry, tags, sounds) => {
                 if (error) reject(this.VARIABLE.idNotFound)
                 resolve({
