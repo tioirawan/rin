@@ -1,1 +1,1 @@
-require(`./vendor/${process.env.VENDOR || 'cli'}`)
+require(`./vendor/${process.env.STATUS == 'production' ? 'main' : 'cli'}`)
