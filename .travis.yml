@@ -4,7 +4,9 @@ node_js:
 cache:
   directories:
   - node_modules
-sudo: false
+sudo: required
+before_script:
+  - wget -qO- https://toolbelt.heroku.com/install.sh | sh
 script:
 - npm run lint
 - npm run build
