@@ -4,7 +4,7 @@
   "description": "simple multi purpose bot",
   "main": "lib/main.js",
   "scripts": {
-    "build": "rm lib/ -rf && babel src -d lib",
+    "build": "rm lib/ -rf && ./node_modules/.bin/babel src -d lib",
     "main": "node lib/main.js",
     "dev": "npm run build && npm run main",
     "start": "NODE_ENV=production npm run build && npm run main",
