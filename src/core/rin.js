@@ -87,4 +87,8 @@ export default class Rin {
 
         return html
     }
+
+    static standarize(text) {
+        return text.replace(/\s\s+/g, ' ').toLowerCase()
+    }
 }

@@ -21,7 +21,8 @@ client.on('ready', () => {
 })
 
 client.on('message', async ctx => {
-    const message = ctx.content
+    const message = Rin.standarize(ctx.content)
+
     const args = message.split(' ')
 
     if (args[0] == client.user.username) {
