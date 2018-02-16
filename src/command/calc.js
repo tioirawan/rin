@@ -9,9 +9,6 @@ export default class Calc {
                 createUnit() {
                     throw new Error('Function createUnit is disabled')
                 },
-                eval() {
-                    throw new Error('Function eval is disabled')
-                },
                 parse() {
                     throw new Error('Function parse is disabled')
                 },
