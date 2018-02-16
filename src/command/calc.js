@@ -2,32 +2,6 @@ import math from 'mathjs'
 
 export default class Calc {
     constructor() {
-        this.limitedEval = math.eval
-
-        math.import(
-            {
-                import: function() {
-                    throw new Error('Function import is disabled')
-                },
-                createUnit: function() {
-                    throw new Error('Function createUnit is disabled')
-                },
-                eval: function() {
-                    throw new Error('Function eval is disabled')
-                },
-                parse: function() {
-                    throw new Error('Function parse is disabled')
-                },
-                simplify: function() {
-                    throw new Error('Function simplify is disabled')
-                },
-                derivative: function() {
-                    throw new Error('Function derivative is disabled')
-                }
-            },
-            { override: true }
-        )
-
         this.VARIABLE = {
             emptyExpression:
                 ':angry: are you kidding me? what should I calculate?',
@@ -50,11 +24,9 @@ export default class Calc {
         let result
 
         try {
-            result = `${this.randomText} ${this.limitedEval(
-                expression
-            ).toString()}`
+            result = `${this.randomText} ${math.eval(expression).toString()}`
         } catch (error) {
-            result = error.message
+            result = this.VARIABLE.calculationError
         }
 
         return result
