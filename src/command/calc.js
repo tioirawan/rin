@@ -54,7 +54,7 @@ export default class Calc {
                 expression
             ).toString()}`
         } catch (error) {
-            result = this.VARIABLE.calculationError
+            result = error.message
         }
 
         return result
