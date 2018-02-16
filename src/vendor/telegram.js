@@ -22,7 +22,8 @@ app.start(async ctx => {
 
 app.on('text', async ctx => {
     const userName = ctx.message.from.first_name + ctx.message.from.last_name
-    const message = ctx.message.text
+
+    const message = Rin.standarize(ctx.message.text)
 
     const args = message.split(' ')
 
