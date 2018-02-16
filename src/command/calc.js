@@ -50,9 +50,9 @@ export default class Calc {
         let result
 
         try {
-            result = `${this.randomText} ${math
-                .limitedEval(expression)
-                .toString()}`
+            result = `${this.randomText} ${this.limitedEval(
+                expression
+            ).toString()}`
         } catch (error) {
             result = this.VARIABLE.calculationError
         }
