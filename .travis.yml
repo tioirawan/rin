@@ -16,4 +16,4 @@ deploy:
   on:
     repo: indmind/rin
     branch: master
-
+    
