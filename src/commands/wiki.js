@@ -2,6 +2,11 @@ import wiki from 'wikijs'
 
 export default class Wiki {
     constructor() {
+        this.INFO = {
+            command: 'wiki',
+            description: 'search wikipedia'
+        }
+
         this.VARIABLE = {
             default: 'Hah??? you can use `search`, `random`, or `geo` command',
             emptyQuery: 'empty query, like your life...',
@@ -21,7 +26,7 @@ export default class Wiki {
     }
 
     async handle(command) {
-        switch (command[1]) {
+        switch (command[0]) {
             case 'search':
                 return await this.search(command)
             case 'geo':
@@ -62,7 +67,7 @@ export default class Wiki {
 
     async search(command) {
         const query = command
-            .slice(2)
+            .slice(1)
             .join(' ')
             .replace(/['"]+/g, '')
 
@@ -88,7 +93,7 @@ export default class Wiki {
     }
 
     async id(command) {
-        const id = command[2]
+        const id = command[1]
 
         if (!id) return this.VARIABLE.emptyID
 
@@ -106,7 +111,7 @@ export default class Wiki {
     }
 
     async geo(command) {
-        const params = command.slice(2)
+        const params = command.slice(1)
 
         if (params.length < 2) {
             return this.VARIABLE.notEnoughInformation

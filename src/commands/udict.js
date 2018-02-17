@@ -2,9 +2,14 @@ import ud from 'urban-dictionary'
 
 export default class Udict {
     constructor() {
+        this.INFO = {
+            command: 'udict',
+            description: 'search urban dictionary'
+        }
+
         this.VARIABLE = {
             default:
-                ':confused: what do you want? you can use `search` `id` or `random` command',
+                ':confused: what do you want? you can use `search`, `id` or `random` command',
             invalidDepth: 'invalid depth!',
             emptyTerm: 'empty term! usage `search <term> *<depth>`',
             termNotFound: "Hufft... I can't find anything :pensive:",
@@ -15,7 +20,7 @@ export default class Udict {
     }
 
     async handle(command) {
-        switch (command[1]) {
+        switch (command[0]) {
             case 'search':
                 return await this.searchTerm(command)
             case 'id':
@@ -38,7 +43,7 @@ export default class Udict {
     }
 
     async searchID(command) {
-        const id = command[2]
+        const id = command[1]
 
         if (!id) return this.VARIABLE.emptyID
 
@@ -54,7 +59,7 @@ export default class Udict {
     }
 
     async searchTerm(command) {
-        const commandQuery = command.slice(2).join(' ')
+        const commandQuery = command.slice(1).join(' ')
         const fixedCommand = commandQuery.match(/[^" ]+|("[^"]*")/g) || ['']
         const term = fixedCommand[0].replace(/['"]+/g, '')
 
@@ -86,9 +91,7 @@ export default class Udict {
             entries.length
         } entries...\n\n`
 
-        result += entries
-            .map((entry, index) => `${index + 1}. ${this.compose(entry)}`)
-            .join('\n')
+        result += entries.map(this.compose).join('\n')
 
         return result
     }

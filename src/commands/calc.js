@@ -2,6 +2,11 @@ import math from 'mathjs'
 
 export default class Calc {
     constructor() {
+        this.INFO = {
+            command: 'calc',
+            description: 'perform math calculation'
+        }
+
         this.limitedEval = math.eval
 
         math.import(
@@ -31,27 +36,20 @@ export default class Calc {
         this.texts = ['Maybe', "I think it's", 'Probably']
     }
 
-    handle(command) {
-        if (command.length < 2) {
+    async handle(command) {
+        if (command.length < 1) {
             return this.VARIABLE.emptyExpression
         }
 
-        const expression = command
-            .slice(1)
-            .join(' ')
-            .replace(/['"]+/g, '')
-
-        let result
+        const expression = command.join(' ').replace(/['"]+/g, '')
 
         try {
-            result = `${this.randomText} ${this.limitedEval(
-                expression
-            ).toString()}`
-        } catch (error) {
-            result = error.message
-        }
+            const result = await this.limitedEval(expression).toString()
 
-        return result
+            return `${this.randomText} ${result}`
+        } catch (error) {
+            return error.message
+        }
     }
 
     get randomText() {
