@@ -1,11 +1,12 @@
-import Wiki from '../../src/command/wiki'
+import Wiki from '../../src/commands/wiki'
+
+jest.setTimeout(30000)
 
 describe('command.wiki', () => {
-    jest.setTimeout(30000)
-    let wiki = new Wiki()
+    const wiki = new Wiki()
 
     it('should return correct data from search command', async () => {
-        const result = await wiki.handle(['wiki', 'search', 'javascript'])
+        const result = await wiki.handle(['search', 'javascript'])
 
         expect(result).toBeTruthy()
     })
