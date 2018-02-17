@@ -27,7 +27,7 @@ for discord or telegram set `TELEGRAM_TOKEN` or `DISCORD_TOKEN`
 
 `$ DISCORD_TOKEN=your_discord_token TELEGRAM_TOKEN=your_telegram_token npm start`
 
-to create subcommand create a file in `src/command` folder, create a class that have a method called `handle` and export it
+to create subcommand create a file in `src/command` folder, create a class that have a method called `handle`, variable `this.INFO` with some data, you can see in other command file
 
 for helper, create a method in Rin class `src/core/rin.js`
 
