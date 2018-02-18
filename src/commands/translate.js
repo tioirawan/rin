@@ -36,7 +36,6 @@ export default class Translate {
     }
 
     compose(data) {
-        console.log(data)
         let result = ''
 
         const language = data.from.language
