@@ -17,6 +17,10 @@ export default class Translate {
 
         if (Rin.isEmpty(code)) return this.VARIABLE.codeEmpty
 
-        return await jawaskrip.compile(code)
+        try {
+            return await jawaskrip.compile(code)
+        } catch (err) {
+            return err.message
+        }
     }
 }
