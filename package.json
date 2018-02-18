@@ -15,10 +15,12 @@
   "license": "MIT",
   "dependencies": {
     "babel-plugin-wildcard": "^4.0.0",
+    "cssbeautify": "^0.3.1",
     "discord.js": "^11.3.0",
     "google-translate-api": "^2.3.0",
     "jawaskrip": "^0.3.4",
     "mathjs": "^3.20.2",
+    "node-sass": "^4.7.2",
     "simple-markdown": "^0.3.2",
     "telegraf": "^3.17.8",
     "typescript-compiler": "^1.4.1-2",
