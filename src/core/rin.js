@@ -63,27 +63,28 @@ export default class Rin {
     }
 
     async handle(message) {
-        const argument =
-            typeof message == 'object' ? message : message.split(' ')
-
-        const usrCmd = argument[0]
+        const usrCmd = message.split(' ')[0].toLowerCase()
 
         const command = this.commands.find(
             cmd => usrCmd == cmd.INFO.command.toLowerCase()
         )
 
-        if (command) {
-            return await command.handle(argument.slice(1))
-        }
+        if (!command) return await this.defaultReply
 
-        return await this.defaultReply
+        message = command.INFO.standarize ? this.standarize(message) : message
+
+        const argument = message.split(' ')
+
+        return await command.handle(argument.slice(1))
     }
 
     static extractText(node) {
         let text = node.content
+
         if (node.content instanceof Array) {
             text = node.content.map(Rin.extractText).join('')
         }
+
         return text
     }
 

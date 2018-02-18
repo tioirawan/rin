@@ -10,16 +10,18 @@ client.on('ready', () => {
 })
 
 client.on('message', async ctx => {
-    const message = Rin.standarize(ctx.content)
+    const message = ctx.content
     const args = message.split(' ')
 
     if (!(args[0] == client.user.username)) return
 
     Rin.log.info(
-        `[DISCORD]${ctx.author.username}(${ctx.author.id}): ${message}`
+        `[DISCORD]${ctx.author.username}(${ctx.author.id}): ${Rin.standarize(
+            message
+        )}`
     )
 
-    const subcmd = args.slice(1)
+    const subcmd = args.slice(1).join(' ')
 
     const result = await rin.handle(subcmd)
 

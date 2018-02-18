@@ -5,7 +5,8 @@ export default class Wiki {
     constructor() {
         this.INFO = {
             command: 'wiki',
-            description: 'search wikipedia'
+            description: 'search wikipedia',
+            standarize: true
         }
 
         this.VARIABLE = {

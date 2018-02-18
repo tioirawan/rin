@@ -1,11 +1,12 @@
 import Rin from '../core/rin'
 import jawaskrip from 'jawaskrip'
 
-export default class Translate {
+export default class Jawaskrip {
     constructor() {
         this.INFO = {
             command: 'jawaskrip',
-            description: 'compile jawaskrip to javascript'
+            description: 'compile jawaskrip to javascript',
+            standarize: false
         }
         this.VARIABLE = {
             codeEmpty: 'empty code!'

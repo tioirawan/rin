@@ -5,7 +5,8 @@ export default class Udict {
     constructor() {
         this.INFO = {
             command: 'udict',
-            description: 'search urban dictionary'
+            description: 'search urban dictionary',
+            standarize: true
         }
 
         this.VARIABLE = {

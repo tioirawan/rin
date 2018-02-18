@@ -5,7 +5,8 @@ export default class Calc {
     constructor() {
         this.INFO = {
             command: 'calc',
-            description: 'perform math calculation'
+            description: 'perform math calculation',
+            standarize: true
         }
 
         this.limitedEval = math.eval
@@ -39,6 +40,7 @@ export default class Calc {
 
     async handle(command) {
         const expression = command.join(' ').replace(/['"]+/g, '')
+        console.log(command, expression)
 
         if (Rin.isEmpty(expression)) return this.VARIABLE.emptyExpression
 

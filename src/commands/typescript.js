@@ -5,8 +5,10 @@ export default class Typescript {
     constructor() {
         this.INFO = {
             command: 'typescript',
-            description: 'compile typescript to javascript'
+            description: 'compile typescript to javascript',
+            standarize: false
         }
+
         this.VARIABLE = {
             codeEmpty: 'empty code!',
             unknownEror: 'sorry, an unknown error occurred'

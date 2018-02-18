@@ -5,7 +5,8 @@ export default class Translate {
     constructor() {
         this.INFO = {
             command: 'translate',
-            description: 'translate a text'
+            description: 'translate a text',
+            standarize: false
         }
 
         this.VARIABLE = {

@@ -2,12 +2,14 @@ import Rin from '../core/rin'
 import sass from 'node-sass'
 import beautify from 'cssbeautify'
 
-export default class Translate {
+export default class Scss {
     constructor() {
         this.INFO = {
             command: 'scss',
-            description: 'compile scss to css'
+            description: 'compile scss to css',
+            standarize: false
         }
+
         this.VARIABLE = {
             codeEmpty: 'empty code!'
         }

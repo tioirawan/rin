@@ -20,9 +20,13 @@ app.start(async ctx => {
 app.on('text', async ctx => {
     const userName = ctx.message.from.first_name + ctx.message.from.last_name
 
-    const message = Rin.standarize(ctx.message.text)
+    const message = ctx.message.text
 
-    Rin.log.info(`[TELEGRAM]${userName}(${ctx.message.from.id}): ${message}`)
+    Rin.log.info(
+        `[TELEGRAM]${userName}(${ctx.message.from.id}): ${Rin.standarize(
+            message
+        )}`
+    )
 
     const response = await rin.handle(message)
     const result = await Rin.mdToHtml(response)
