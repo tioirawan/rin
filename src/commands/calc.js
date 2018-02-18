@@ -40,7 +40,6 @@ export default class Calc {
 
     async handle(command) {
         const expression = command.join(' ').replace(/['"]+/g, '')
-        console.log(command, expression)
 
         if (Rin.isEmpty(expression)) return this.VARIABLE.emptyExpression
 

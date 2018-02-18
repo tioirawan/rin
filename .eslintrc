@@ -25,6 +25,6 @@
                 "arrowParens": "avoid"
             }
         ],
-        "no-console": "off"
+        "no-console": "warn"
     }
 }
