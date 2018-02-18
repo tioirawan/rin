@@ -16,6 +16,7 @@
   "dependencies": {
     "babel-plugin-wildcard": "^4.0.0",
     "discord.js": "^11.3.0",
+    "google-translate-api": "^2.3.0",
     "jawaskrip": "^0.3.4",
     "mathjs": "^3.20.2",
     "simple-markdown": "^0.3.2",
