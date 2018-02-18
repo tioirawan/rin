@@ -14,6 +14,7 @@
   "author": "indmind",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.17.1",
     "babel-plugin-wildcard": "^4.0.0",
     "cssbeautify": "^0.3.1",
     "discord.js": "^11.3.0",
