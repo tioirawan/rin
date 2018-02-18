@@ -19,7 +19,7 @@ export default class Typescript {
         if (Rin.isEmpty(ts)) return this.VARIABLE.codeEmpty
 
         try {
-            const result = tsc.compileString(ts, null, null, e => {
+            const result = tsc.compileString(ts, '--target ES6', null, e => {
                 if (e) throw e.formattedMessage
             })
 
