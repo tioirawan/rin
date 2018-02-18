@@ -1,3 +1,4 @@
+import Rin from '../core/rin'
 import wiki from 'wikijs'
 
 export default class Wiki {
@@ -71,7 +72,7 @@ export default class Wiki {
             .join(' ')
             .replace(/['"]+/g, '')
 
-        if (!query) return this.VARIABLE.emptyQuery
+        if (Rin.isEmpty(query)) return this.VARIABLE.emptyQuery
 
         const response = await wiki().search(query)
 
@@ -95,7 +96,7 @@ export default class Wiki {
     async id(command) {
         const id = command[1]
 
-        if (!id) return this.VARIABLE.emptyID
+        if (Rin.isEmpty(id)) return this.VARIABLE.emptyID
 
         let response
 

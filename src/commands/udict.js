@@ -1,3 +1,4 @@
+import Rin from '../core/rin'
 import ud from 'urban-dictionary'
 
 export default class Udict {
@@ -45,7 +46,7 @@ export default class Udict {
     async searchID(command) {
         const id = command[1]
 
-        if (!id) return this.VARIABLE.emptyID
+        if (Rin.isEmpty(id)) return this.VARIABLE.emptyID
 
         let response
 
@@ -63,7 +64,7 @@ export default class Udict {
         const fixedCommand = commandQuery.match(/[^" ]+|("[^"]*")/g) || ['']
         const term = fixedCommand[0].replace(/['"]+/g, '')
 
-        if (!term) return this.VARIABLE.emptyTerm
+        if (Rin.isEmpty(term)) return this.VARIABLE.emptyTerm
 
         let response
 

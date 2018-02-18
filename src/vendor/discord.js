@@ -13,19 +13,19 @@ client.on('message', async ctx => {
     const message = Rin.standarize(ctx.content)
     const args = message.split(' ')
 
-    if (args[0] == client.user.username) {
-        Rin.log.info(
-            `[DISCORD]${ctx.author.username}(${ctx.author.id}): ${message}`
-        )
+    if (!(args[0] == client.user.username)) return
 
-        const subcmd = args.slice(1)
+    Rin.log.info(
+        `[DISCORD]${ctx.author.username}(${ctx.author.id}): ${message}`
+    )
 
-        const result = await rin.handle(subcmd)
+    const subcmd = args.slice(1)
 
-        if (result.length > 2000) {
-            ctx.reply("Sorry It's too big to send :disappointed:")
-        } else ctx.reply(result)
-    }
+    const result = await rin.handle(subcmd)
+
+    if (result.length > 2000) {
+        ctx.reply("Sorry It's too big to send :disappointed:")
+    } else ctx.reply(result)
 })
 
 client.login(process.env.DISCORD_TOKEN)

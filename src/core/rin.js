@@ -35,7 +35,7 @@ export default class Rin {
                     return !req.toBe(req.value)
                 }
 
-                return !req.value
+                return !(req.value == req.toBe)
             })
 
             if (completed.length) return false
@@ -175,5 +175,9 @@ export default class Rin {
             typeof text.valueOf() == 'string' &&
             text.length > 0
         )
+    }
+
+    static isEmpty(text) {
+        return !Rin.notEmpty(text)
     }
 }

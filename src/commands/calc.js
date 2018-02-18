@@ -1,3 +1,4 @@
+import Rin from '../core/rin'
 import math from 'mathjs'
 
 export default class Calc {
@@ -37,11 +38,9 @@ export default class Calc {
     }
 
     async handle(command) {
-        if (command.length < 1) {
-            return this.VARIABLE.emptyExpression
-        }
-
         const expression = command.join(' ').replace(/['"]+/g, '')
+
+        if (Rin.isEmpty(expression)) return this.VARIABLE.emptyExpression
 
         try {
             const result = await this.limitedEval(expression).toString()
