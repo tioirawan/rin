@@ -32,7 +32,7 @@ export default class Scss {
 
             return result
         } catch (err) {
-            return err.message
+            return err.message || JSON.stringify(err)
         }
     }
 }

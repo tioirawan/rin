@@ -32,7 +32,7 @@ export default class Translate {
 
             return this.compose(result)
         } catch (err) {
-            return err.message
+            return err.message || JSON.stringify(err)
         }
     }
 

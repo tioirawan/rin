@@ -21,7 +21,7 @@ export default class Jawaskrip {
         try {
             return await jawaskrip.compile(code)
         } catch (err) {
-            return err.message
+            return err.message || JSON.stringify(err)
         }
     }
 }
