@@ -47,8 +47,8 @@ export default class Calc {
             const result = await this.limitedEval(expression).toString()
 
             return `${this.randomText} ${result}`
-        } catch (error) {
-            return error.message
+        } catch (err) {
+            return err.message || JSON.stringify(err)
         }
     }
 

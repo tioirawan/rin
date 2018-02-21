@@ -104,7 +104,7 @@ export default class Wiki {
         try {
             response = await wiki().findById(id)
         } catch (err) {
-            return err.message
+            return err.message || JSON.stringify(err)
         }
 
         if (response.raw.pageid == 0) return this.VARIABLE.idNotFound

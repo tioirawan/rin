@@ -14,7 +14,6 @@
   "author": "indmind",
   "license": "MIT",
   "dependencies": {
-    "babel-plugin-wildcard": "^4.0.0",
     "cssbeautify": "^0.3.1",
     "discord.js": "^11.3.0",
     "google-translate-api": "^2.3.0",
@@ -33,6 +32,7 @@
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.2.1",
     "babel-jest": "^22.2.2",
+    "babel-plugin-wildcard": "^4.0.0",
     "babel-preset-env": "^1.6.1",
     "eslint": "^4.17.0",
     "eslint-config-prettier": "^2.9.0",
