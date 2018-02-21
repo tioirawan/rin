@@ -64,6 +64,7 @@ export default class Wiki {
 
     async template(title, summary, url) {
         const urlMarkdown = process.env.VENDOR == 'telegram' ? `[${url}]` : url
+
         return `**${title}**\n\n${summary}\n\n${urlMarkdown}`
     }
 
