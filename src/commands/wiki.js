@@ -64,6 +64,7 @@ export default class Wiki {
 
     async template(title, summary, url) {
         const urlMarkdown = process.env.VENDOR == 'telegram' ? `[${url}]` : url
+
         return `**${title}**\n\n${summary}\n\n${urlMarkdown}`
     }
 
@@ -104,7 +105,7 @@ export default class Wiki {
         try {
             response = await wiki().findById(id)
         } catch (err) {
-            return err.message
+            return err.message || JSON.stringify(err)
         }
 
         if (response.raw.pageid == 0) return this.VARIABLE.idNotFound

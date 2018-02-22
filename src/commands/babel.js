@@ -27,7 +27,7 @@ export default class Babel {
 
             return code
         } catch (err) {
-            return err.message
+            return err.message || JSON.stringify(err)
         }
     }
 }
