@@ -27,7 +27,7 @@ export default class Typescript {
 
             if (Rin.isEmpty(result)) return this.VARIABLE.unknownEror
 
-            return result
+            return Rin.code('js', result)
         } catch (err) {
             return err.message || err
         }
