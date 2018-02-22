@@ -14,21 +14,16 @@ export default class Quote {
     }
 
     async handle() {
-        return await this.getQuote().then(data => {
-
-            return data
-        });
+        return await this.getQuote()
     }
 
     async getQuote() {
-        return axios
-            .get(this.VARIABLE.url)
-            .then(response => {
+      try {
+        const response = await axios.get(this.VARIABLE.url)
 
-                return `_${response.data.quote}_ - **${response.data.author}**`
-            })
-            .catch(error => {
-                return error.message
-            })
+        return `_${response.data.quote}_ - **${response.data.author}**`
+      } catch (err) {
+        return err.message || JSON.stringify(err)
+      }
     }
 }
