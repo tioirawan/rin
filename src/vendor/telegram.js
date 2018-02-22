@@ -30,7 +30,7 @@ app.on('text', async ctx => {
         )}`
     )
 
-    const response = await rin.handle(message)
+    const response = await rin.handle(message, { vendor: 'telegram' })
     const result = await Rin.mdToHtml(response)
 
     if (result.length > 4000) {

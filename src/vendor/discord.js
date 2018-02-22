@@ -23,7 +23,7 @@ client.on('message', async ctx => {
 
     const subcmd = args.slice(1).join(' ')
 
-    const result = await rin.handle(subcmd)
+    const result = await rin.handle(subcmd, { vendor: 'discord' })
 
     if (result.length > 2000) {
         ctx.reply("Sorry It's too big to send :disappointed:")
