@@ -14,7 +14,9 @@ app.start(async ctx => {
 
     Rin.log.info(`[TELEGRAM]${userName}(${ctx.message.from.id}): /start`)
 
-    ctx.reply(Rin.defaultReply(rin.commandLists))
+    const reply = Rin.defaultReply(rin.commandLists)
+
+    ctx.replyWithHTML(Rin.mdToHtml(reply))
 })
 
 app.on('text', async ctx => {
