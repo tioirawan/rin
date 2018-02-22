@@ -62,7 +62,7 @@ export default class Rin {
         return Rin.defaultReply(this.commandLists)
     }
 
-    async handle(message) {
+    async handle(message, data) {
         const usrCmd = message.split(' ')[0].toLowerCase()
 
         const command = this.commands.find(
@@ -75,7 +75,7 @@ export default class Rin {
 
         const argument = message.split(' ')
 
-        return await command.handle(argument.slice(1))
+        return await command.handle(argument.slice(1), data)
     }
 
     static extractText(node) {
@@ -184,5 +184,9 @@ export default class Rin {
 
     static code(type, text) {
         return '```' + type + '\n' + text + '\n```'
+    }
+
+    static XOR(a, b) {
+        return (a && !b) || (!a && b)
     }
 }

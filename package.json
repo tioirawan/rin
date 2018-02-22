@@ -14,8 +14,10 @@
   "author": "indmind",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.17.1",
     "cssbeautify": "^0.3.1",
     "discord.js": "^11.3.0",
+    "figlet": "^1.2.0",
     "google-translate-api": "^2.3.0",
     "jawaskrip": "^0.3.4",
     "mathjs": "^3.20.2",
@@ -25,8 +27,7 @@
     "typescript-compiler": "^1.4.1-2",
     "urban-dictionary": "^1.0.6",
     "wikijs": "^4.5.1",
-    "winston": "^2.4.0",
-    "axios": "^0.17.1"
+    "winston": "^2.4.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
