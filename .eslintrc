@@ -5,7 +5,8 @@
     },
     "plugins": [
         "prettier",
-        "jest"
+        "jest",
+        "import"
     ],
     "extends": [
         "plugin:jest/recommended",
@@ -25,6 +26,9 @@
                 "arrowParens": "avoid"
             }
         ],
+        "import/newline-after-import": ["error", {
+            "count": 1
+        }],
         "padding-line-between-statements": ["error",
             {
                 "blankLine": "always",
