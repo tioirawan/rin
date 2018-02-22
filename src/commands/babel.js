@@ -25,7 +25,7 @@ export default class Babel {
                 babelrc: false
             })
 
-            return code
+            return Rin.code('js', code)
         } catch (err) {
             return err.message || JSON.stringify(err)
         }

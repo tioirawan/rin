@@ -30,7 +30,7 @@ export default class Scss {
                 autosemicolon: true
             })
 
-            return result
+            return Rin.code('css', result)
         } catch (err) {
             return err.message || JSON.stringify(err)
         }

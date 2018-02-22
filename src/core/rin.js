@@ -159,7 +159,7 @@ export default class Rin {
             .map(cmd => `\`${cmd.command}\` - ${cmd.description}`)
             .join('\n')
 
-        return `Hello! I am Rin an open source multi-purpose bot https://github.com/indmind/rin feel free to contribute!\n you can use the following command:\n${cmdListString}`
+        return `**Hello! I am Rin, you can use the following command:**\n\n${cmdListString}\n\nhttps://github.com/indmind/rin feel free to contribute!`
     }
 
     static get log() {
@@ -180,5 +180,9 @@ export default class Rin {
 
     static isEmpty(text) {
         return !Rin.notEmpty(text)
+    }
+
+    static code(type, text) {
+        return '```' + type + '\n' + text + '\n```'
     }
 }

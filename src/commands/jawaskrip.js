@@ -19,7 +19,9 @@ export default class Jawaskrip {
         if (Rin.isEmpty(code)) return this.VARIABLE.codeEmpty
 
         try {
-            return await jawaskrip.compile(code)
+            const result = await jawaskrip.compile(code)
+
+            return Rin.code('js', result)
         } catch (err) {
             return err.message || JSON.stringify(err)
         }

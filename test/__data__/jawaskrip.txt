@@ -1,4 +1,6 @@
+```js
 function makan(makanan) {
     console.log("makan " + "makanan");
     return "selesai!"
 }
+```
