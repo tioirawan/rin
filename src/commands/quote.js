@@ -1,4 +1,5 @@
 import axios from 'axios'
+
 export default class Quote {
     constructor() {
         this.INFO = {
@@ -18,12 +19,12 @@ export default class Quote {
     }
 
     async getQuote() {
-      try {
-        const response = await axios.get(this.VARIABLE.url)
+        try {
+            const response = await axios.get(this.VARIABLE.url)
 
-        return `_${response.data.quote}_ - **${response.data.author}**`
-      } catch (err) {
-        return err.message || JSON.stringify(err)
-      }
+            return `_${response.data.quote}_ - **${response.data.author}**`
+        } catch (err) {
+            return err.message || JSON.stringify(err)
+        }
     }
 }
