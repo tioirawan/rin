@@ -171,7 +171,10 @@ export default class Rin {
             .reduce((html, node) => {
                 const tags = tagMap[node.type]
 
-                return html + `${tags.start}${Rin.extractText(node)}${tags.end}`
+                return (
+                    html +
+                    `${tags.start}${Rin.extractText(node) || ''}${tags.end}`
+                )
             }, '')
     }
 

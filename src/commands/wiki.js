@@ -11,18 +11,20 @@ export default class Wiki {
 
         this.VARIABLE = {
             default: 'Hah??? you can use `search`, `random`, or `geo` command',
-            emptyQuery: 'empty query, like your life...',
+            emptyQuery: 'Empty query, like your life...',
             searchNotFound: "I can't find anything m8",
-            emptyID: 'empty id :kissing_heart:',
+            emptyID: 'Empty id :kissing_heart:',
             idNotFound: "I can't find anything :eyes:",
-            notEnoughInformation: 'I am not a god... not enough information!',
+            notEnoughInformation:
+                'I am not a god... not enough information!\n\nusage: `geo latidute longtidute radius(optional)`',
             resultTooBig:
                 "Sorry, I can't show all the results because it's too **BIG**",
-            unknownError: 'unknown error',
+            unknownError: 'Unknown error',
+            geoNotFound: "Sorry, I can't find anything",
             geoInvalid: [
-                'invalid latitude',
-                'invalid longitude',
-                'invalid radius'
+                'Invalid latitude',
+                'Invalid longitude',
+                'Invalid radius'
             ]
         }
     }
@@ -131,7 +133,15 @@ export default class Wiki {
 
         if (err) return err
 
-        const results = await wiki().geoSearch(...parameters)
+        let results
+
+        try {
+            results = await wiki().geoSearch(...parameters)
+        } catch (err) {
+            return err.message || JSON.stringify(err)
+        }
+
+        if (!results.length) return this.VARIABLE.geoNotFound
 
         let concated = 0
         let template = ''
@@ -147,7 +157,7 @@ export default class Wiki {
         }
 
         if (concated < results.length) {
-            template += `\n\n${this.VARIABLE.resultTooBig}`
+            template += `\n${this.VARIABLE.resultTooBig}\n`
         }
 
         return template
