@@ -1,0 +1,107 @@
+import Rin from '../core/rin'
+
+import fx from 'money'
+import axios from 'axios'
+
+export default class Money {
+    constructor() {
+        this.INFO = {
+            command: 'money',
+            description: 'convert currency',
+            standarize: true,
+            required: [
+                {
+                    value: process.env.OPEN_EXCHANGE_APP_ID,
+                    toBe: Rin.notEmpty
+                }
+            ]
+        }
+
+        this.VARIABLE = {
+            wrongFormat:
+                'wrong format! usage `money [value] [from] to [to]` ex: `money 1 USD to IDR`',
+            openExchangeBase: 'http://openexchangerates.org/api/latest.json',
+            emptyTo: 'to what???????'
+        }
+
+        this.LAST_UPDATE = 0
+        this.RATES = []
+        this.BASE = 'USD'
+    }
+
+    async ready() {
+        try {
+            await this.fetchRates()
+        } catch (err) {
+            Rin.log.error(err.message || JSON.stringify(err))
+        }
+    }
+
+    async handle(command) {
+        if (command[0] === 'update' || this.isTimeToUpdate()) {
+            await this.fetchRates()
+        }
+
+        if (command.length < 3) return this.VARIABLE.wrongFormat
+
+        const toQuery = command[2]
+
+        if (toQuery == 'to' && !command[3]) {
+            return this.VARIABLE.emptyTo
+        }
+
+        const currency =
+            toQuery === 'to' ? command[3].toUpperCase() : toQuery.toUpperCase()
+        const fromCurrency = command[1].toUpperCase()
+
+        const value = command
+            .slice(0, 2)
+            .join(' ')
+            .toUpperCase()
+
+        fx.base = this.BASE
+        fx.rates = this.RATES
+
+        if (!(fromCurrency in fx.rates)) {
+            return `unknown currency ${fromCurrency}`
+        }
+
+        if (!(currency in fx.rates)) {
+            return `unknown currency ${currency}`
+        }
+
+        try {
+            const result = await fx(value).to(currency)
+
+            return this.compose({ value, result, currency })
+        } catch (err) {
+            return err.message || JSON.stringify(err)
+        }
+    }
+
+    compose(data) {
+        return `${data.value} = ${data.result} ${
+            data.currency
+        }\n\nLast Updated: ${new Date(this.LAST_UPDATE).toString()}`
+    }
+
+    async fetchRates() {
+        Rin.log.info('Fetching Open Exchange Rates')
+
+        const response = await axios.get(this.VARIABLE.openExchangeBase, {
+            params: {
+                app_id: process.env.OPEN_EXCHANGE_APP_ID
+            }
+        })
+
+        const data = response.data
+
+        this.BASE = data.base
+        this.RATES = data.rates
+        this.LAST_UPDATE = data.timestamp
+    }
+
+    isTimeToUpdate() {
+        return new Date() - this.LAST_UPDATE < 3600000
+    }
+}

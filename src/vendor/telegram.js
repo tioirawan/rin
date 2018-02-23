@@ -5,6 +5,8 @@ import Rin from '../core/rin'
 const app = new Telegraf(process.env.TELEGRAM_TOKEN)
 const rin = new Rin('telegram')
 
+rin.init()
+
 app.telegram.getMe().then(botInfo => {
     app.options.username = botInfo.username
 })
