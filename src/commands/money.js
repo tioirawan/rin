@@ -108,6 +108,6 @@ export default class Money {
     }
 
     isTimeToUpdate() {
-        return new Date() - this.LAST_UPDATE < 3600000
+        return moment(this.LAST_UPDATE).isAfter(moment().subtract(1, 'hours'))
     }
 }
