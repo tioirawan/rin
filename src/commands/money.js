@@ -2,6 +2,7 @@ import Rin from '../core/rin'
 
 import fx from 'money'
 import axios from 'axios'
+import moment from 'moment'
 
 export default class Money {
     constructor() {
@@ -80,9 +81,11 @@ export default class Money {
     }
 
     compose(data) {
+        const date = new Date(this.LAST_UPDATE).toUTCString()
+
         return `${data.value} = ${data.result} ${
             data.currency
-        }\n\nLast Updated: ${new Date(this.LAST_UPDATE).toString()}`
+        }\n\nLast Updated:\n${date} (__${moment(date).fromNow()}__)`
     }
 
     async fetchRates() {
@@ -98,7 +101,7 @@ export default class Money {
 
         this.BASE = data.base
         this.RATES = data.rates
-        this.LAST_UPDATE = data.timestamp
+        this.LAST_UPDATE = data.timestamp * 1000
     }
 
     isTimeToUpdate() {
