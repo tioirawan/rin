@@ -3,6 +3,7 @@ import Rin from '../core/rin'
 import fx from 'money'
 import axios from 'axios'
 import moment from 'moment'
+import cf from 'currency-formatter'
 
 export default class Money {
     constructor() {
@@ -74,7 +75,7 @@ export default class Money {
         try {
             const result = await fx(value).to(currency)
 
-            return this.compose({ value, result, currency })
+            return this.compose({ value, result, currency, fromCurrency })
         } catch (err) {
             return err.message || JSON.stringify(err)
         }
@@ -82,10 +83,12 @@ export default class Money {
 
     compose(data) {
         const date = new Date(this.LAST_UPDATE).toUTCString()
+        const from = cf.format(data.value, { code: data.fromCurrency })
+        const result = cf.format(data.result, { code: data.currency })
 
-        return `${data.value} = ${data.result} ${
-            data.currency
-        }\n\nLast Updated:\n${date} (__${moment(date).fromNow()}__)`
+        return `${from} = ${result}\n\nLast Updated:\n${date} (__${moment(
+            date
+        ).fromNow()}__)`
     }
 
     async fetchRates() {
