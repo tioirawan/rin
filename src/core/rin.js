@@ -26,6 +26,12 @@ export default class Rin {
         }))
     }
 
+    async init() {
+        for (let cmd of this.commands) {
+            'ready' in cmd ? await cmd.ready() : null
+        }
+    }
+
     checkFor(cmd) {
         const forVendor = cmd.INFO.for
 

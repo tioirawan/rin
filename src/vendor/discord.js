@@ -5,6 +5,8 @@ import Rin from '../core/rin'
 const client = new Discord.Client()
 const rin = new Rin('discord')
 
+rin.init()
+
 client.on('ready', () => {
     Rin.log.info(`Logged in as ${client.user.tag}!`)
 
