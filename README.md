@@ -135,3 +135,9 @@ create a unit test in `test/command` folder for subcommand testing and `test/__d
 4. Create a pull request
 
 I am very happy if you want to contribute!
+
+<h2>License</h2>
+
+This project is licensed under the terms of the MIT license.
+
+Image License: I don't know
