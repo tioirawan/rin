@@ -3,7 +3,7 @@ import Telegraf from 'telegraf'
 import Rin from '../core/rin'
 
 const app = new Telegraf(process.env.TELEGRAM_TOKEN)
-const rin = new Rin()
+const rin = new Rin('telegram')
 
 app.telegram.getMe().then(botInfo => {
     app.options.username = botInfo.username
@@ -30,7 +30,7 @@ app.on('text', async ctx => {
         )}`
     )
 
-    const response = await rin.handle(message, { vendor: 'telegram' })
+    const response = await rin.handle(message, { ctx })
     const result = await Rin.mdToHtml(response)
 
     if (result.length > 4000) {

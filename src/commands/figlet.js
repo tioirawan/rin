@@ -6,19 +6,16 @@ export default class Figlet {
         this.INFO = {
             command: 'figlet',
             description: 'create a sort ASCII figlet banner (_experimental_)',
-            standarize: false
+            standarize: false,
+            for: ['discord', 'cli']
         }
 
         this.VARIABLE = {
-            textEmpty: 'usage `figlet <some text>` ex `figlet Hello World!`',
-            discordOnly:
-                'sorry, this command just available on discord\n\nhttps://discordbots.org/bot/412976772150329354'
+            textEmpty: 'usage `figlet <some text>` ex `figlet Hello World!`'
         }
     }
 
-    async handle(command, { vendor }) {
-        if (vendor != 'discord') return this.VARIABLE.discordOnly
-
+    async handle(command) {
         const text = command.join(' ')
 
         if (Rin.isEmpty(text)) return this.VARIABLE.textEmpty

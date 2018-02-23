@@ -12,15 +12,30 @@ logger.add(logger.transports.Console, {
 logger.level = env === 'development' ? 'debug' : 'info'
 
 export default class Rin {
-    constructor() {
+    constructor(vendor) {
+        this.vendor = vendor
+
         this.commands = Object.keys(Commands)
             .map(cmd => new Commands[cmd]())
+            .filter(this.checkFor.bind(this))
             .filter(this.checkRequired)
 
         this.commandLists = this.commands.map(cmd => ({
             command: cmd.INFO.command,
             description: cmd.INFO.description
         }))
+    }
+
+    checkFor(cmd) {
+        const forVendor = cmd.INFO.for
+
+        if (!forVendor) return true
+
+        if (typeof forVendor === 'string') {
+            return this.vendor === forVendor
+        }
+
+        return forVendor.includes(this.vendor)
     }
 
     checkRequired(cmd) {
@@ -71,7 +86,15 @@ export default class Rin {
 
         if (!command) return await this.defaultReply
 
-        message = command.INFO.standarize ? this.standarize(message) : message
+        if (!('handle' in command)) {
+            return `${usrCmd} doesn't have handle method!`
+        }
+
+        if (data) {
+            Object.assign(data, { vendor: this.vendor })
+        }
+
+        message = command.INFO.standarize ? Rin.standarize(message) : message
 
         const argument = message.split(' ')
 
@@ -144,14 +167,6 @@ export default class Rin {
 
                 return html + `${tags.start}${Rin.extractText(node)}${tags.end}`
             }, '')
-    }
-
-    standarize(text) {
-        return Rin.standarize(text)
-    }
-
-    notEmpty(text) {
-        return Rin.notEmpty(text)
     }
 
     static defaultReply(commandLists) {

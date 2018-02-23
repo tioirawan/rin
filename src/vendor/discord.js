@@ -3,7 +3,7 @@ import Discord from 'discord.js'
 import Rin from '../core/rin'
 
 const client = new Discord.Client()
-const rin = new Rin()
+const rin = new Rin('discord')
 
 client.on('ready', () => {
     Rin.log.info(`Logged in as ${client.user.tag}!`)
@@ -16,8 +16,8 @@ client.on('ready', () => {
 
 client.on('message', async ctx => {
     const message = ctx.content
-    const args = message.split(' ')
     const username = ctx.author.username
+    const args = message.split(' ')
 
     if (!(args[0] == client.user.username)) return
 
@@ -29,7 +29,7 @@ client.on('message', async ctx => {
 
     const subcmd = args.slice(1).join(' ')
 
-    const result = await rin.handle(subcmd, { vendor: 'discord' })
+    const result = await rin.handle(subcmd, { ctx })
 
     ctx.channel.stopTyping(true)
 

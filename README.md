@@ -46,29 +46,9 @@ you can just add `DISCORD_TOKEN` without `TELEGRAM_TOKEN`
 
 to create a command create a file in `src/commands` folder, create a class that have a method called `handle`, `ready`, and variable `this.INFO` with some data, you can see in other command file
 
-<h3>Handle</h3>
-
-`handle` is called when user type the command
-```js
-export default class Command{
-    constuctor() {
-        this.INFO = {
-            command: 'kill',
-            description: 'kill your ex'
-        }
-    }
-    
-    handle(message) {
-        const exname = message.join(' ')
-
-        return `${exname} has been killed`
-    }
-}
-```
-
 <h3>Info</h3>
 
-`this.INFO` use to define command (__required__), description (__required__) and required (__optional__)
+`this.INFO` use to define command (__required__), description (__required__), for (__optional__) and required (__optional__)
 ```js
 import Rin from '../core/rin'
 
@@ -77,6 +57,7 @@ export default class Command{
         this.INFO = {
             command: 'something',
             description: 'make your life easier',
+            for: 'discord' // or array ['discord', 'cli']
             required: [
                 {
                     value: process.env.COMMAND_TOKEN,
@@ -112,6 +93,26 @@ export default class Command{
     
     ready() {
         this.SAPI.register(process.env.SAPI_TOKEN)
+    }
+}
+```
+
+<h3>Handle</h3>
+
+`handle` is called when user type the command
+```js
+export default class Command{
+    constuctor() {
+        this.INFO = {
+            command: 'kill',
+            description: 'kill your ex'
+        }
+    }
+    
+    handle(message) {
+        const exname = message.join(' ')
+
+        return `${exname} has been killed`
     }
 }
 ```
