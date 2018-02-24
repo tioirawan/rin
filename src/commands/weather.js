@@ -48,7 +48,9 @@ export default class Weather {
 
         const result = await this.compose(response, vendor)
 
-        return Rin.code('', result)
+        return vendor == 'telegram'
+            ? { result, raw: true }
+            : Rin.code('', result)
     }
 
     async fetchWeather(location) {

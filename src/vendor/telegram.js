@@ -33,7 +33,14 @@ app.on('text', async ctx => {
     )
 
     const response = await rin.handle(message, { ctx })
-    const result = await Rin.mdToHtml(response)
+
+    let result
+
+    if (typeof response == 'object') {
+        result = response.raw ? response.result : Rin.mdToHtml(response.result)
+    } else {
+        result = Rin.mdToHtml(response)
+    }
 
     if (result.length > 4000) {
         ctx.reply(

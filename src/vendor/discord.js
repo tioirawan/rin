@@ -31,7 +31,9 @@ client.on('message', async ctx => {
 
     const subcmd = args.slice(1).join(' ')
 
-    const result = await rin.handle(subcmd, { ctx })
+    const response = await rin.handle(subcmd, { ctx })
+
+    const result = response.result || response
 
     ctx.channel.stopTyping(true)
 
