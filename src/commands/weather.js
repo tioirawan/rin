@@ -31,7 +31,7 @@ export default class Weather {
         }
     }
 
-    async handle(command, {vendor}) {
+    async handle(command, { vendor }) {
         const location = command.join(' ')
 
         if (Rin.isEmpty(location)) return this.VARIABLE.emptyLocation
