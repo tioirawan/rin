@@ -1,4 +1,4 @@
-import Telegraf from 'telegraf'
+import Telegraf, { Extra } from 'telegraf'
 
 import Rin from '../core/rin'
 
@@ -36,8 +36,11 @@ app.on('text', async ctx => {
     const result = await Rin.mdToHtml(response)
 
     if (result.length > 4000) {
-        ctx.reply("Sorry It's too big to send")
-    } else ctx.replyWithHTML(result)
+        ctx.reply(
+            "Sorry It's too big to send",
+            Extra.inReplyTo(ctx.message.message_id)
+        )
+    } else ctx.replyWithHTML(result, Extra.inReplyTo(ctx.message.message_id))
 })
 
 app.catch(Rin.log.error)
