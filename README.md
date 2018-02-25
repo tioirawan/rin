@@ -22,7 +22,8 @@
     </a>
     <a href="https://github.com/prettier/prettier" title="dependencies status">
         <img src="https://img.shields.io/badge/styled_with-prettier-ff69b4.svg" alt="Styled With Prettier"/>
-    </a><a href="http://makeapullrequest.com" title="dependencies status">
+    </a>
+    <a href="http://makeapullrequest.com" title="dependencies status">
         <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs Welcome"/>
     </a>
 </p>
