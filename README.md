@@ -20,6 +20,11 @@
     <a href="https://david-dm.org/indmind/rin" title="dependencies status">
         <img src="https://david-dm.org/indmind/rin/status.svg" alt="Dependencies Status"/>
     </a>
+    <a href="https://github.com/prettier/prettier" title="dependencies status">
+        <img src="https://img.shields.io/badge/styled_with-prettier-ff69b4.svg" alt="Styled With Prettier"/>
+    </a><a href="http://makeapullrequest.com" title="dependencies status">
+        <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs Welcome"/>
+    </a>
 </p>
 
 <h2>Installation</h2>
