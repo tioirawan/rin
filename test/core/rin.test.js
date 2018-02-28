@@ -15,7 +15,7 @@ describe('command.calc', () => {
         const html = Rin.mdToHtml(markdown)
 
         expect(html).toBe(
-            '<b>foo</b> <em>baz</em> bar_foo baz*bar <b>bar</b> <code>foo bar(){return baz}</code> <code>$ foo bar baz</code>'
+            '<b>foo</b> <em>baz</em> bar_foo baz*bar <b>bar</b> :baz: <code>foo bar(){return baz}</code> <code>$ foo bar baz</code>'
         )
     })
 })
