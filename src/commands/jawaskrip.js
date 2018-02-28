@@ -8,6 +8,7 @@ export default class Jawaskrip {
             description: 'compile jawaskrip to javascript',
             standarize: false
         }
+
         this.VARIABLE = {
             codeEmpty: 'empty code!'
         }

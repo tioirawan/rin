@@ -9,13 +9,14 @@ export default class Babel {
             description: 'compile es6 to es5 using babel',
             standarize: false
         }
+
         this.VARIABLE = {
             codeEmpty: 'empty code!'
         }
     }
 
     async handle(command) {
-        const es6 = command.join(' ')
+        const es6 = command.join(' ').trim()
 
         if (Rin.isEmpty(es6)) return this.VARIABLE.codeEmpty
 

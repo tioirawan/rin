@@ -13,8 +13,8 @@ export default class Wiki {
             default: 'Hah??? you can use `search`, `random`, or `geo` command',
             emptyQuery: 'Empty query, like your life...',
             searchNotFound: "I can't find anything m8",
-            emptyID: 'Empty id :kissing_heart:',
-            idNotFound: "I can't find anything :eyes:",
+            emptyID: 'Empty id',
+            idNotFound: "I can't find anything",
             notEnoughInformation:
                 'I am not a god... not enough information!\n\nusage: `geo latidute longtidute radius(optional)`',
             resultTooBig:

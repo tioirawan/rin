@@ -83,8 +83,13 @@ export default class Rin {
         return Rin.defaultReply(this.commandLists)
     }
 
-    async handle(message, data) {
-        const usrCmd = message.split(' ')[0].toLowerCase()
+    async handle(message, data = {}) {
+        const argument = message.split(' ')
+        const usrCmd = argument[0].toLowerCase()
+
+        if (usrCmd == 'chain') {
+            return await this.chainCommands(argument.slice(1))
+        }
 
         const command = this.commands.find(
             cmd => usrCmd == cmd.INFO.command.toLowerCase()
@@ -96,15 +101,64 @@ export default class Rin {
             return `${usrCmd} doesn't have handle method!`
         }
 
-        if (data) {
-            Object.assign(data, { vendor: this.vendor })
+        Object.assign(data, { vendor: this.vendor })
+
+        const input = argument.slice(1).join(' ')
+
+        message = command.INFO.standarize ? Rin.standarize(input) : input
+
+        return await command.handle(message.split(' '), data)
+    }
+
+    async chainCommands(message) {
+        const input =
+            message.indexOf('>') > 0
+                ? message.slice(message.indexOf('>') + 1).join(' ')
+                : ''
+
+        const expressions = message
+            .join(' ')
+            .split('>')[0]
+            .split(/\s*,\s*/)
+
+        const availableCommand = this.commandLists.map(cmd =>
+            cmd.command.toLowerCase()
+        )
+
+        for (let cmd of expressions) {
+            const pureCommand = cmd.split(' ')[0]
+
+            if (!availableCommand.includes(pureCommand)) {
+                return `unknown command: ${pureCommand}`
+            }
         }
 
-        message = command.INFO.standarize ? Rin.standarize(message) : message
+        let error
 
-        const argument = message.split(' ')
+        const result = await expressions.reduce(async (acc, cur) => {
+            let res
 
-        return await command.handle(argument.slice(1), data)
+            try {
+                const accum = await acc
+                const cmd = `${cur} ${Rin.removeMarkdown(
+                    accum.result || accum
+                )}`
+
+                res = await this.handle(cmd)
+            } catch (err) {
+                error = err
+            }
+
+            return res || acc
+        }, Promise.resolve(input))
+
+        if (error) return error.message || JSON.stringify(error)
+
+        return result
+    }
+
+    static get availableCommand() {
+        return Object.keys(Commands)
     }
 
     static extractText(node) {
@@ -150,7 +204,6 @@ export default class Rin {
             .replace(/&/g, '&amp;')
             .replace(/</g, '&lt;')
             .replace(/>/g, '&gt;')
-            .replace(/\s*:.*?:\s*/g, ' ')
 
         return mdParse(processedText)
             .map(rootNode => {
@@ -175,6 +228,31 @@ export default class Rin {
                     html +
                     `${tags.start}${Rin.extractText(node) || ''}${tags.end}`
                 )
+            }, '')
+    }
+
+    static removeMarkdown(markdown) {
+        const mdParse = simpleMarkdown.defaultBlockParse
+        const newlineNode = { content: '\n', type: 'text' }
+
+        return mdParse(markdown)
+            .map(rootNode => {
+                let content = rootNode.content
+
+                if (rootNode.type !== 'paragraph') {
+                    content = rootNode
+                }
+
+                return content
+            })
+            .reduce(
+                (flattened, nodes) =>
+                    flattened.concat([newlineNode, newlineNode], nodes),
+                []
+            )
+            .slice(2)
+            .reduce((acc, node) => {
+                return acc + `${Rin.extractText(node) || ''}`
             }, '')
     }
 

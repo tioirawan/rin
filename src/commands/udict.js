@@ -14,9 +14,9 @@ export default class Udict {
                 ':confused: what do you want? you can use `search`, `id` or `random` command',
             invalidDepth: 'invalid depth!',
             emptyTerm: 'empty term! usage `search <term> *<depth>`',
-            termNotFound: "Hufft... I can't find anything :pensive:",
+            termNotFound: "Hufft... I can't find anything",
             emptyID: 'empty id! usage `id <id>`',
-            idNotFound: "It's a fake id!!!!!! :angry::angry:",
+            idNotFound: "It's a fake id!!!!!!",
             unknownError: 'Whoops... something error happened!'
         }
     }

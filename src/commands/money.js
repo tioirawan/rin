@@ -40,7 +40,7 @@ export default class Money {
     }
 
     async handle(command) {
-        if (command[0] === 'update' || this.isTimeToUpdate()) {
+        if (this.isTimeToUpdate()) {
             await this.fetchRates()
         }
 
@@ -52,8 +52,7 @@ export default class Money {
             return this.VARIABLE.emptyTo
         }
 
-        const currency =
-            toQuery === 'to' ? command[3].toUpperCase() : toQuery.toUpperCase()
+        const currency = (toQuery === 'to' ? command[3] : toQuery).toUpperCase()
         const fromCurrency = command[1].toUpperCase()
 
         const value = command
@@ -64,12 +63,8 @@ export default class Money {
         fx.base = this.BASE
         fx.rates = this.RATES
 
-        if (!(fromCurrency in fx.rates)) {
-            return `unknown currency ${fromCurrency}`
-        }
-
-        if (!(currency in fx.rates)) {
-            return `unknown currency ${currency}`
+        if (!(fromCurrency in fx.rates) || !(currency in fx.rates)) {
+            return `unknown currency ${fromCurrency || currency}`
         }
 
         try {

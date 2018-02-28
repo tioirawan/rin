@@ -83,26 +83,29 @@ export default class Weather {
         const celcius = vendor == 'discord' ? '\u2103' : 'C'
 
         const result = [
-            this.check(`Location: ${data.name} (${data.sys.country})`),
-            this.check(`Latitude: ${data.coord.lat}`),
-            this.check(`Longitude: ${data.coord.lon}`),
-            this.check(`Weather: ${weather.main} (${weather.description})`),
-            this.check(`Temperature: ${main.temp} ${celcius}`),
-            this.check(`Humidity: ${main.humidity} %`),
-            this.check(`Minimum Temperature: ${main.temp_min} ${celcius}`),
-            this.check(`Maximum Temperature: ${main.temp_max} ${celcius}`),
-            this.check(`Pressure: ${main.pressure} ${hpa}`),
-            this.check(`Sea Level: ${main.sea_level} ${hpa}`),
-            this.check(`Ground Level: ${main.grnd_level} ${hpa}`),
-            this.check(`Wind Speed: ${data.wind.speed} m/s`),
-            this.check(`Wind Direction: ${data.wind.deg} degrees`),
-            this.check(`Wind Gust: ${data.wind.gust} m/s`),
-            this.check(`Rain: ${rain} mm`),
-            this.check(`Snow: ${snow} mm`),
-            this.check(`Receiving Time: ${dt} (${moment(dt).fromNow()}) `)
+            `Location: ${data.name} (${data.sys.country})`,
+            `Latitude: ${data.coord.lat}`,
+            `Longitude: ${data.coord.lon}`,
+            `Weather: ${weather.main} (${weather.description})`,
+            `Temperature: ${main.temp} ${celcius}`,
+            `Humidity: ${main.humidity} %`,
+            `Minimum Temperature: ${main.temp_min} ${celcius}`,
+            `Maximum Temperature: ${main.temp_max} ${celcius}`,
+            `Pressure: ${main.pressure} ${hpa}`,
+            `Sea Level: ${main.sea_level} ${hpa}`,
+            `Ground Level: ${main.grnd_level} ${hpa}`,
+            `Wind Speed: ${data.wind.speed} m/s`,
+            `Wind Direction: ${data.wind.deg} degrees`,
+            `Wind Gust: ${data.wind.gust} m/s`,
+            `Rain: ${rain} mm`,
+            `Snow: ${snow} mm`,
+            `Receiving Time: ${dt} (${moment(dt).fromNow()}) `
         ]
 
-        return result.filter(x => x).join('\n')
+        return result
+            .map(this.check)
+            .filter(x => x)
+            .join('\n')
     }
 
     check(text) {
