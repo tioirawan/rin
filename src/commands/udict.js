@@ -11,7 +11,7 @@ export default class Udict {
 
         this.VARIABLE = {
             default:
-                ':confused: what do you want? you can use `search`, `id` or `random` command',
+                'what do you want? you can use `search`, `id` or `random` command',
             invalidDepth: 'invalid depth!',
             emptyTerm: 'empty term! usage `search <term> *<depth>`',
             termNotFound: "Hufft... I can't find anything",
