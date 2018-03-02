@@ -36,6 +36,6 @@
                 "next": "return"
             }
         ],
-        "no-console": "warn"
+        "no-console": "error"
     }
 }
