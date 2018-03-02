@@ -64,7 +64,9 @@ export default class Money {
         fx.rates = this.RATES
 
         if (!(fromCurrency in fx.rates) || !(currency in fx.rates)) {
-            return `unknown currency ${fromCurrency || currency}`
+            return `unknown currency ${
+                !(fromCurrency in fx.rates) ? fromCurrency : currency
+            }`
         }
 
         try {
