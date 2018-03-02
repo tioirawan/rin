@@ -16,12 +16,14 @@ app.start(async ctx => {
 
     Rin.log.info(`[TELEGRAM]${userName}(${ctx.message.from.id}): /start`)
 
-    const reply = Rin.defaultReply(rin.commandLists)
-
-    ctx.replyWithHTML(Rin.mdToHtml(reply))
+    ctx.replyWithMarkdown(
+        'Hello! I am Rin, to talk with me, just reply my message, type `help` for available commands!'
+    )
 })
 
 app.on('text', async ctx => {
+    app.telegram.sendChatAction(ctx.from.id, 'typing')
+
     const userName = ctx.message.from.first_name + ctx.message.from.last_name
 
     const message = ctx.message.text
