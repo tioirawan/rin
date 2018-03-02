@@ -269,7 +269,10 @@ export default class Rin {
     }
 
     static standarize(text) {
-        return text.replace(/\s\s+/g, ' ').toLowerCase()
+        return text
+            .replace(/\s\s+/g, ' ')
+            .trim()
+            .toLowerCase()
     }
 
     static notEmpty(text) {
