@@ -73,6 +73,9 @@ export default class Weather {
         const weather = data.weather[0]
         const main = data.main
 
+        const sunrise = new Date(data.sys.sunrise * 1000)
+        const sunset = new Date(data.sys.sunset * 1000)
+
         const dt = new Date(data.dt * 1000).toUTCString()
 
         // waiting for stable babel 7 https://github.com/babel/babel/pull/5813
@@ -86,6 +89,8 @@ export default class Weather {
             `Location: ${data.name} (${data.sys.country})`,
             `Latitude: ${data.coord.lat}`,
             `Longitude: ${data.coord.lon}`,
+            `Sunrise: ${moment(sunrise).fromNow()}`,
+            `Sunset: ${moment(sunset).fromNow()}`,
             `Weather: ${weather.main} (${weather.description})`,
             `Temperature: ${main.temp} ${celcius}`,
             `Humidity: ${main.humidity} %`,
@@ -99,7 +104,7 @@ export default class Weather {
             `Wind Gust: ${data.wind.gust} m/s`,
             `Rain: ${rain} mm`,
             `Snow: ${snow} mm`,
-            `Receiving Time: ${dt} (${moment(dt).fromNow()}) `
+            `Updated: ${dt} (${moment(dt).fromNow()}) `
         ]
 
         return result
