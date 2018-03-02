@@ -30,10 +30,8 @@ export default class Calc {
         )
 
         this.VARIABLE = {
-            emptyExpression:
-                ':angry: are you kidding me? what should I calculate?',
-            calculationError:
-                ":confused: Hmm... that's weird. I can't calculate that"
+            emptyExpression: 'are you kidding me? what should I calculate?',
+            calculationError: "Hmm... that's weird. I can't calculate that"
         }
         this.texts = ['Maybe', "I think it's", 'Probably']
     }
