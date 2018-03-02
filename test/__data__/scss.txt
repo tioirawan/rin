@@ -1,0 +1,8 @@
+```css
+.alert-winning-user {
+  border: 10px solid gray;
+  padding: 10px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+```
