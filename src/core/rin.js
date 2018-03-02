@@ -87,8 +87,11 @@ export default class Rin {
         const argument = message.split(' ')
         const usrCmd = argument[0].toLowerCase()
 
-        if (usrCmd == 'chain') {
-            return await this.chainCommands(argument.slice(1))
+        switch (usrCmd) {
+            case 'chain':
+                return await this.chainCommands(argument.slice(1))
+            case 'help':
+                return await this.defaultReply
         }
 
         const command = this.commands.find(
@@ -124,6 +127,10 @@ export default class Rin {
         const availableCommand = this.commandLists.map(cmd =>
             cmd.command.toLowerCase()
         )
+
+        if (Rin.isEmpty(input)) {
+            return 'usage: `chain cmd1, cmd2, cmd3`\n for long argument: `chain cmd1, cmd2 > argument`\n\nexample: `chain wiki, translate en id > search javascript`'
+        }
 
         for (let cmd of expressions) {
             const pureCommand = cmd.split(' ')[0]
