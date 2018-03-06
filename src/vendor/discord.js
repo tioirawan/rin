@@ -33,7 +33,7 @@ client.on('message', async ctx => {
 
     const response = await rin.handle(subcmd, { ctx })
 
-    if (!response) return
+    if (!response) return ctx.channel.stopTyping(true)
 
     const result = response.result || response
 
