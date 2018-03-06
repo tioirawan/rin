@@ -129,7 +129,11 @@ export default class Rin {
         )
 
         if (Rin.isEmpty(input)) {
-            return 'usage: `chain cmd1, cmd2, cmd3`\n for long argument: `chain cmd1, cmd2 > argument`\n\nexample: `chain wiki, translate en id > search javascript`'
+            const usage = 'usage: `chain cmd1, cmd2, cmd3`'
+            const example =
+                'example: `chain wiki, translate en id > search javascript`'
+
+            return `${usage}\n for long argument: \`chain cmd1, cmd2 > argument\`\n\n${example}`
         }
 
         for (let cmd of expressions) {
@@ -268,7 +272,10 @@ export default class Rin {
             .map(cmd => `\`${cmd.command}\` - ${cmd.description}`)
             .join('\n')
 
-        return `**Hello! I am Rin, you can use the following command:**\n\n${cmdListString}\n\nhttps://github.com/indmind/rin feel free to contribute!`
+        const header = '**Hello! I am Rin, you can use the following command:**'
+        const footer = 'https://github.com/indmind/rin feel free to contribute!'
+
+        return `${header}\n\n${cmdListString}\n\n${footer}`
     }
 
     static get log() {

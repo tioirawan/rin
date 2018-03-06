@@ -29,13 +29,11 @@
         "import/newline-after-import": ["error", {
             "count": 1
         }],
-        "padding-line-between-statements": ["error",
-            {
-                "blankLine": "always",
-                "prev": "*",
-                "next": "return"
-            }
-        ],
+        "padding-line-between-statements": ["error", {
+            "blankLine": "always",
+            "prev": "*",
+            "next": "return"
+        }],
         "no-console": "error"
     }
 }

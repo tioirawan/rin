@@ -16,7 +16,7 @@ export default class Wiki {
             emptyID: 'Empty id',
             idNotFound: "I can't find anything",
             notEnoughInformation:
-                'I am not a god... not enough information!\n\nusage: `geo latidute longtidute radius(optional)`',
+                'usage: `geo latidute longtidute radius(optional)`',
             resultTooBig:
                 "Sorry, I can't show all the results because it's too **BIG**",
             unknownError: 'Unknown error',

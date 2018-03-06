@@ -125,7 +125,7 @@ export default class Command{
 
 for helper, create a method in Rin class `src/core/rin.js`
 
-always run `$ npm run fix` if you want to create a PR
+always run `$ npm run lint` if you want to create a PR
 
 <h2>Testing</h2>
 

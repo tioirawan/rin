@@ -1,16 +1,8 @@
 [all]
-files = **.js, **.json, **.css, **.yml, **.html, .eslintrc
-ignore = node_modules/**, lib/**, tests/__data__/**, package-lock.json
-max_line_length = 80
+files = **.js, .eslintrc
+ignore = node_modules/**, lib/**, tests/**, view/index.html, package-lock.json, .travis.yml
+max_line_length = 100
 use_spaces = True
-
-[all.whitespace]
-bears = SpaceConsistencyBear
-default_actions = *: ApplyPatchAction
-
-[all.linelength]
-ignore += package.json
-bears = LineLengthBear
 
 [js]
 files = src/**/*.js
@@ -27,3 +19,11 @@ default_actions = *: ApplyPatchAction
 [yaml]
 files = *.yml, .eslintrc
 bears = YAMLLintBear
+
+[all.whitespace]
+bears = SpaceConsistencyBear
+default_actions = *: ApplyPatchAction
+
+[all.linelength]
+ignore += package.json
+bears = LineLengthBear

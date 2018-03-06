@@ -15,7 +15,7 @@ describe('command.scss', () => {
                 padding: 10px;
                 box-shadow: 0 0 30px rgba(0,0,0,0.5);
               }
-              
+
               .alert-winning-user {
                 @include dialog-box;
               }`

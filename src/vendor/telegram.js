@@ -17,7 +17,7 @@ app.start(async ctx => {
     Rin.log.info(`[TELEGRAM]${userName}(${ctx.message.from.id}): /start`)
 
     ctx.replyWithMarkdown(
-        'Hello! I am Rin, to talk with me, just reply my message, type `help` for available commands!'
+        'Hello! I am Rin, to talk with me, just reply my message, type `help` for available commands!' // Ignore LineLengthBear
     )
 })
 

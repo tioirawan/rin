@@ -21,12 +21,12 @@ describe('core.rin', () => {
 
     it('should correctly strip markdown', () => {
         const markdown =
-            '__foo__ _baz_ bar_foo baz*bar **bar** :baz: ```foo bar(){return baz}``` `$ foo bar baz`'
+            '__foo__ _baz_ bar_foo baz*bar **bar** ```foo bar(){return baz}``` `$ foo bar baz`'
 
         const text = Rin.removeMarkdown(markdown)
 
         expect(text).toBe(
-            'foo baz bar_foo baz*bar bar :baz: foo bar(){return baz} $ foo bar baz'
+            'foo baz bar_foo baz*bar bar foo bar(){return baz} $ foo bar baz'
         )
     })
 })

@@ -10,7 +10,15 @@ describe('command.babel', () => {
             'utf8'
         )
         const result = await babel.handle([
-            `class Main{constructor(){return this}static get handle(){return this}}`
+            `class Main{
+                constructor(){
+                    return this
+                }
+
+                static get handle(){
+                    return this
+                }
+            }`
         ])
 
         expect(typeof result).toBe('string')
