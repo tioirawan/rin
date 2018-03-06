@@ -12,7 +12,8 @@ export default class Snap {
         }
 
         this.VARIABLE = {
-            emptyURL: 'Empty url! usage `snap <url>',
+            emptyURL:
+                'Empty url! usage `snap <url> *<normal/mobile/full>`\n\nexample:\n`rin snap paypal.com`\n`rin snap paypal.com full`\n`rin snap paypal.com mobile`',  // Ignore LineLengthBear
             error: 'Whoops... something error',
             telegramImageErr:
                 'Sorry, the image is too big or has invalid dimension'
@@ -30,7 +31,7 @@ export default class Snap {
         const saveloc = `${this.IMAGEPATH}${filename}`
 
         try {
-            await this.snap(url, saveloc, command[1] == 'full')
+            await this.snap(url, saveloc, command[1])
         } catch (err) {
             return `${this.VARIABLE.error}: ${err.message ||
                 JSON.stringify(err)}`
@@ -67,19 +68,32 @@ export default class Snap {
         return
     }
 
-    snap(url, saveloc, full) {
+    snap(url, saveloc, mode) {
         return new Promise((resolve, reject) => {
-            const defaultOpt = {
-                windowSize: {
-                    width: 1366,
-                    height: 768
-                }
+            const options = {
+                normal: {
+                    windowSize: {
+                        width: 1366,
+                        height: 768
+                    }
+                },
+                mobile: {
+                    screenSize: {
+                        width: 320,
+                        height: 480
+                    },
+                    shotSize: {
+                        width: 320,
+                        height: 'all'
+                    },
+                    userAgent:
+                        'Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_2 like Mac OS X; en-us)' +
+                        ' AppleWebKit/531.21.20 (KHTML, like Gecko) Mobile/7B298g'
+                },
+                full: { shotSize: { height: 'all' } }
             }
 
-            const opt = Object.assign(
-                defaultOpt,
-                full ? { shotSize: { height: 'all' } } : {}
-            )
+            const opt = options[mode in options ? mode : 'normal']
 
             webshot(url, saveloc, opt, err => {
                 if (err) {
