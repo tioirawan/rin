@@ -13,14 +13,16 @@ export default class Snap {
 
         this.VARIABLE = {
             emptyURL: 'Empty url! usage `snap <url>',
-            error: 'Whoops... something error'
+            error: 'Whoops... something error',
+            telegramImageErr:
+                'Sorry, the image is too big or has invalid dimension'
         }
 
         this.IMAGEPATH = __dirname + '/../../images/'
     }
 
     async handle(command, { vendor, ctx }) {
-        const url = encodeURI(command.join(' '))
+        const url = encodeURI(command[0])
 
         if (Rin.isEmpty(url)) return this.VARIABLE.emptyURL
 
@@ -28,25 +30,31 @@ export default class Snap {
         const saveloc = `${this.IMAGEPATH}${filename}`
 
         try {
-            await this.snap(url, saveloc)
+            await this.snap(url, saveloc, command[1] == 'full')
         } catch (err) {
             return `${this.VARIABLE.error}: ${err.message ||
                 JSON.stringify(err)}`
         }
 
+        Rin.log.info('File size:', fs.statSync(saveloc).size)
+
         if (vendor == 'telegram') {
             ctx.replyWithChatAction('upload_photo')
 
-            await ctx.replyWithPhoto(
-                {
-                    source: fs.createReadStream(saveloc)
-                },
-                {
-                    reply_to_message_id: ctx.message.message_id
-                }
-            )
+            try {
+                await ctx.replyWithPhoto(
+                    {
+                        source: fs.createReadStream(saveloc)
+                    },
+                    {
+                        reply_to_message_id: ctx.message.message_id
+                    }
+                )
+            } catch (err) {
+                ctx.reply(this.VARIABLE.telegramImageErr)
+            }
         } else if (vendor == 'discord') {
-            ctx.channel.send(url, {
+            await ctx.channel.send(url, {
                 file: {
                     attachment: fs.createReadStream(saveloc),
                     name: filename
@@ -59,28 +67,27 @@ export default class Snap {
         return
     }
 
-    snap(url, saveloc) {
+    snap(url, saveloc, full) {
         return new Promise((resolve, reject) => {
-            webshot(
-                url,
-                saveloc,
-                {
-                    windowSize: {
-                        width: 1366,
-                        height: 768
-                    },
-                    shotSize: { height: 'all' }
-                },
-                err => {
-                    if (err) {
-                        reject(err)
-
-                        return
-                    }
-
-                    resolve(err)
+            const defaultOpt = {
+                windowSize: {
+                    width: 1366,
+                    height: 768
                 }
+            }
+
+            const opt = Object.assign(
+                defaultOpt,
+                full ? { shotSize: { height: 'all' } } : {}
             )
+
+            webshot(url, saveloc, opt, err => {
+                if (err) {
+                    return reject(err)
+                }
+
+                resolve(err)
+            })
         })
     }
 }
