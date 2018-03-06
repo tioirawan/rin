@@ -9,6 +9,8 @@ rin.init()
 
 app.telegram.getMe().then(botInfo => {
     app.options.username = botInfo.username
+
+    Rin.log.info(`Telegram loged as ${botInfo.username} prefix`)
 })
 
 app.start(async ctx => {
@@ -17,24 +19,27 @@ app.start(async ctx => {
     Rin.log.info(`[TELEGRAM]${userName}(${ctx.message.from.id}): /start`)
 
     ctx.replyWithMarkdown(
-        'Hello! I am Rin, to talk with me, just reply my message, type `help` for available commands!' // Ignore LineLengthBear
+        'Hello! I am Rin, to talk with me, just call my name, type `help` for available commands!' // Ignore LineLengthBear
     )
 })
 
 app.on('text', async ctx => {
-    app.telegram.sendChatAction(ctx.from.id, 'typing')
-
     const userName = ctx.message.from.first_name + ctx.message.from.last_name
+    const message = ctx.message.text.split(' ')
 
-    const message = ctx.message.text
+    const prefix = app.options.username.split('#')[0]
+
+    if (!(message[0] === prefix)) return
 
     Rin.log.info(
         `[TELEGRAM]${userName}(${ctx.message.from.id}): ${Rin.standarize(
-            message
+            message.join(' ')
         )}`
     )
 
-    const response = await rin.handle(message, { ctx })
+    app.telegram.sendChatAction(ctx.from.id, 'typing')
+
+    const response = await rin.handle(message.slice(1).join(' '), { ctx })
 
     let result
 
