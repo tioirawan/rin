@@ -41,6 +41,8 @@ app.on('text', async ctx => {
 
     const response = await rin.handle(message.slice(1).join(' '), { ctx })
 
+    if (!response) return
+
     let result
 
     if (typeof response == 'object') {
