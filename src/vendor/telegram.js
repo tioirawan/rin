@@ -27,7 +27,7 @@ app.on('text', async ctx => {
     const userName = ctx.message.from.first_name + ctx.message.from.last_name
     const message = ctx.message.text.split(' ')
 
-    const prefix = app.options.username.split('#')[0]
+    const prefix = 'rin'
 
     if (!(message[0] === prefix)) return
 
