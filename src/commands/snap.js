@@ -13,7 +13,7 @@ export default class Snap {
 
         this.VARIABLE = {
             emptyURL:
-                'Empty url! usage `snap <url> *<normal/mobile/full>`\n\nexample:\n`rin snap paypal.com`\n`rin snap paypal.com full`\n`rin snap paypal.com mobile`',  // Ignore LineLengthBear
+                'Empty url! usage `snap <url> *<normal/mobile/full>`\n\nexample:\n`rin snap paypal.com`\n`rin snap paypal.com full`\n`rin snap paypal.com mobile`', // Ignore LineLengthBear
             error: 'Whoops... something error',
             telegramImageErr:
                 'Sorry, the image is too big or has invalid dimension'
