@@ -1,4 +1,5 @@
 import Rin from '../../src/core/rin'
+import fs from 'fs'
 
 describe('core.rin', () => {
     it('should correctly standarize a text', () => {
@@ -9,14 +10,17 @@ describe('core.rin', () => {
     })
 
     it('should correctly convert markdown to telegram html', () => {
+        const expected = fs.readFileSync(
+            __dirname + '/../__data__/rin_mdtohtml.txt',
+            'utf8'
+        )
+
         const markdown =
-            '__foo__ _baz_ bar_foo baz*bar **bar** :baz: ```foo bar(){return baz}``` `$ foo bar baz`'
+            '__foo__ _baz_ bar_foo baz*bar **bar** ```foo bar(){return baz}``` `$ foo bar baz`'
 
         const html = Rin.mdToHtml(markdown)
 
-        expect(html).toBe(
-            '<b>foo</b> <em>baz</em> bar_foo baz*bar <b>bar</b> :baz: <code>foo bar(){return baz}</code> <code>$ foo bar baz</code>'
-        )
+        expect(html).toBe(expected)
     })
 
     it('should correctly strip markdown', () => {

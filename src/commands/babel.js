@@ -8,6 +8,9 @@ export default class Babel {
             command: 'babel',
             description: 'compile es6 to es5 using babel',
             standarize: false
+
+
+
         }
 
         this.VARIABLE = {
@@ -24,6 +27,8 @@ export default class Babel {
             const { code } = transform(es6, {
                 presets: [preset],
                 babelrc: false
+
+                
             })
 
             return Rin.code('js', code)

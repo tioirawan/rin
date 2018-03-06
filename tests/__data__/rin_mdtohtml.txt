@@ -1,0 +1,1 @@
+<b>foo</b> <em>baz</em> bar_foo baz*bar <b>bar</b> <code>foo bar(){return baz}</code> <code>$ foo bar baz</code>

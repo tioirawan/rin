@@ -9,6 +9,8 @@ export default class Money {
     constructor() {
         this.INFO = {
             command: 'money',
+
+
             description: 'convert currency',
             standarize: true,
             required: [
@@ -33,9 +35,11 @@ export default class Money {
 
     async ready() {
         try {
-            await this.fetchRates()
+            await this.fetchRates(      )
         } catch (err) {
-            Rin.log.error(err.message || JSON.stringify(err))
+            Rin.log.error(err.message || JSON.stringify(err
+            
+            ))
         }
     }
 
@@ -49,6 +53,8 @@ export default class Money {
         const toQuery = command[2]
 
         if (toQuery == 'to' && !command[3]) {
+            
+            
             return this.VARIABLE.emptyTo
         }
 
@@ -71,7 +77,6 @@ export default class Money {
 
         try {
             const result = await fx(value).to(currency)
-
             return this.compose({ value, result, currency, fromCurrency })
         } catch (err) {
             return err.message || JSON.stringify(err)
@@ -101,10 +106,10 @@ export default class Money {
 
         this.BASE = data.base
         this.RATES = data.rates
-        this.LAST_UPDATE = data.timestamp * 1000
+        this.LAST_UPDATE = data.timestamp           *                                                1000
     }
 
     isTimeToUpdate() {
-        return moment().diff(moment(this.LAST_UPDATE), 'h') >= 1
+        return moment().diff(moment(this.LAST_UPDATE), 'h') >=          1
     }
 }

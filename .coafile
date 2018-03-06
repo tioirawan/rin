@@ -1,6 +1,6 @@
 [all]
 files = **.js, .eslintrc
-ignore = node_modules/**, lib/**, tests/**, view/index.html, package-lock.json, .travis.yml
+ignore = node_modules/**, lib/**, tests/__data__/**, view/index.html, package-lock.json, .travis.yml
 max_line_length = 100
 use_spaces = True
 
