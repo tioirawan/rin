@@ -128,12 +128,12 @@ export default class Rin {
             cmd.command.toLowerCase()
         )
 
-        if (Rin.isEmpty(input)) {
+        if (Rin.isEmpty(expressions[0]) && Rin.isEmpty(input)) {
             const usage = 'usage: `chain cmd1, cmd2, cmd3`'
             const example =
                 'example: `chain wiki, translate en id > search javascript`'
 
-            return `${usage}\n for long argument: \`chain cmd1, cmd2 > argument\`\n\n${example}`
+            return `${usage}\nfor long argument: \`chain cmd1, cmd2 > argument\`\n\n${example}`
         }
 
         for (let cmd of expressions) {
