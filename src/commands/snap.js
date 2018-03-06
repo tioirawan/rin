@@ -68,7 +68,8 @@ export default class Snap {
                     windowSize: {
                         width: 1366,
                         height: 768
-                    }
+                    },
+                    shotSize: { height: 'all' }
                 },
                 err => {
                     if (err) {
