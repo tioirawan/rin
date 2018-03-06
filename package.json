@@ -1,60 +1,60 @@
 {
-  "name": "rin",
-  "version": "0.0.3",
-  "description": "simple multi purpose bot",
-  "main": "lib/main.js",
-  "scripts": {
-    "build": "rm lib/ -rf && ./node_modules/.bin/babel src -d lib",
-    "main": "node lib/main.js",
-    "start": "npm run build && npm run main",
-    "lint": "./node_modules/.bin/eslint .",
-    "fix": "./node_modules/.bin/eslint --fix .",
-    "test": "jest"
-  },
-  "author": "indmind",
-  "license": "MIT",
-  "dependencies": {
-    "axios": "^0.18.0",
-    "cssbeautify": "^0.3.1",
-    "currency-formatter": "^1.4.1",
-    "discord.js": "^11.3.0",
-    "figlet": "^1.2.0",
-    "google-translate-api": "^2.3.0",
-    "jawaskrip": "^0.3.4",
-    "mathjs": "^3.20.2",
-    "moment": "^2.20.1",
-    "money": "^0.2.0",
-    "node-sass": "^4.7.2",
-    "prettyjson": "^1.2.1",
-    "simple-markdown": "^0.3.2",
-    "telegraf": "^3.18.0",
-    "typescript-compiler": "^1.4.1",
-    "urban-dictionary": "^1.0.6",
-    "weather-js": "^2.0.0",
-    "wikijs": "^4.5.1",
-    "winston": "^2.4.0"
-  },
-  "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.0",
-    "babel-eslint": "^8.2.2",
-    "babel-jest": "^22.4.0",
-    "babel-plugin-wildcard": "^4.0.0",
-    "babel-preset-env": "^1.6.1",
-    "eslint": "^4.18.1",
-    "eslint-config-prettier": "^2.9.0",
-    "eslint-plugin-import": "^2.9.0",
-    "eslint-plugin-jest": "^21.12.2",
-    "eslint-plugin-prettier": "^2.6.0",
-    "jest": "^22.4.0",
-    "prettier": "^1.10.2",
-    "regenerator-runtime": "^0.11.1"
-  },
-  "directories": {
-    "lib": "lib"
-  },
-  "keywords": [
-    "discord",
-    "bot"
-  ]
+    "name": "rin",
+    "version": "0.0.3",
+    "description": "simple multi purpose bot",
+    "main": "lib/main.js",
+    "scripts": {
+        "build": "rm lib/ -rf && ./node_modules/.bin/babel src -d lib",
+        "main": "node lib/main.js",
+        "start": "npm run build && npm run main",
+        "lint": "./node_modules/.bin/eslint --fix .",
+        "coala": "coala -n",
+        "test": "jest"
+    },
+    "author": "indmind",
+    "license": "MIT",
+    "dependencies": {
+        "axios": "^0.18.0",
+        "cssbeautify": "^0.3.1",
+        "currency-formatter": "^1.4.1",
+        "discord.js": "^11.3.0",
+        "figlet": "^1.2.0",
+        "google-translate-api": "^2.3.0",
+        "jawaskrip": "^0.3.4",
+        "mathjs": "^3.20.2",
+        "moment": "^2.20.1",
+        "money": "^0.2.0",
+        "node-sass": "^4.7.2",
+        "prettyjson": "^1.2.1",
+        "simple-markdown": "^0.3.2",
+        "telegraf": "^3.18.0",
+        "typescript-compiler": "^1.4.1",
+        "urban-dictionary": "^1.0.6",
+        "weather-js": "^2.0.0",
+        "wikijs": "^4.5.1",
+        "winston": "^2.4.0"
+    },
+    "devDependencies": {
+        "babel-cli": "^6.26.0",
+        "babel-core": "^6.26.0",
+        "babel-eslint": "^8.2.2",
+        "babel-jest": "^22.4.0",
+        "babel-plugin-wildcard": "^4.0.0",
+        "babel-preset-env": "^1.6.1",
+        "eslint": "^4.18.1",
+        "eslint-config-prettier": "^2.9.0",
+        "eslint-plugin-import": "^2.9.0",
+        "eslint-plugin-jest": "^21.12.2",
+        "eslint-plugin-prettier": "^2.6.0",
+        "jest": "^22.4.0",
+        "prettier": "^1.10.2",
+        "regenerator-runtime": "^0.11.1"
+    },
+    "directories": {
+        "lib": "lib"
+    },
+    "keywords": [
+        "discord",
+        "bot"
+    ]
 }

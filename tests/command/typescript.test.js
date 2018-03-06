@@ -12,15 +12,15 @@ describe('command.typescript', () => {
         const result = await typescript.handle([
             `declare class Greeter {
                 constructor(greeting: string);
-            
+
                 greeting: string;
                 showGreeting(): void;
             }
-            
+
             const myGreeter = new Greeter("hello, world");
             myGreeter.greeting = "howdy";
             myGreeter.showGreeting();
-            
+
             class SpecialGreeter extends Greeter {
                 constructor() {
                     super("Very special greetings");

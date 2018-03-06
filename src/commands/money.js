@@ -9,6 +9,7 @@ export default class Money {
     constructor() {
         this.INFO = {
             command: 'money',
+
             description: 'convert currency',
             standarize: true,
             required: [

@@ -87,8 +87,11 @@ export default class Rin {
         const argument = message.split(' ')
         const usrCmd = argument[0].toLowerCase()
 
-        if (usrCmd == 'chain') {
-            return await this.chainCommands(argument.slice(1))
+        switch (usrCmd) {
+            case 'chain':
+                return await this.chainCommands(argument.slice(1))
+            case 'help':
+                return await this.defaultReply
         }
 
         const command = this.commands.find(
@@ -124,6 +127,14 @@ export default class Rin {
         const availableCommand = this.commandLists.map(cmd =>
             cmd.command.toLowerCase()
         )
+
+        if (Rin.isEmpty(expressions[0]) && Rin.isEmpty(input)) {
+            const usage = 'usage: `chain cmd1, cmd2, cmd3`'
+            const example =
+                'example: `chain wiki, translate en id > search javascript`'
+
+            return `${usage}\nfor long argument: \`chain cmd1, cmd2 > argument\`\n\n${example}`
+        }
 
         for (let cmd of expressions) {
             const pureCommand = cmd.split(' ')[0]
@@ -261,7 +272,10 @@ export default class Rin {
             .map(cmd => `\`${cmd.command}\` - ${cmd.description}`)
             .join('\n')
 
-        return `**Hello! I am Rin, you can use the following command:**\n\n${cmdListString}\n\nhttps://github.com/indmind/rin feel free to contribute!`
+        const header = '**Hello! I am Rin, you can use the following command:**'
+        const footer = 'https://github.com/indmind/rin feel free to contribute!'
+
+        return `${header}\n\n${cmdListString}\n\n${footer}`
     }
 
     static get log() {

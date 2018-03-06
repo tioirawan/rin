@@ -11,7 +11,7 @@ export default class Translate {
 
         this.VARIABLE = {
             wrongFormat:
-                'wrong format! usage `translate [from] [to] text` ex: `translate id en selamat pagi!`',
+                'wrong format! usage `[from] [to] text` ex: `translate id en selamat pagi!`',
             emptyText: 'empty text'
         }
     }
