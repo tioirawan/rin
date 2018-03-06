@@ -1,20 +1,23 @@
-language: node_js
-node_js:
-  - '8.9'
+language: python
+python: 3.6
 
 cache:
   directories:
     - node_modules
-    - "$HOME/.npm"
+    - $HOME/.npm
+    - $HOME/.cache/pip
 
-install:
-  - npm ci
+before_install:
   - pip3 install coala-bears
   - export PATH=$PATH:./node_modules/.bin
   - export NODE_PATH=$NODE_PATH:./node_modules
+  - nvm install
+  - if [[ `npm -v` != 5.7* ]]; then npm i -g npm@5.7; fi
+
+install: npm ci
 
 script:
-  - coala --non-interactive -V
+  - coala --non-interactive
   - npm run build
   - npm test
 
