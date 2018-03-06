@@ -29,7 +29,7 @@ app.on('text', async ctx => {
 
     const prefix = 'rin'
 
-    if (!(message[0] === prefix)) return
+    if (!(message[0].toLocaleLowerCase() === prefix)) return
 
     Rin.log.info(
         `[TELEGRAM]${userName}(${ctx.message.from.id}): ${Rin.standarize(
