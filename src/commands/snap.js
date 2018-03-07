@@ -118,7 +118,8 @@ export default class Snap {
                     height: 768
                 },
                 userAgent:
-                    'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:15.0) Chrome/63.0.3239.111 Safari/537.36'
+                    'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:15.0) ' +
+                    'Chrome/63.0.3239.111 Safari/537.36'
             }
 
             for (let m of mode) {
