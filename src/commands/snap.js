@@ -1,5 +1,6 @@
 import fs from 'fs'
 import webshot from 'webshot'
+import reachable from 'is-reachable'
 
 import Rin from '../core/rin'
 
@@ -41,7 +42,8 @@ export default class Snap {
 
         this.VARIABLE = {
             emptyURL: this.help,
-            error: 'Whoops... something error',
+            error: 'Whoops something went wrong',
+            unreachable: 'Hmm. I am having trouble finding that site',
             telegramImageErr:
                 'Sorry, the image is too big or has invalid dimension'
         }
@@ -54,8 +56,12 @@ export default class Snap {
 
         if (Rin.isEmpty(url)) return this.VARIABLE.emptyURL
 
-        const filename = `${ctx.from.id}_${url.split('.')[0]}.png`
+        const filename = `${ctx.from.id}-${url.replace(/\.|\//g, '-')}.png`
         const saveloc = `${this.IMAGEPATH}${filename}`
+
+        const urlIsReachable = await reachable(url)
+
+        if (!urlIsReachable) return this.VARIABLE.unreachable
 
         try {
             await this.snap(url, saveloc, command.slice(1))
@@ -76,7 +82,7 @@ export default class Snap {
             }
 
             try {
-                const data = [
+                await ctx.replyWithDocument(
                     {
                         source: saveloc
                     },
@@ -84,13 +90,7 @@ export default class Snap {
                         caption: `Image Size: ${fileSize}`,
                         reply_to_message_id: ctx.message.message_id
                     }
-                ]
-
-                if (fs.statSync(saveloc).size / 1000000 < 1.0) {
-                    await ctx.replyWithPhoto(...data)
-                } else {
-                    await ctx.replyWithDocument(...data)
-                }
+                )
             } catch (err) {
                 ctx.reply(
                     `${
@@ -127,9 +127,15 @@ export default class Snap {
                     width: 1366,
                     height: 768
                 },
+                delayTime: 2000,
                 userAgent:
                     'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:15.0) ' +
-                    'Chrome/63.0.3239.111 Safari/537.36'
+                    'Chrome/63.0.3239.111 Safari/537.36',
+                phantomConfig: {
+                    'ignore-ssl-errors': true,
+                    'local-to-remote-url-access': true,
+                    'ssl-protocol': 'any'
+                }
             }
 
             for (let m of mode) {
@@ -137,9 +143,7 @@ export default class Snap {
             }
 
             webshot(url, saveloc, opt, err => {
-                if (err) {
-                    return reject(err)
-                }
+                if (err) return reject(err)
 
                 resolve(err)
             })
