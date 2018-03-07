@@ -20,11 +20,22 @@ export default class Get {
 
         if (Rin.isEmpty(url)) return this.VARIABLE.emptyURL
 
+        const params = command.slice(1).join(' ')
+
+        let par
+
+        try {
+            par = params ? JSON.parse(params) : {}
+        } catch (err) {
+            return err.message
+        }
+
         let response
 
         try {
             response = await axios.get(url, {
-                responseType: 'text'
+                responseType: 'text',
+                params: par || {}
             })
         } catch (err) {
             response = err.message

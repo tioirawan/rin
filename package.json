@@ -20,6 +20,7 @@
         "discord.js": "^11.3.0",
         "dotenv": "^5.0.1",
         "figlet": "^1.2.0",
+        "goo.gl": "^0.1.4",
         "google-translate-api": "^2.3.0",
         "is-json": "^2.0.1",
         "is-reachable": "^2.4.0",
