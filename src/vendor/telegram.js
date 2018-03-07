@@ -3,7 +3,7 @@ import Telegraf, { Extra } from 'telegraf'
 import Rin from '../core/rin'
 
 const app = new Telegraf(process.env.TELEGRAM_TOKEN)
-const rin = new Rin('telegram')
+const rin = new Rin('telegram', app)
 
 rin.init()
 
@@ -39,7 +39,7 @@ app.on('text', async ctx => {
 
     Rin.log.info(`[TELEGRAM]${chatInfo}`)
 
-    app.telegram.sendChatAction(ctx.from.id, 'typing')
+    ctx.replyWithChatAction('typing')
 
     let response
 
@@ -72,12 +72,5 @@ app.catch(sendLogError)
 app.startPolling()
 
 function sendLogError(err, chatInfo = '') {
-    Rin.log.error(err)
-
-    if (Rin.isEmpty(process.env.TELE_ERR_CHAT_ID)) return
-
-    app.telegram.sendMessage(
-        process.env.TELE_ERR_CHAT_ID,
-        `Error:\n${chatInfo}\n\n${JSON.stringify(err)}`
-    ) // log error
+    Rin.sendLogError(app, err, chatInfo)
 }

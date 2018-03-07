@@ -3,7 +3,7 @@ import Discord from 'discord.js'
 import Rin from '../core/rin'
 
 const client = new Discord.Client()
-const rin = new Rin('discord')
+const rin = new Rin('discord', client)
 
 rin.init()
 

@@ -1,6 +1,6 @@
 import fs from 'fs'
 import webshot from 'webshot'
-import rs from 'randomstring'
+
 import Rin from '../core/rin'
 
 export default class Snap {
@@ -49,12 +49,12 @@ export default class Snap {
         this.IMAGEPATH = __dirname + '/../../images/'
     }
 
-    async handle(command, { vendor, ctx }) {
+    async handle(command, { vendor, ctx, client }) {
         const url = encodeURI(command[0])
 
         if (Rin.isEmpty(url)) return this.VARIABLE.emptyURL
 
-        const filename = rs.generate() + '.png'
+        const filename = `${ctx.from.id}_${url.split('.')[0]}.png`
         const saveloc = `${this.IMAGEPATH}${filename}`
 
         try {
@@ -69,18 +69,28 @@ export default class Snap {
         Rin.log.info('File size:', fileSize)
 
         if (vendor == 'telegram') {
-            ctx.replyWithChatAction('upload_photo')
+            try {
+                await ctx.replyWithChatAction('upload_photo')
+            } catch (err) {
+                Rin.sendLogError(client, err, Rin.getChatInfo(vendor, ctx))
+            }
 
             try {
-                await ctx.replyWithPhoto(
+                const data = [
                     {
-                        source: fs.createReadStream(saveloc)
+                        source: saveloc
                     },
                     {
                         caption: `Image Size: ${fileSize}`,
                         reply_to_message_id: ctx.message.message_id
                     }
-                )
+                ]
+
+                if (fs.statSync(saveloc).size / 1000000 < 1.0) {
+                    await ctx.replyWithPhoto(...data)
+                } else {
+                    await ctx.replyWithDocument(...data)
+                }
             } catch (err) {
                 ctx.reply(
                     `${

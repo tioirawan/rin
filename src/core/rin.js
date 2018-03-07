@@ -13,8 +13,9 @@ logger.add(logger.transports.Console, {
 logger.level = env === 'development' ? 'debug' : 'info'
 
 export default class Rin {
-    constructor(vendor) {
+    constructor(vendor, client) {
         this.vendor = vendor
+        this.client = client
 
         this.commands = Object.keys(Commands)
             .map(cmd => new Commands[cmd]())
@@ -105,7 +106,7 @@ export default class Rin {
             return `${usrCmd} doesn't have handle method!`
         }
 
-        Object.assign(data, { vendor: this.vendor })
+        Object.assign(data, { vendor: this.vendor, client: this.client })
 
         const input = argument.slice(1).join(' ')
 
@@ -320,5 +321,36 @@ export default class Rin {
             ' ' +
             ['B', 'KB', 'MB', 'GB', 'TB'][i]
         )
+    }
+
+    // telegram only
+    static sendLogError(app, err, chatInfo = '') {
+        Rin.log.error(err)
+
+        if (Rin.isEmpty(process.env.TELE_ERR_CHAT_ID)) return
+
+        app.telegram.sendMessage(
+            process.env.TELE_ERR_CHAT_ID,
+            `Error:\n${chatInfo}\n\n${err.message || JSON.stringify(err)}`
+        )
+    }
+
+    static getChatInfo(vendor, ctx) {
+        if (vendor == 'telegram') {
+            const userName =
+                ctx.message.from.first_name + ctx.message.from.last_name
+            const message = ctx.message.text.split(' ')
+
+            return `[TELEGRAM]${userName}(${
+                ctx.message.from.id
+            }): ${Rin.standarize(message.join(' '))}`
+        } else if (vendor == 'discord') {
+            const message = ctx.content
+            const username = ctx.author.username
+
+            return `[DISCORD]${username}(${ctx.author.id}): ${Rin.standarize(
+                message
+            )}`
+        }
     }
 }
