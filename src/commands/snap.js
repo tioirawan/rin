@@ -37,7 +37,9 @@ export default class Snap {
                 JSON.stringify(err)}`
         }
 
-        Rin.log.info('File size:', fs.statSync(saveloc).size)
+        const fileSize = Rin.getFileSize(saveloc)
+
+        Rin.log.info('File size:', fileSize)
 
         if (vendor == 'telegram') {
             ctx.replyWithChatAction('upload_photo')
@@ -48,19 +50,32 @@ export default class Snap {
                         source: fs.createReadStream(saveloc)
                     },
                     {
+                        caption: `Image Size: ${fileSize}`,
                         reply_to_message_id: ctx.message.message_id
                     }
                 )
             } catch (err) {
-                ctx.reply(this.VARIABLE.telegramImageErr)
+                ctx.reply(
+                    `${
+                        this.VARIABLE.telegramImageErr
+                    }\n\nImage Size: ${fileSize}`
+                )
             }
         } else if (vendor == 'discord') {
-            await ctx.channel.send(url, {
-                file: {
-                    attachment: fs.createReadStream(saveloc),
-                    name: filename
-                }
-            })
+            try {
+                await ctx.channel.send(`Image Size: ${fileSize}`, {
+                    file: {
+                        attachment: fs.createReadStream(saveloc),
+                        name: filename
+                    }
+                })
+            } catch (err) {
+                const error = err.message || JSON.stringify(err)
+
+                await ctx.channel.send(error)
+
+                Rin.log.error(error)
+            }
         }
 
         fs.unlinkSync(saveloc)

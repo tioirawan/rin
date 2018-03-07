@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').load()
+}
+
 /* eslint-disable no-console */
 
 if (process.env.STATUS == 'debug') {

@@ -1,5 +1,6 @@
 import simpleMarkdown from 'simple-markdown'
 import logger from 'winston'
+import fs from 'fs'
 
 import * as Commands from '../commands'
 
@@ -307,5 +308,17 @@ export default class Rin {
 
     static XOR(a, b) {
         return (a && !b) || (!a && b)
+    }
+
+    static getFileSize(filePath) {
+        const stats = fs.statSync(filePath)
+        const size = stats.size
+        const i = Math.floor(Math.log(size) / Math.log(1024))
+
+        return (
+            (size / Math.pow(1024, i)).toFixed(2) * 1 +
+            ' ' +
+            ['B', 'KB', 'MB', 'GB', 'TB'][i]
+        )
     }
 }

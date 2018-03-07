@@ -10,7 +10,7 @@ rin.init()
 app.telegram.getMe().then(botInfo => {
     app.options.username = botInfo.username
 
-    Rin.log.info(`Telegram loged as ${botInfo.username} prefix`)
+    Rin.log.info(`Telegram logged as ${botInfo.username} prefix`)
 })
 
 app.start(async ctx => {
@@ -31,15 +31,21 @@ app.on('text', async ctx => {
 
     if (!(message[0].toLocaleLowerCase() === prefix)) return
 
-    Rin.log.info(
-        `[TELEGRAM]${userName}(${ctx.message.from.id}): ${Rin.standarize(
-            message.join(' ')
-        )}`
-    )
+    const chatInfo = `${userName}(${ctx.message.from.id}): ${Rin.standarize(
+        message.join(' ')
+    )}`
+
+    Rin.log.info(`[TELEGRAM]${chatInfo}`)
 
     app.telegram.sendChatAction(ctx.from.id, 'typing')
 
-    const response = await rin.handle(message.slice(1).join(' '), { ctx })
+    let response
+
+    try {
+        response = await rin.handle(message.slice(1).join(' '), { ctx })
+    } catch (err) {
+        sendLogError(err, chatInfo)
+    }
 
     if (!response) return
 
@@ -59,6 +65,17 @@ app.on('text', async ctx => {
     } else ctx.replyWithHTML(result, Extra.inReplyTo(ctx.message.message_id))
 })
 
-app.catch(Rin.log.error)
+app.catch(sendLogError)
 
 app.startPolling()
+
+function sendLogError(err, chatInfo = '') {
+    Rin.log.error(err)
+
+    if (Rin.isEmpty(process.env.TELE_ERR_CHAT_ID)) return
+
+    app.telegram.sendMessage(
+        process.env.TELE_ERR_CHAT_ID,
+        `Error:\n${chatInfo}\n\n${JSON.stringify(err)}`
+    ) // log error
+}

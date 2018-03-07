@@ -38,15 +38,19 @@ Install all dependencies using <a href="https://www.npmjs.com/">npm</a>
 
 `$ npm run build`
 
-<h2>Development</h2>
+<h2 id="dev">Development</h2>
+
+`cp .env.example .env`
+
+add your token to `.env`
 
 `$ STATUS=debug npm start` 
 
 it will use cli.js, so you don't need to use telegram or discord for debugging
 
-for discord or telegram set `TELEGRAM_TOKEN` or `DISCORD_TOKEN` 
+for discord or telegram set `TELEGRAM_TOKEN` or `DISCORD_TOKEN` in `.env`
 
-`$ DISCORD_TOKEN=your_discord_token TELEGRAM_TOKEN=your_telegram_token npm start`
+`$ npm start`
 
 you can just add `DISCORD_TOKEN` without `TELEGRAM_TOKEN`
 
@@ -137,8 +141,9 @@ create a unit test in `test/command` folder for subcommand testing and `test/__d
 
 1. Fork this repository
 2. Create a feature branch (_never edit your master branch_) `$ git checkout -b add-eat-command`
-3. Push your changes `$ git push origin add-eat-command`
-4. Create a pull request
+3. Create your features, see: [development](#dev) section
+4. Push your changes `$ git push origin add-eat-command`
+5. Create a pull request
 
 I am very happy if you want to contribute!
 
