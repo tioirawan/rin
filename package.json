@@ -21,6 +21,8 @@
         "dotenv": "^5.0.1",
         "figlet": "^1.2.0",
         "google-translate-api": "^2.3.0",
+        "is-json": "^2.0.1",
+        "is-reachable": "^2.4.0",
         "jawaskrip": "^0.3.4",
         "mathjs": "^3.20.2",
         "moment": "^2.20.1",
