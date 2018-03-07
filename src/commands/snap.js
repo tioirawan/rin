@@ -11,9 +11,36 @@ export default class Snap {
             standarize: false
         }
 
+        this.MODES = {
+            mobile: {
+                screenSize: {
+                    width: 540,
+                    height: 960
+                },
+                shotSize: {
+                    width: 540
+                },
+                userAgent:
+                    'Mozilla/5.0 (iPhone; CPU iPhone OS 5_0 like Mac OS X) ' +
+                    'AppleWebKit/534.46 (KHTML, like Gecko) Chrome/63.0.3239.111 Safari/537.36'
+            },
+            tablet: {
+                screenSize: {
+                    width: 1280,
+                    height: 800
+                },
+                shotSize: {
+                    width: 1280
+                },
+                userAgent:
+                    'Mozilla/5.0 (Linux; Android 6.0.1; Nexus 7 Build/MOB30X) ' +
+                    'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.111 Safari/537.36'
+            },
+            full: { shotSize: { height: 'all' } }
+        }
+
         this.VARIABLE = {
-            emptyURL:
-                'Empty url! usage `snap <url> *<normal/mobile/full>`\n\nexample:\n`rin snap paypal.com`\n`rin snap paypal.com full`\n`rin snap paypal.com mobile`', // Ignore LineLengthBear
+            emptyURL: this.help,
             error: 'Whoops... something error',
             telegramImageErr:
                 'Sorry, the image is too big or has invalid dimension'
@@ -31,7 +58,7 @@ export default class Snap {
         const saveloc = `${this.IMAGEPATH}${filename}`
 
         try {
-            await this.snap(url, saveloc, command[1])
+            await this.snap(url, saveloc, command.slice(1))
         } catch (err) {
             return `${this.VARIABLE.error}: ${err.message ||
                 JSON.stringify(err)}`
@@ -85,30 +112,18 @@ export default class Snap {
 
     snap(url, saveloc, mode) {
         return new Promise((resolve, reject) => {
-            const options = {
-                normal: {
-                    windowSize: {
-                        width: 1366,
-                        height: 768
-                    }
+            const opt = {
+                screenSize: {
+                    width: 1366,
+                    height: 768
                 },
-                mobile: {
-                    screenSize: {
-                        width: 320,
-                        height: 480
-                    },
-                    shotSize: {
-                        width: 320,
-                        height: 'all'
-                    },
-                    userAgent:
-                        'Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_2 like Mac OS X; en-us)' +
-                        ' AppleWebKit/531.21.20 (KHTML, like Gecko) Mobile/7B298g'
-                },
-                full: { shotSize: { height: 'all' } }
+                userAgent:
+                    'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:15.0) Chrome/63.0.3239.111 Safari/537.36'
             }
 
-            const opt = options[mode in options ? mode : 'normal']
+            for (let m of mode) {
+                Object.assign(opt, this.MODES[m in this.MODES ? m : {}])
+            }
 
             webshot(url, saveloc, opt, err => {
                 if (err) {
@@ -118,5 +133,21 @@ export default class Snap {
                 resolve(err)
             })
         })
+    }
+
+    get help() {
+        const header = 'Empty url! usage `snap <url> *<mode>`'
+
+        const example = [
+            '`rin snap paypal.com`',
+            '`rin snap paypal.com full`',
+            '`rin snap paypal.com mobile full`'
+        ].join('\n')
+
+        const availableMode = Object.keys(this.MODES)
+            .map(m => `\`${m}\``)
+            .join('\n')
+
+        return `${header}\n\nExample:\n${example}\n\nAvailable Modes:\n${availableMode}`
     }
 }

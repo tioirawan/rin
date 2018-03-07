@@ -10,7 +10,7 @@ rin.init()
 app.telegram.getMe().then(botInfo => {
     app.options.username = botInfo.username
 
-    Rin.log.info(`Telegram logged as ${botInfo.username} prefix`)
+    Rin.log.info(`Telegram logged as ${process.env.TELEGRAM_PREFIX} prefix`)
 })
 
 app.start(async ctx => {
@@ -27,7 +27,9 @@ app.on('text', async ctx => {
     const userName = ctx.message.from.first_name + ctx.message.from.last_name
     const message = ctx.message.text.split(' ')
 
-    const prefix = 'rin'
+    const prefix = process.env.TELEGRAM_PREFIX
+
+    if (Rin.isEmpty(prefix)) throw new Error('Set TELEGRAM_PREFIX in .env')
 
     if (!(message[0].toLocaleLowerCase() === prefix)) return
 
