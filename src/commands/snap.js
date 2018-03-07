@@ -7,8 +7,8 @@ export default class Snap {
     constructor() {
         this.INFO = {
             command: 'snap',
-            description: 'screenshoot web',
-            standarize: false
+            description: 'screenshoot a web',
+            standarize: true
         }
 
         this.MODES = {
