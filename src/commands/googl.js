@@ -37,7 +37,7 @@ export default class Googl {
     get help() {
         const header = 'Wrong format!\n\n'
         const usage = 'usage: `googl <url>`'
-        const params = 'Example:\n`rin googl short example.com`'
+        const params = 'Example:\n`rin googl example.com`'
 
         return header + usage + params
     }
