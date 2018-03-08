@@ -2,6 +2,7 @@ import simpleMarkdown from 'simple-markdown'
 import logger from 'winston'
 import fs from 'fs'
 import showdown from 'showdown'
+import rata from 'rata'
 
 import * as Commands from '../commands'
 
@@ -82,8 +83,8 @@ export default class Rin {
         return true
     }
 
-    get defaultReply() {
-        return Rin.defaultReply(this.commandLists)
+    defaultReply(tidy) {
+        return Rin.defaultReply(this.commandLists, tidy)
     }
 
     async handle(message, data = {}) {
@@ -94,14 +95,14 @@ export default class Rin {
             case 'chain':
                 return await this.chainCommands(argument.slice(1))
             case 'help':
-                return await this.defaultReply
+                return await this.defaultReply(this.vendor == 'discord')
         }
 
         const command = this.commands.find(
             cmd => usrCmd == cmd.INFO.command.toLowerCase()
         )
 
-        if (!command) return await this.defaultReply
+        if (!command) return await this.defaultReply(this.vendor == 'discord')
 
         if (!('handle' in command)) {
             return `${usrCmd} doesn't have handle method!`
@@ -224,10 +225,17 @@ export default class Rin {
             }, '')
     }
 
-    static defaultReply(commandLists) {
-        const cmdListString = commandLists
-            .map(cmd => `\`${cmd.command}\` - ${cmd.description}`)
-            .join('\n')
+    static defaultReply(commandLists, tidy = false) {
+        let cmdListString
+
+        if (tidy) {
+            const data = commandLists.map(cmd => [cmd.command, cmd.description])
+            cmdListString = `\`\`\`${rata(data, ' - ')}\`\`\``
+        } else {
+            cmdListString = commandLists
+                .map(cmd => `\`${cmd.command}\` - ${cmd.description}`)
+                .join('\n')
+        }
 
         const header = '**Hello! I am Rin, you can use the following command:**'
         const footer = 'https://github.com/indmind/rin feel free to contribute!'

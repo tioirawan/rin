@@ -31,6 +31,7 @@
         "money": "^0.2.0",
         "node-sass": "^4.7.2",
         "prettyjson": "^1.2.1",
+        "rata": "0.0.1",
         "showdown": "^1.8.6",
         "simple-markdown": "^0.3.2",
         "telegraf": "^3.19.0",
