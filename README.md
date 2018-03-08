@@ -44,11 +44,15 @@ Install all dependencies using <a href="https://www.npmjs.com/">npm</a>
 
 add your token to `.env`
 
-`$ STATUS=debug npm start` 
+use cli.js (`process.arv`) as input
 
-it will use cli.js, so you don't need to use telegram or discord for debugging
+`$ STATUS=debug npm start calc 1 + 1`
 
 for discord or telegram set `TELEGRAM_TOKEN` or `DISCORD_TOKEN` in `.env`
+
+`$ npm run dev` auto reload (use telegram or discord based on given token)
+
+build and start `main.js` from build
 
 `$ npm start`
 
