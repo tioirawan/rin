@@ -11,7 +11,7 @@ export default class Scss {
         }
 
         this.VARIABLE = {
-            codeEmpty: 'empty code!'
+            codeEmpty: this.help
         }
     }
 
@@ -34,5 +34,21 @@ export default class Scss {
         } catch (err) {
             return err.message || JSON.stringify(err)
         }
+    }
+
+    get help() {
+        const header = '**Empty code!**'
+        const usage = '`rin scss <code>`'
+        const example = [
+            `\`\`\`rin scss $font-stack:    Helvetica, sans-serif;
+$primary-color: #333;
+body {
+    font: 100% $font-stack;
+    color: $primary-color;
+}\`\`\``
+        ].join('\n')
+        const footer = `https://sass-lang.com/`
+
+        return `${header}\nUsage: ${usage}\nExample:\n${example}\nSASS/SCSS: ${footer}`
     }
 }

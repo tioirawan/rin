@@ -11,7 +11,7 @@ export default class Babel {
         }
 
         this.VARIABLE = {
-            codeEmpty: 'empty code!'
+            codeEmpty: this.help
         }
     }
 
@@ -30,5 +30,22 @@ export default class Babel {
         } catch (err) {
             return err.message || JSON.stringify(err)
         }
+    }
+
+    get help() {
+        const header = '**Empty code!**'
+        const usage = '`rin babel <code>`'
+        const example = [
+            '`rin babel const a = 10; a = 1`,',
+            `\`\`\`rin babel class MyClass {
+    constructor(name) {
+        console.log("I am a MyClass object .. ", name);
+    }
+}
+            const myclass = new MyClass('1234')\`\`\``
+        ].join('\n')
+        const footer = `https://babeljs.io/`
+
+        return `${header}\nUsage: ${usage}\nExample:\n${example}\nBabel: ${footer}`
     }
 }

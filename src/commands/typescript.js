@@ -10,7 +10,7 @@ export default class Typescript {
         }
 
         this.VARIABLE = {
-            codeEmpty: 'empty code!',
+            codeEmpty: this.help,
             unknownEror: 'sorry, an unknown error occurred'
         }
     }
@@ -31,5 +31,16 @@ export default class Typescript {
         } catch (err) {
             return err.message || err
         }
+    }
+
+    get help() {
+        const header = '**Empty code!**'
+        const usage = '`rin typescript <code>`'
+        const example = [
+            '`rin typescript const a : string = "Hello World"`'
+        ].join('\n')
+        const footer = `https://www.typescriptlang.org/`
+
+        return `${header}\nUsage: ${usage}\nExample:\n${example}\nTypescript: ${footer}`
     }
 }

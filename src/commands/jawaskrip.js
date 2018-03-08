@@ -10,7 +10,7 @@ export default class Jawaskrip {
         }
 
         this.VARIABLE = {
-            codeEmpty: 'empty code!'
+            codeEmpty: this.help
         }
     }
 
@@ -26,5 +26,17 @@ export default class Jawaskrip {
         } catch (err) {
             return err.message || JSON.stringify(err)
         }
+    }
+
+    get help() {
+        const header = '**Empty code!**'
+        const usage = '`rin jawaskrip <code>`'
+        const example = [
+            '`rin jawaskrip tulis("Hello World")`,',
+            '`rin jawaskrip jika(benar) tulis("salah"))`'
+        ].join('\n')
+        const footer = `https://github.com/indmind/jawaskrip`
+
+        return `${header}\nUsage: ${usage}\nExample:\n${example}\nJawaskrip: ${footer}`
     }
 }
