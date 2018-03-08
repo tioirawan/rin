@@ -7,10 +7,12 @@ export default class Googl {
             command: 'googl',
             description: 'Create a shortened URL using https://goo.gl/',
             standarize: true,
-            required: {
-                value: process.env.GOOGL_API_KEY,
-                toBe: Rin.notEmpty
-            }
+            required: [
+                {
+                    value: process.env.GOOGL_API_KEY,
+                    toBe: Rin.notEmpty
+                }
+            ]
         }
 
         this.VARIABLE = {
