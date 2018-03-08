@@ -31,6 +31,7 @@
         "money": "^0.2.0",
         "node-sass": "^4.7.2",
         "prettyjson": "^1.2.1",
+        "showdown": "^1.8.6",
         "simple-markdown": "^0.3.2",
         "telegraf": "^3.18.0",
         "typescript-compiler": "^1.4.1",

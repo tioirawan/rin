@@ -111,10 +111,10 @@ export default class Eval {
         }
 
         if (data.Result) {
-            result += data.Result
+            result += Rin.code('', data.Result.toString().trim())
         }
 
-        result += `\n\`\`\`Stats: ${data.Stats || '-'}\`\`\``
+        result += `\nStats: ${data.Stats || '-'}`
 
         return result
     }

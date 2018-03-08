@@ -1,6 +1,7 @@
 import simpleMarkdown from 'simple-markdown'
 import logger from 'winston'
 import fs from 'fs'
+import showdown from 'showdown'
 
 import * as Commands from '../commands'
 
@@ -185,63 +186,17 @@ export default class Rin {
     }
 
     static mdToHtml(text) {
-        const mdParse = simpleMarkdown.defaultBlockParse
-        const newlineNode = { content: '\n', type: 'text' }
+        const noPs = {
+            type: 'output',
+            filter: text => text.replace(/<\/?p[^>]*>/gi, '')
+        }
 
-        const tagMap = new Proxy(
-            {
-                u: 'b',
-                strong: 'b',
-                em: 'em',
-                inlineCode: 'code',
-                codeBlock: 'pre'
-            },
-            {
-                get(target, prop) {
-                    const tags = {
-                        start: '',
-                        end: ''
-                    }
+        const converter = new showdown.Converter({
+            extensions: [noPs],
+            simplifiedAutoLink: true
+        })
 
-                    if (prop in target) {
-                        tags.start = `<${target[prop]}>`
-                        tags.end = `</${target[prop]}>`
-                    }
-
-                    return tags
-                }
-            }
-        )
-
-        const processedText = text
-            .replace(/&/g, '&amp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-
-        return mdParse(processedText)
-            .map(rootNode => {
-                let content = rootNode.content
-
-                if (rootNode.type !== 'paragraph') {
-                    content = rootNode
-                }
-
-                return content
-            })
-            .reduce(
-                (flattened, nodes) =>
-                    flattened.concat([newlineNode, newlineNode], nodes),
-                []
-            )
-            .slice(2)
-            .reduce((html, node) => {
-                const tags = tagMap[node.type]
-
-                return (
-                    html +
-                    `${tags.start}${Rin.extractText(node) || ''}${tags.end}`
-                )
-            }, '')
+        return converter.makeHtml(text)
     }
 
     static removeMarkdown(markdown) {
