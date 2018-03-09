@@ -48,8 +48,6 @@ export default class Snap {
             telegramImageErr:
                 'Sorry, the image is too big or has invalid dimension'
         }
-
-        this.IMAGEPATH = __dirname + '/../../images/'
     }
 
     async handle(command, { vendor, ctx, client }) {
@@ -57,8 +55,9 @@ export default class Snap {
 
         if (Rin.isEmpty(url)) return this.VARIABLE.emptyURL
 
+        // telegram only for now (disabled all vendor)
         const filename = `${ctx.from.id}-${url.split('.')[0]}.jpg`
-        const saveloc = `${this.IMAGEPATH}${filename}`
+        const saveloc = Rin.tempPath(filename)
 
         const urlIsReachable = await reachable(url)
 

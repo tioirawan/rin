@@ -2,11 +2,15 @@ import simpleMarkdown from 'simple-markdown'
 import logger from 'winston'
 import fs from 'fs'
 import showdown from 'showdown'
+import path from 'path'
 import rata from 'rata'
 
 import * as Commands from '../commands'
 
 const env = process.env.NODE_ENV || 'development'
+
+const maxAllowedLength = 2000
+const tempPath = __dirname + '/../../temp/'
 
 logger.remove(logger.transports.Console)
 logger.add(logger.transports.Console, {
@@ -172,6 +176,10 @@ export default class Rin {
         return result
     }
 
+    static get maxAllowedLength() {
+        return maxAllowedLength
+    }
+
     static get availableCommand() {
         return Object.keys(Commands)
     }
@@ -245,6 +253,10 @@ export default class Rin {
 
     static get log() {
         return logger
+    }
+
+    static tempPath(sub = '') {
+        return path.join(tempPath, sub)
     }
 
     static standarize(text) {
