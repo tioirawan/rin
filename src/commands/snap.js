@@ -56,7 +56,7 @@ export default class Snap {
 
         if (Rin.isEmpty(url)) return this.VARIABLE.emptyURL
 
-        const filename = `${ctx.from.id}-${url.replace(/\.|\//g, '-')}.png`
+        const filename = `${ctx.from.id}-${url.split('.')[0]}.jpg`
         const saveloc = `${this.IMAGEPATH}${filename}`
 
         const urlIsReachable = await reachable(url)
@@ -135,7 +135,8 @@ export default class Snap {
                     'ignore-ssl-errors': true,
                     'local-to-remote-url-access': true,
                     'ssl-protocol': 'any'
-                }
+                },
+                streamType: 'jpg'
             }
 
             for (let m of mode) {
