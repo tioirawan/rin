@@ -9,7 +9,8 @@ export default class Snap {
         this.INFO = {
             command: 'snap',
             description: 'screenshoot a web',
-            standarize: true
+            standarize: true,
+            for: 'disabled'
         }
 
         this.MODES = {
