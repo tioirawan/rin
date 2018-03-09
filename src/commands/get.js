@@ -96,6 +96,8 @@ export default class Get {
                 Rin.log.error(error)
             }
         }
+
+        return fs.unlinkSync(saveloc)
     }
 
     get help() {
