@@ -112,7 +112,10 @@ export default class Rin {
             return `${usrCmd} doesn't have handle method!`
         }
 
-        Object.assign(data, { vendor: this.vendor, client: this.client })
+        Object.assign(data, {
+            vendor: this.vendor,
+            client: this.client
+        })
 
         const input = argument.slice(1).join(' ')
 
@@ -210,7 +213,10 @@ export default class Rin {
 
     static removeMarkdown(markdown) {
         const mdParse = simpleMarkdown.defaultBlockParse
-        const newlineNode = { content: '\n', type: 'text' }
+        const newlineNode = {
+            content: '\n',
+            type: 'text'
+        }
 
         return mdParse(markdown)
             .map(rootNode => {

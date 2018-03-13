@@ -6,6 +6,7 @@
     "scripts": {
         "build": "rm lib/ -rf && ./node_modules/.bin/babel src -d lib",
         "dev": "./node_modules/.bin/babel-watch src/main.js",
+        "cli": "STATUS=debug npm start",
         "main": "node lib/main.js",
         "start": "npm run build && npm run main",
         "lint": "./node_modules/.bin/eslint --fix .",

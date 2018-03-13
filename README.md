@@ -17,14 +17,17 @@
     <a href="https://nodejs.org/en/download/releases/">
       <img src="https://img.shields.io/node/v/passport.svg" alt="Node Version">
     </a>
-    <a href="https://david-dm.org/indmind/rin" title="dependencies status">
+    <a href="https://david-dm.org/indmind/rin">
         <img src="https://david-dm.org/indmind/rin/status.svg" alt="Dependencies Status"/>
     </a>
-    <a href="https://github.com/prettier/prettier" title="dependencies status">
+    <a href="https://github.com/prettier/prettier">
         <img src="https://img.shields.io/badge/styled_with-prettier-ff69b4.svg" alt="Styled With Prettier"/>
     </a>
-    <a href="http://makeapullrequest.com" title="dependencies status">
+    <a href="http://makeapullrequest.com">
         <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs Welcome"/>
+    </a>
+    <a href="https://github.com/facebook/jest">
+        <img src="https://img.shields.io/badge/tested_with-jest-99424f.svg" alt="Tested with Jest">
     </a>
 </p>
 
