@@ -29,6 +29,9 @@
     <a href="https://github.com/facebook/jest">
         <img src="https://img.shields.io/badge/tested_with-jest-99424f.svg" alt="Tested with Jest">
     </a>
+    <a href="https://codeclimate.com/github/indmind/rin/maintainability">
+        <img src="https://api.codeclimate.com/v1/badges/b9c687b0fcce23320373/maintainability" alt="Maintainability">
+    </a>
 </p>
 
 <h2>Installation</h2>
