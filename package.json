@@ -7,11 +7,11 @@
         "build": "rm lib/ -rf && ./node_modules/.bin/babel src -d lib",
         "dev": "./node_modules/.bin/babel-watch src/main.js",
         "cli": "STATUS=debug npm start",
-        "main": "node lib/main.js",
-        "start": "npm run build && npm run main",
+        "start": "node lib/main.js",
         "lint": "./node_modules/.bin/eslint --fix .",
         "coala": "coala -n",
-        "test": "jest"
+        "test": "jest",
+        "heroku-postbuild": "npm run build"
     },
     "author": "indmind",
     "license": "MIT",

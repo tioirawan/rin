@@ -2,7 +2,9 @@ import Telegraf, { Extra } from 'telegraf'
 
 import Rin from '../core/rin'
 
-const app = new Telegraf(process.env.TELEGRAM_TOKEN)
+const token = process.env.TELEGRAM_TOKEN
+
+const app = new Telegraf(token)
 const rin = new Rin('telegram', app)
 
 rin.init()
@@ -69,7 +71,14 @@ app.on('text', async ctx => {
 
 app.catch(sendLogError)
 
-app.startPolling()
+if (process.env.HEROKU) {
+    const url = process.env.URL || 'https://rincloud.herokuapp.com'
+
+    app.telegram.setWebhook(`${url}/bot${token}`)
+    app.startWebhook(`/bot${token}`, null, process.env.PORT)
+} else {
+    app.startPolling()
+}
 
 function sendLogError(err, chatInfo = '') {
     Rin.sendLogError(app, err, chatInfo)
