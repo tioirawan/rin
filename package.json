@@ -73,7 +73,8 @@
         "view": "view"
     },
     "keywords": [
+        "bot",
         "discord",
-        "bot"
+        "telegram"
     ]
 }
