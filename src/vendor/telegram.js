@@ -85,7 +85,7 @@ app.catch(sendLogError)
 
 if (process.env.HEROKU) {
     expressApp.get('/', (req, res) => {
-        res.sendFile(path.resolve(__dirname, '/../../view/index.html'))
+        res.sendFile(path.resolve(__dirname, '../../view/index.html'))
     })
 
     expressApp.listen(port, () => Rin.log.info('Server running on port:', port))

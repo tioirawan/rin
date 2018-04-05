@@ -3,6 +3,9 @@
     "version": "0.0.3",
     "description": "simple multi purpose bot",
     "main": "lib/main.js",
+    "engines": {
+        "npm": "5.7.1"
+    },
     "scripts": {
         "build": "rm lib/ -rf && ./node_modules/.bin/babel src -d lib",
         "dev": "./node_modules/.bin/babel-watch src/main.js",
