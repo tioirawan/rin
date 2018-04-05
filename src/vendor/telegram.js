@@ -1,4 +1,5 @@
 import Telegraf, { Extra } from 'telegraf'
+import express from 'express'
 
 import Rin from '../core/rin'
 
@@ -6,6 +7,8 @@ const token = process.env.TELEGRAM_TOKEN
 
 const app = new Telegraf(token)
 const rin = new Rin('telegram', app)
+
+const expressApp = express()
 
 rin.init()
 
@@ -73,9 +76,17 @@ app.catch(sendLogError)
 
 if (process.env.HEROKU) {
     const url = process.env.URL || 'https://rincloud.herokuapp.com'
+    const port = process.env.PORT
 
     app.telegram.setWebhook(`${url}/bot${token}`)
-    app.startWebhook(`/bot${token}`, null, process.env.PORT)
+
+    expressApp.use(app.webhookCallback(`/bot${token}`))
+
+    expressApp.get('/', (req, res) => {
+        res.sendFile(__dirname + '/../../view/index.html')
+    })
+
+    expressApp.listen(port, () => Rin.log.info('Server running on port:', port))
 } else {
     app.startPolling()
 }

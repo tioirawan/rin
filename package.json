@@ -25,6 +25,7 @@
         "currency-formatter": "^1.4.2",
         "discord.js": "^11.3.2",
         "dotenv": "^5.0.1",
+        "express": "^4.16.3",
         "figlet": "^1.2.0",
         "goo.gl": "^0.1.4",
         "google-translate-api": "^2.3.0",
