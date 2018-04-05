@@ -14,12 +14,20 @@ before_install:
   - nvm install
   - if [[ `npm -v` != 5.7* ]]; then npm i -g npm@5.7; fi
 
-install: npm ci
+install:
+  - npm install -g codecov
+  - npm ci
 
 script:
   - coala --non-interactive
   - npm run build
   - npm test
+
+after_success:
+  - codecov
+
+after_failure:
+  - codecov
 
 deploy:
   provider: heroku
