@@ -13,6 +13,10 @@
         "test": "jest",
         "heroku-postbuild": "npm run build"
     },
+    "jest": {
+        "coverageDirectory": "./coverage/",
+        "collectCoverage": true
+    },
     "author": "indmind",
     "license": "MIT",
     "dependencies": {

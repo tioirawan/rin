@@ -32,6 +32,9 @@
     <a href="https://codeclimate.com/github/indmind/rin/maintainability">
         <img src="https://api.codeclimate.com/v1/badges/b9c687b0fcce23320373/maintainability" alt="Maintainability">
     </a>
+    <a href="https://codecov.io/github/indmind/rin?branch=master">
+        <img src="https://img.shields.io/codecov/c/github/indmind/rin/master.svg" alt="Coverage">
+    </a>
 </p>
 
 <h2>Installation</h2>
