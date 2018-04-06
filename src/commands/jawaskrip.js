@@ -24,7 +24,7 @@ export default class Jawaskrip {
 
             return Rin.code('js', result)
         } catch (err) {
-            return err.message || JSON.stringify(err)
+            return err
         }
     }
 

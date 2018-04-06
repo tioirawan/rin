@@ -12,4 +12,12 @@ describe('command.calc', () => {
         expect(division).toEqual(expect.stringMatching(/209.33333333333334/))
         expect(something).toEqual(expect.stringMatching(/1000090.845154514/))
     })
+
+    it('should correctly handle error', async () => {
+        const emptyTest = await calc.handle([''])
+        const errorTest = await calc.handle(['1 ditambah 2'])
+
+        expect(emptyTest).toBe(calc.VARIABLE.emptyExpression)
+        expect(errorTest).toBe('Undefined symbol ditambah')
+    })
 })

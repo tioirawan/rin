@@ -21,7 +21,17 @@ describe('command.babel', () => {
             }`
         ])
 
-        expect(typeof result).toBe('string')
+        const emptyRes = await babel.handle([``])
+
         expect(result).toBe(expected)
+        expect(emptyRes).toBeTruthy()
+    })
+
+    it('should correctly handle the error', async () => {
+        const test_1 = await babel.handle(['consts a = "10"'])
+        const test_2 = await babel.handle(['[1,2,3].map(n => n + 1});'])
+
+        expect(test_1).toBe('unknown: Unexpected token, expected ; (1:7)')
+        expect(test_2).toBe('unknown: Unexpected token, expected , (1:22)')
     })
 })

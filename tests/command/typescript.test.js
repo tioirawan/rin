@@ -31,4 +31,15 @@ describe('command.typescript', () => {
         expect(typeof result).toBe('string')
         expect(result).toBe(expected)
     })
+
+    it('should correctly handle error', async () => {
+        const emptyCode = await typescript.handle([''])
+        const error = await typescript.handle(['const age : number = "16"'])
+
+        expect(emptyCode).toBe(typescript.VARIABLE.codeEmpty)
+        expect(error).toBe(
+            `string.ts(1,7): error TS2322: ` +
+                `Type 'string' is not assignable to type 'number'.\n`
+        )
+    })
 })

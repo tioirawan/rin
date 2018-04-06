@@ -8,4 +8,12 @@ describe('command.quote', () => {
 
         expect(result).toBeDefined()
     })
+
+    it('should correctly handle the error', async () => {
+        quote.VARIABLE.url = 'http://make.me.error' // to make it error :)
+
+        const result = await quote.handle()
+
+        expect(result).toBeTruthy()
+    })
 })

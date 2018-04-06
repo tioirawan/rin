@@ -32,7 +32,7 @@ export default class Scss {
 
             return Rin.code('css', result)
         } catch (err) {
-            return err.message || JSON.stringify(err)
+            return err.message
         }
     }
 
