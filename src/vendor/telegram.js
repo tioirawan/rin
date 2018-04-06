@@ -43,9 +43,9 @@ app.on('text', async ctx => {
 
     const prefix = process.env.TELEGRAM_PREFIX
 
-    if (Rin.isEmpty(prefix)) throw new Error('Set TELEGRAM_PREFIX in .env')
-
-    if (!(message[0].toLocaleLowerCase() === prefix)) return
+    if (Rin.notEmpty(prefix) && !(message[0].toLocaleLowerCase() === prefix)) {
+        return
+    }
 
     const chatInfo = `${userName}(${ctx.message.from.id}): ${Rin.standarize(
         message.join(' ')
@@ -58,12 +58,19 @@ app.on('text', async ctx => {
     let response
 
     try {
-        response = await rin.handle(message.slice(1).join(' '), { ctx })
+        response = await rin.handle(
+            Rin.isEmpty(prefix)
+                ? message.join(' ')
+                : message.slice(1).join(' '),
+            { ctx }
+        )
+
+        response = Rin.notEmpty(response)
+            ? response
+            : 'Sorry, something went wrong'
     } catch (err) {
         sendLogError(err, chatInfo)
     }
-
-    if (!response) return
 
     let result
 
