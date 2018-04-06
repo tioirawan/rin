@@ -62,7 +62,7 @@
         "babel-watch": "^2.0.7",
         "eslint": "^4.18.2",
         "eslint-config-prettier": "^2.9.0",
-        "eslint-plugin-import": "^2.9.0",
+        "eslint-plugin-import": "^2.10.0",
         "eslint-plugin-jest": "^21.13.0",
         "eslint-plugin-prettier": "^2.6.0",
         "jest": "^22.4.2",
