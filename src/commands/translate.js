@@ -26,7 +26,7 @@ export default class Translate {
         return await this.translate(text, command[0], command[1])
     }
 
-    async translate(text, from = 'auto', to = 'en') {
+    async translate(text, from, to) {
         try {
             const result = await translate(text, { from, to })
 
@@ -56,7 +56,7 @@ export default class Translate {
         }
 
         if (text.autoCorrected && !language.didYouMean) {
-            result + '\n\n'
+            result += '\n\n'
         }
 
         result += `${data.text}`

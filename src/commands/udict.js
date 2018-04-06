@@ -39,7 +39,7 @@ export default class Udict {
 
             return this.compose(result)
         } catch (err) {
-            return err.message || JSON.stringify(err)
+            return err
         }
     }
 
@@ -53,7 +53,7 @@ export default class Udict {
         try {
             response = await this.id(id)
         } catch (err) {
-            return err.message || JSON.stringify(err)
+            return err
         }
 
         return this.compose(response.entry)
@@ -71,7 +71,7 @@ export default class Udict {
         try {
             response = await this.term(term)
         } catch (err) {
-            return err.message || JSON.stringify(err)
+            return err
         }
 
         const entriesLength = response.entries.length

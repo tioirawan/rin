@@ -24,4 +24,19 @@ describe('command.scss', () => {
         expect(typeof result).toBe('string')
         expect(result).toBe(expected)
     })
+
+    it('should correctly handle the error', async () => {
+        const emptyTest = await scss.handle([''])
+        const errorTest = await scss.handle([
+            `
+            $primary-color: #333;
+            body {
+                color: $primary-colors;
+            }
+            `
+        ])
+
+        expect(emptyTest).toBe(scss.VARIABLE.codeEmpty)
+        expect(errorTest).toBe('Undefined variable: "$primary-colors".')
+    })
 })

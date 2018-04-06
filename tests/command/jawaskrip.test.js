@@ -19,4 +19,14 @@ describe('command.jw', () => {
         expect(typeof result).toBe('string')
         expect(result).toBe(expected)
     })
+
+    it('should correctly handle the error', async () => {
+        const emptyTest = await jw.handle([''])
+        const errorTest = await jw.handle(['var something = "i love this'])
+
+        expect(emptyTest).toBe(jw.VARIABLE.codeEmpty)
+        expect(errorTest).toBe(
+            'Error: undefined (1):\nTanda Kutip Tidak Terselesaikan'
+        )
+    })
 })

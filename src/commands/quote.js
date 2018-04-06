@@ -24,7 +24,7 @@ export default class Quote {
 
             return `_${response.data.quote}_ - **${response.data.author}**`
         } catch (err) {
-            return err.message || JSON.stringify(err)
+            return err.message
         }
     }
 }
