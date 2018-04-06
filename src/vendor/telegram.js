@@ -92,6 +92,7 @@ app.catch(sendLogError)
 
 if (process.env.HEROKU) {
     expressApp.get('/', (req, res) => {
+        Rin.log.info('Someone visiting web interface!')
         res.sendFile(path.resolve(__dirname, '../../view/index.html'))
     })
 
