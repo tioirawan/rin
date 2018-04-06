@@ -38,7 +38,7 @@
         "is-json": "^2.0.1",
         "is-reachable": "^2.4.0",
         "jawaskrip": "^0.3.4",
-        "mathjs": "^3.20.2",
+        "mathjs": "^4.0.1",
         "moment": "^2.22.0",
         "money": "^0.2.0",
         "node-sass": "^4.7.2",
