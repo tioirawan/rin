@@ -1,4 +1,4 @@
-import Rin from '../core/rin'
+import Rin, { log } from '../core/rin'
 
 !(async () => {
     const argv = process.argv.slice(2).join(' ')
@@ -6,5 +6,5 @@ import Rin from '../core/rin'
 
     await rin.init()
 
-    Rin.log.info(await rin.handle(argv))
+    log.info(await rin.handle(argv))
 })()

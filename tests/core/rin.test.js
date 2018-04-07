@@ -1,36 +1,27 @@
-import Rin from '../../src/core/rin'
-import fs from 'fs'
+import Rin, * as Helper from '../../src/core/rin'
 
 describe('core.rin', () => {
-    it('should correctly standarize a text', () => {
-        const text = ' foo      bar BaZ bar    foo      '
-        const standarized = Rin.standarize(text)
-
-        expect(standarized).toBe('foo bar baz bar foo')
+    it('should correctly import Rin class', () => {
+        expect(Rin).toBeDefined()
     })
 
-    it('should correctly convert markdown to telegram html', () => {
-        const expected = fs.readFileSync(
-            __dirname + '/../__data__/rin_mdtohtml.txt',
-            'utf8'
-        )
-
-        const markdown =
-            '__foo__ _baz_ bar_foo baz*bar **bar** ```foo bar(){return baz}``` `$ foo bar baz`'
-
-        const html = Rin.mdToHtml(markdown)
-
-        expect(html).toBe(expected)
-    })
-
-    it('should correctly strip markdown', () => {
-        const markdown =
-            '__foo__ _baz_ bar_foo baz*bar **bar** ```foo bar(){return baz}``` `$ foo bar baz`'
-
-        const text = Rin.removeMarkdown(markdown)
-
-        expect(text).toBe(
-            'foo baz bar_foo baz*bar bar foo bar(){return baz} $ foo bar baz'
-        )
+    it('should correctly import All Helper', () => {
+        expect(Helper).toBeDefined()
+        expect(Helper.code).toBeDefined()
+        expect(Helper.XOR).toBeDefined()
+        expect(Helper.standarize).toBeDefined()
+        expect(Helper.sendLogError).toBeDefined()
+        expect(Helper.notEmpty).toBeDefined()
+        expect(Helper.isEmpty).toBeDefined()
+        expect(Helper.getTempPath).toBeDefined()
+        expect(Helper.getMaxAllowedLength).toBeDefined()
+        expect(Helper.getFileSize).toBeDefined()
+        expect(Helper.getChatInfo).toBeDefined()
+        expect(Helper.getAvailableCommand).toBeDefined()
+        expect(Helper.extractText).toBeDefined()
+        expect(Helper.defaultReply).toBeDefined()
+        expect(Helper.mdToHtml).toBeDefined()
+        expect(Helper.removeMarkdown).toBeDefined()
+        expect(Helper.sendLogError).toBeDefined()
     })
 })

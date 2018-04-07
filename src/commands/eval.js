@@ -1,5 +1,6 @@
-import Rin from '../core/rin'
 import axios from 'axios'
+
+import { isEmpty, code } from '../core/rin'
 
 export default class Eval {
     constructor() {
@@ -65,7 +66,7 @@ export default class Eval {
         const language = command[0]
         const code = command.slice(1).join(' ')
 
-        if (Rin.isEmpty(code)) return this.VARIABLE.codeEmpty
+        if (isEmpty(code)) return this.VARIABLE.codeEmpty
 
         const langs = this.LANGS
 
@@ -111,7 +112,7 @@ export default class Eval {
         }
 
         if (data.Result) {
-            result += Rin.code('', data.Result.toString().trim())
+            result += code('', data.Result.toString().trim())
         }
 
         result += `\n**Stats: ${data.Stats || '-'}**`

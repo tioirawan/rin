@@ -2,7 +2,14 @@ import fs from 'fs'
 import webshot from 'webshot'
 import reachable from 'is-reachable'
 
-import Rin from '../core/rin'
+import {
+    log,
+    isEmpty,
+    getTempPath,
+    getFileSize,
+    sendLogError,
+    getChatInfo
+} from '../core/rin'
 
 export default class Snap {
     constructor() {
@@ -53,11 +60,11 @@ export default class Snap {
     async handle(command, { vendor, ctx, client }) {
         const url = encodeURI(command[0])
 
-        if (Rin.isEmpty(url)) return this.VARIABLE.emptyURL
+        if (isEmpty(url)) return this.VARIABLE.emptyURL
 
         // telegram only for now (disabled all vendor)
         const filename = `${ctx.from.id}-${url.split('.')[0]}.jpg`
-        const saveloc = Rin.tempPath(filename)
+        const saveloc = getTempPath(filename)
 
         const urlIsReachable = await reachable(url)
 
@@ -70,15 +77,15 @@ export default class Snap {
                 JSON.stringify(err)}`
         }
 
-        const fileSize = Rin.getFileSize(saveloc)
+        const fileSize = getFileSize(saveloc)
 
-        Rin.log.info('File size:', fileSize)
+        log.info('File size:', fileSize)
 
         if (vendor == 'telegram') {
             try {
                 await ctx.replyWithChatAction('upload_photo')
             } catch (err) {
-                Rin.sendLogError(client, err, Rin.getChatInfo(vendor, ctx))
+                sendLogError(client, err, getChatInfo(vendor, ctx))
             }
 
             try {
@@ -111,7 +118,7 @@ export default class Snap {
 
                 await ctx.channel.send(error)
 
-                Rin.log.error(error)
+                log.error(error)
             }
         }
 

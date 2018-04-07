@@ -1,6 +1,7 @@
-import Rin from '../core/rin'
 import { transform } from 'babel-core'
 import preset from 'babel-preset-env'
+
+import { isEmpty, code as markCode } from '../core/rin'
 
 export default class Babel {
     constructor() {
@@ -18,7 +19,7 @@ export default class Babel {
     async handle(command) {
         const es6 = command.join(' ').trim()
 
-        if (Rin.isEmpty(es6)) return this.VARIABLE.codeEmpty
+        if (isEmpty(es6)) return this.VARIABLE.codeEmpty
 
         try {
             const { code } = transform(es6, {
@@ -26,7 +27,7 @@ export default class Babel {
                 babelrc: false
             })
 
-            return Rin.code('js', code)
+            return markCode('js', code)
         } catch (err) {
             return err.message
         }

@@ -1,5 +1,6 @@
-import Rin from '../core/rin'
 import figlet from 'figlet'
+
+import { isEmpty, code } from '../core/rin'
 
 export default class Figlet {
     constructor() {
@@ -18,12 +19,12 @@ export default class Figlet {
     async handle(command) {
         const text = command.join(' ')
 
-        if (Rin.isEmpty(text)) return this.VARIABLE.textEmpty
+        if (isEmpty(text)) return this.VARIABLE.textEmpty
 
         try {
             const ascii = figlet.textSync(text)
 
-            return Rin.code('', ascii)
+            return code('', ascii)
         } catch (err) {
             return err.message || JSON.stringify(err)
         }

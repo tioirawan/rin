@@ -1,5 +1,6 @@
-import Rin from '../core/rin'
 import jawaskrip from 'jawaskrip'
+
+import { isEmpty, code as markCode } from '../core/rin'
 
 export default class Jawaskrip {
     constructor() {
@@ -17,12 +18,12 @@ export default class Jawaskrip {
     async handle(command) {
         const code = command.join(' ')
 
-        if (Rin.isEmpty(code)) return this.VARIABLE.codeEmpty
+        if (isEmpty(code)) return this.VARIABLE.codeEmpty
 
         try {
             const result = await jawaskrip.compile(code)
 
-            return Rin.code('js', result)
+            return markCode('js', result)
         } catch (err) {
             return err
         }
