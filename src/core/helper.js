@@ -126,7 +126,7 @@ export function code(type, text) {
 }
 
 export function XOR(a, b) {
-    return (a && !b) || (!a && b)
+    return a ? !b : b
 }
 
 export function getFileSize(filePath) {
