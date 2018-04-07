@@ -76,7 +76,7 @@ describe('core.rin', () => {
         )
 
         expect(Helper.getTempPath()).toBe(
-            path.resolve(__dirname + '../../../temp')
+            path.resolve(__dirname + '../../../temp') + '/'
         )
     })
 
