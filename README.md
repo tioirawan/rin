@@ -35,6 +35,9 @@
     <a href="https://codecov.io/github/indmind/rin?branch=master">
         <img src="https://img.shields.io/codecov/c/github/indmind/rin/master.svg" alt="Coverage">
     </a>
+    <a href="https://app.codacy.com/app/sattanationmail/rin?utm_source=github.com&utm_medium=referral&utm_content=indmind/rin&utm_campaign=badger">
+        <img src="https://api.codacy.com/project/badge/Grade/a6779ac9f90440e48ee80734eca85217" alt="Codacy">
+    </a>
 </p>
 
 <h2>Installation</h2>
