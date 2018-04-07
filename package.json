@@ -45,7 +45,7 @@
         "prettyjson": "^1.2.1",
         "rata": "0.0.1",
         "showdown": "^1.8.6",
-        "simple-markdown": "^0.3.2",
+        "simple-markdown": "^0.3.3",
         "telegraf": "^3.20.0",
         "typescript-compiler": "^1.4.1",
         "urban-dictionary": "^1.0.6",
