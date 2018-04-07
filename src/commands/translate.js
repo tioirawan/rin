@@ -1,5 +1,6 @@
-import Rin from '../core/rin'
 import translate from 'google-translate-api'
+
+import { isEmpty } from '../core/rin'
 
 export default class Translate {
     constructor() {
@@ -21,7 +22,7 @@ export default class Translate {
 
         const text = command.slice(2).join(' ')
 
-        if (Rin.isEmpty(text)) return this.VARIABLE.emptyText
+        if (isEmpty(text)) return this.VARIABLE.emptyText
 
         return await this.translate(text, command[0], command[1])
     }

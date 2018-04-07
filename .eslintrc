@@ -10,7 +10,6 @@
     ],
     "extends": [
         "plugin:jest/recommended",
-        "eslint:recommended",
         "prettier"
     ],
     "parser": "babel-eslint",

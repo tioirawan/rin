@@ -1,5 +1,6 @@
-import Rin from '../core/rin'
 import math from 'mathjs'
+
+import { isEmpty } from '../core/rin'
 
 export default class Calc {
     constructor() {
@@ -21,7 +22,7 @@ export default class Calc {
     async handle(command) {
         const expression = command.join(' ').replace(/['"]+/g, '')
 
-        if (Rin.isEmpty(expression)) return this.VARIABLE.emptyExpression
+        if (isEmpty(expression)) return this.VARIABLE.emptyExpression
 
         try {
             const result = await this.limitedEval(expression).toString()

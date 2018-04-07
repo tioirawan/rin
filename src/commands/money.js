@@ -1,9 +1,9 @@
-import Rin from '../core/rin'
-
 import fx from 'money'
 import axios from 'axios'
 import moment from 'moment'
 import cf from 'currency-formatter'
+
+import { notEmpty, log } from '../core/rin'
 
 export default class Money {
     constructor() {
@@ -14,7 +14,7 @@ export default class Money {
             required: [
                 {
                     value: process.env.OPEN_EXCHANGE_APP_ID,
-                    toBe: Rin.notEmpty
+                    toBe: notEmpty
                 }
             ]
         }
@@ -35,7 +35,7 @@ export default class Money {
         try {
             await this.fetchRates()
         } catch (err) {
-            Rin.log.error(err.message || JSON.stringify(err))
+            log.error(err.message || JSON.stringify(err))
         }
     }
 
@@ -89,7 +89,7 @@ export default class Money {
     }
 
     async fetchRates() {
-        Rin.log.info('Fetching Open Exchange Rates')
+        log.info('Fetching Open Exchange Rates')
 
         const response = await axios.get(this.VARIABLE.openExchangeBase, {
             params: {

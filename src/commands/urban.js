@@ -1,10 +1,11 @@
-import Rin from '../core/rin'
 import ud from 'urban-dictionary'
 
-export default class Udict {
+import { isEmpty } from '../core/rin'
+
+export default class Urban {
     constructor() {
         this.INFO = {
-            command: 'udict',
+            command: 'urban',
             description: 'search urban dictionary',
             standarize: true
         }
@@ -46,7 +47,7 @@ export default class Udict {
     async searchID(command) {
         const id = command[1]
 
-        if (Rin.isEmpty(id)) return this.VARIABLE.emptyID
+        if (isEmpty(id)) return this.VARIABLE.emptyID
 
         let response
 
@@ -64,7 +65,7 @@ export default class Udict {
         const fixedCommand = commandQuery.match(/[^" ]+|("[^"]*")/g) || ['']
         const term = fixedCommand[0].replace(/['"]+/g, '')
 
-        if (Rin.isEmpty(term)) return this.VARIABLE.emptyTerm
+        if (isEmpty(term)) return this.VARIABLE.emptyTerm
 
         let response
 

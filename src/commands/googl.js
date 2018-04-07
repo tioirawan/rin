@@ -1,5 +1,6 @@
-import Rin from '../core/rin'
 import googl from 'goo.gl'
+
+import { notEmpty, isEmpty } from '../core/rin'
 
 export default class Googl {
     constructor() {
@@ -10,7 +11,7 @@ export default class Googl {
             required: [
                 {
                     value: process.env.GOOGL_API_KEY,
-                    toBe: Rin.notEmpty
+                    toBe: notEmpty
                 }
             ]
         }
@@ -27,7 +28,7 @@ export default class Googl {
     async handle(command) {
         const url = command[0]
 
-        if (Rin.isEmpty(url)) return this.VARIABLE.emptyURL
+        if (isEmpty(url)) return this.VARIABLE.emptyURL
 
         try {
             return await googl.shorten(url)

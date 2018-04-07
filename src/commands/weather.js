@@ -1,8 +1,8 @@
-import Rin from '../core/rin'
-
 import pretty from 'prettyjson'
 import axios from 'axios'
 import moment from 'moment'
+
+import { isEmpty, notEmpty, code } from '../core/rin'
 
 export default class Weather {
     constructor() {
@@ -13,7 +13,7 @@ export default class Weather {
             required: [
                 {
                     value: process.env.OPEN_WEATHER_APPID,
-                    toBe: Rin.notEmpty
+                    toBe: notEmpty
                 }
             ]
         }
@@ -34,7 +34,7 @@ export default class Weather {
     async handle(command, { vendor }) {
         const location = command.join(' ')
 
-        if (Rin.isEmpty(location)) return this.VARIABLE.emptyLocation
+        if (isEmpty(location)) return this.VARIABLE.emptyLocation
 
         let response
 
@@ -44,13 +44,11 @@ export default class Weather {
             return err.message || pretty.render(err, this.PRETTYOPT)
         }
 
-        if (Rin.notEmpty(response.cod)) return response.message
+        if (notEmpty(response.cod)) return response.message
 
         const result = await this.compose(response, vendor)
 
-        return vendor == 'telegram'
-            ? { result, raw: true }
-            : Rin.code('', result)
+        return vendor == 'telegram' ? { result, raw: true } : code('', result)
     }
 
     async fetchWeather(location) {

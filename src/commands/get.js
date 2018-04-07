@@ -1,8 +1,18 @@
-import Rin from '../core/rin'
 import axios from 'axios'
 import isJson from 'is-json'
 import fs from 'fs'
+
 import { parse } from 'url'
+
+import {
+    log,
+    isEmpty,
+    getMaxAllowedLength,
+    code,
+    getTempPath,
+    sendLogError,
+    getChatInfo
+} from '../core/rin'
 
 export default class Get {
     constructor() {
@@ -22,7 +32,7 @@ export default class Get {
     async handle(command, { vendor, ctx, client }) {
         const url = encodeURI(command[0])
 
-        if (Rin.isEmpty(url)) return this.VARIABLE.emptyURL
+        if (isEmpty(url)) return this.VARIABLE.emptyURL
 
         const params = command.slice(1).join(' ')
 
@@ -52,11 +62,11 @@ export default class Get {
                 ? JSON.stringify(response, null, 2)
                 : response
 
-        if (result.length < Rin.maxAllowedLength) {
-            return isJson(result) ? Rin.code('json', result) : result
+        if (result.length < getMaxAllowedLength()) {
+            return isJson(result) ? code('json', result) : result
         }
 
-        const saveloc = Rin.tempPath(
+        const saveloc = getTempPath(
             parse(url).host + (isJson(result) ? '.json' : '.txt')
         )
 
@@ -66,7 +76,7 @@ export default class Get {
             try {
                 await ctx.replyWithChatAction('upload_document')
             } catch (err) {
-                Rin.sendLogError(client, err, Rin.getChatInfo(vendor, ctx))
+                sendLogError(client, err, getChatInfo(vendor, ctx))
             }
 
             try {
@@ -80,7 +90,7 @@ export default class Get {
                     }
                 )
             } catch (err) {
-                Rin.sendLogError(client, err, Rin.getChatInfo(vendor, ctx))
+                sendLogError(client, err, getChatInfo(vendor, ctx))
                 ctx.reply(this.VARIABLE.error)
             }
         } else if (vendor == 'discord') {
@@ -93,7 +103,7 @@ export default class Get {
 
                 await ctx.channel.send(error)
 
-                Rin.log.error(error)
+                log.error(error)
             }
         }
 

@@ -1,6 +1,6 @@
 import Discord from 'discord.js'
 
-import Rin from '../core/rin'
+import Rin, { log, standarize } from '../core/rin'
 
 const client = new Discord.Client()
 const rin = new Rin('discord', client)
@@ -8,7 +8,7 @@ const rin = new Rin('discord', client)
 rin.init()
 
 client.on('ready', () => {
-    Rin.log.info(`Logged in as ${client.user.tag}!`)
+    log.info(`Logged in as ${client.user.tag}!`)
 
     client.user.setPresence({
         status: 'online',
@@ -25,9 +25,7 @@ client.on('message', async ctx => {
 
     ctx.channel.startTyping()
 
-    Rin.log.info(
-        `[DISCORD]${username}(${ctx.author.id}): ${Rin.standarize(message)}`
-    )
+    log.info(`[DISCORD]${username}(${ctx.author.id}): ${standarize(message)}`)
 
     const subcmd = args.slice(1).join(' ')
 

@@ -2,7 +2,14 @@ import Telegraf, { Extra } from 'telegraf'
 import express from 'express'
 import path from 'path'
 
-import Rin from '../core/rin'
+import Rin, {
+    log,
+    isEmpty,
+    notEmpty,
+    standarize,
+    sendLogError,
+    mdToHtml
+} from '../core/rin'
 
 const token = process.env.TELEGRAM_TOKEN
 const url = process.env.URL || 'https://rincloud.herokuapp.com'
@@ -24,13 +31,13 @@ if (process.env.HEROKU) {
 app.telegram.getMe().then(botInfo => {
     app.options.username = botInfo.username
 
-    Rin.log.info(`Telegram logged as ${process.env.TELEGRAM_PREFIX} prefix`)
+    log.info(`Telegram logged as ${process.env.TELEGRAM_PREFIX} prefix`)
 })
 
 app.start(async ctx => {
     const userName = ctx.message.from.first_name + ctx.message.from.last_name
 
-    Rin.log.info(`[TELEGRAM]${userName}(${ctx.message.from.id}): /start`)
+    log.info(`[TELEGRAM]${userName}(${ctx.message.from.id}): /start`)
 
     ctx.replyWithMarkdown(
         'Hello! I am Rin, to talk with me, just call my name, type `help` for available commands!' // Ignore LineLengthBear
@@ -43,15 +50,15 @@ app.on('text', async ctx => {
 
     const prefix = process.env.TELEGRAM_PREFIX
 
-    if (Rin.notEmpty(prefix) && !(message[0].toLocaleLowerCase() === prefix)) {
+    if (notEmpty(prefix) && !(message[0].toLocaleLowerCase() === prefix)) {
         return
     }
 
-    const chatInfo = `${userName}(${ctx.message.from.id}): ${Rin.standarize(
+    const chatInfo = `${userName}(${ctx.message.from.id}): ${standarize(
         message.join(' ')
     )}`
 
-    Rin.log.info(`[TELEGRAM]${chatInfo}`)
+    log.info(`[TELEGRAM]${chatInfo}`)
 
     ctx.replyWithChatAction('typing')
 
@@ -59,25 +66,21 @@ app.on('text', async ctx => {
 
     try {
         response = await rin.handle(
-            Rin.isEmpty(prefix)
-                ? message.join(' ')
-                : message.slice(1).join(' '),
+            isEmpty(prefix) ? message.join(' ') : message.slice(1).join(' '),
             { ctx }
         )
 
-        response = Rin.notEmpty(response)
-            ? response
-            : 'Sorry, something went wrong'
+        response = notEmpty(response) ? response : 'Sorry, something went wrong'
     } catch (err) {
-        sendLogError(err, chatInfo)
+        LogError(err, chatInfo)
     }
 
     let result
 
     if (typeof response == 'object') {
-        result = response.raw ? response.result : Rin.mdToHtml(response.result)
+        result = response.raw ? response.result : mdToHtml(response.result)
     } else {
-        result = Rin.mdToHtml(response)
+        result = mdToHtml(response)
     }
 
     if (result.length > 4000) {
@@ -88,19 +91,19 @@ app.on('text', async ctx => {
     } else ctx.replyWithHTML(result, Extra.inReplyTo(ctx.message.message_id))
 })
 
-app.catch(sendLogError)
+app.catch(LogError)
 
 if (process.env.HEROKU) {
     expressApp.get('/', (req, res) => {
-        Rin.log.info('Someone visiting web interface!')
+        log.info('Someone visiting web interface!')
         res.sendFile(path.resolve(__dirname, '../../view/index.html'))
     })
 
-    expressApp.listen(port, () => Rin.log.info('Server running on port:', port))
+    expressApp.listen(port, () => log.info('Server running on port:', port))
 } else {
     app.startPolling()
 }
 
-function sendLogError(err, chatInfo = '') {
-    Rin.sendLogError(app, err, chatInfo)
+function LogError(err, chatInfo = '') {
+    sendLogError(app, err, chatInfo)
 }

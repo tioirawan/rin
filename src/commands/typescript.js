@@ -1,5 +1,6 @@
-import Rin from '../core/rin'
 import tsc from 'typescript-compiler'
+
+import { isEmpty, code } from '../core/rin'
 
 export default class Typescript {
     constructor() {
@@ -18,16 +19,16 @@ export default class Typescript {
     async handle(command) {
         const ts = command.join(' ')
 
-        if (Rin.isEmpty(ts)) return this.VARIABLE.codeEmpty
+        if (isEmpty(ts)) return this.VARIABLE.codeEmpty
 
         try {
             const result = tsc.compileString(ts, '--target ES6', null, e => {
                 if (e) throw e.formattedMessage
             })
 
-            if (Rin.isEmpty(result)) return this.VARIABLE.unknownEror
+            if (isEmpty(result)) return this.VARIABLE.unknownEror
 
-            return Rin.code('js', result)
+            return code('js', result)
         } catch (err) {
             return err.message || err
         }
