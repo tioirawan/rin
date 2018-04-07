@@ -1,3 +1,6 @@
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a6779ac9f90440e48ee80734eca85217)](https://app.codacy.com/app/sattanationmail/rin?utm_source=github.com&utm_medium=referral&utm_content=indmind/rin&utm_campaign=badger)
+
 <h1 align="center">
   Rin
   <br>
