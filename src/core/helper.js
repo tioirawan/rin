@@ -157,10 +157,10 @@ export function getChatInfo(vendor, ctx) {
     if (vendor == 'telegram') {
         const userName =
             ctx.message.from.first_name + ctx.message.from.last_name
-        const message = ctx.message.text.split(' ')
+        const message = ctx.message.text
 
         return `[TELEGRAM]${userName}(${ctx.message.from.id}): ${standarize(
-            message.join(' ')
+            message
         )}`
     } else if (vendor == 'discord') {
         const message = ctx.content

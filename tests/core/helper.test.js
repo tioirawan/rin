@@ -4,7 +4,7 @@ import * as Commands from '../../src/commands'
 import fs from 'fs'
 import path from 'path'
 
-describe('core.rin', () => {
+describe('core.helper', () => {
     it('should correctly standarize a text', () => {
         const text = ' foo      bar BaZ bar    foo      '
         const standarized = Helper.standarize(text)
@@ -103,6 +103,44 @@ describe('core.rin', () => {
     it('should correctly return file size', () => {
         expect(Helper.getFileSize(__dirname + '/../__data__/dummy.txt')).toBe(
             '365.84 KB'
+        )
+    })
+
+    it('should correctly return telegram chat info', () => {
+        const data = {
+            message: {
+                from: {
+                    first_name: 'foo',
+                    last_name: 'bar',
+                    id: 86
+                },
+                text: 'do the barrel roll'
+            }
+        }
+
+        const username =
+            data.message.from.first_name + data.message.from.last_name
+
+        expect(Helper.getChatInfo('telegram', data)).toBe(
+            `[TELEGRAM]${username}(${
+                data.message.from.id
+            }): ${Helper.standarize(data.message.text)}`
+        )
+    })
+
+    it('should correctly return discord chat info', () => {
+        const data = {
+            content: 'make me cry',
+            author: {
+                username: 'baz',
+                id: 87
+            }
+        }
+
+        expect(Helper.getChatInfo('discord', data)).toBe(
+            `[DISCORD]${data.author.username}(${
+                data.author.id
+            }): ${Helper.standarize(data.content)}`
         )
     })
 })
