@@ -116,6 +116,11 @@ describe('core.helper', () => {
         expect(Helper.notEmpty(map)).toBe(true)
     })
 
+    it('should return true if isEmpty get undefined argument', () => {
+        expect(Helper.isEmpty(undefined)).toBe(true)
+        expect(Helper.notEmpty(undefined)).toBe(false)
+    })
+
     it('should correctly make markdown code block', () => {
         const code = 'console.log("hello world!")'
 

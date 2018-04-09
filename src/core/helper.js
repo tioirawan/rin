@@ -114,6 +114,8 @@ export function notEmpty(arg) {
 }
 
 export function isEmpty(arg) {
+    if (typeof arg === 'undefined') return true
+
     switch (arg.constructor) {
         case String:
             return !arg || arg.length === 0
@@ -125,6 +127,8 @@ export function isEmpty(arg) {
             return Object.keys(arg).length <= 0
         case Map:
             return arg.size <= 0
+        default:
+            return true
     }
 }
 
