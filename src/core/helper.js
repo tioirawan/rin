@@ -109,16 +109,27 @@ export function standarize(text) {
         .toLowerCase()
 }
 
-export function notEmpty(text) {
-    return (
-        typeof text != 'undefined' &&
-        typeof text.valueOf() == 'string' &&
-        text.length > 0
-    )
+export function notEmpty(arg) {
+    return !isEmpty(arg)
 }
 
-export function isEmpty(text) {
-    return !notEmpty(text)
+export function isEmpty(arg) {
+    if (typeof arg === 'undefined') return true
+
+    switch (arg.constructor) {
+        case String:
+            return !arg || arg.length === 0
+        case Number:
+            return number === 0 // is zero
+        case Array:
+            return arg.length <= 0
+        case Object:
+            return Object.keys(arg).length <= 0
+        case Map:
+            return arg.size <= 0
+        default:
+            return true
+    }
 }
 
 export function code(type, text) {

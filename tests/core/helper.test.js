@@ -80,11 +80,45 @@ describe('core.helper', () => {
         )
     })
 
-    it('should return empty or not', () => {
+    it('should return is a string empty or not', () => {
         expect(Helper.isEmpty('')).toBe(true)
         expect(Helper.isEmpty('hello')).toBe(false)
         expect(Helper.notEmpty('')).toBe(false)
         expect(Helper.notEmpty('hello')).toBe(true)
+    })
+
+    it('should return is an object empty or not', () => {
+        expect(Helper.isEmpty({})).toBe(true)
+        expect(Helper.isEmpty({ foo: 'bar' })).toBe(false)
+        expect(Helper.notEmpty({})).toBe(false)
+        expect(Helper.notEmpty({ baz: 'foo' })).toBe(true)
+    })
+
+    it('should return is an array empty or not', () => {
+        expect(Helper.isEmpty([])).toBe(true)
+        expect(Helper.isEmpty([1, 2, 3])).toBe(false)
+        expect(Helper.notEmpty([])).toBe(false)
+        expect(Helper.notEmpty(['hello', 'world'])).toBe(true)
+    })
+
+    it('should return is a Map empty or not', () => {
+        const map = new Map()
+
+        expect(Helper.isEmpty(map)).toBe(true)
+
+        map.set('foo', 'bar')
+        expect(Helper.isEmpty(map)).toBe(false)
+
+        map.delete('foo')
+        expect(Helper.notEmpty(map)).toBe(false)
+
+        map.set('baz', 1)
+        expect(Helper.notEmpty(map)).toBe(true)
+    })
+
+    it('should return true if isEmpty get undefined argument', () => {
+        expect(Helper.isEmpty(undefined)).toBe(true)
+        expect(Helper.notEmpty(undefined)).toBe(false)
     })
 
     it('should correctly make markdown code block', () => {
