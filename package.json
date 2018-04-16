@@ -37,7 +37,7 @@
         "google-translate-api": "^2.3.0",
         "is-json": "^2.0.1",
         "is-reachable": "^2.4.0",
-        "jawaskrip": "^0.3.4",
+        "jawaskrip": "^0.3.6",
         "mathjs": "^4.1.1",
         "moment": "^2.22.0",
         "money": "^0.2.0",
