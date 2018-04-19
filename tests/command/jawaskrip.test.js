@@ -25,8 +25,6 @@ describe('command.jw', () => {
         const errorTest = await jw.handle(['var something = "i love this'])
 
         expect(emptyTest).toBe(jw.VARIABLE.codeEmpty)
-        expect(errorTest).toBe(
-            'Error: undefined (1):\nTanda Kutip Tidak Terselesaikan'
-        )
+        expect(errorTest).toBe('Error: (1):\nTanda Kutip Tidak Terselesaikan')
     })
 })
