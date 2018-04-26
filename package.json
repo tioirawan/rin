@@ -41,7 +41,7 @@
         "mathjs": "^4.1.2",
         "moment": "^2.22.1",
         "money": "^0.2.0",
-        "node-sass": "^4.8.3",
+        "node-sass": "^4.9.0",
         "prettyjson": "^1.2.1",
         "rata": "0.0.1",
         "showdown": "^1.8.6",
