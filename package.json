@@ -25,7 +25,7 @@
     "license": "MIT",
     "dependencies": {
         "axios": "^0.18.0",
-        "babel-core": "^6.26.0",
+        "babel-core": "^6.26.3",
         "babel-preset-env": "^1.6.1",
         "cssbeautify": "^0.3.1",
         "currency-formatter": "^1.4.2",
