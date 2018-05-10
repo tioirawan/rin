@@ -25,7 +25,7 @@ export default class Jawaskrip {
 
             return markCode('js', result)
         } catch (err) {
-            return err
+            return err.message
         }
     }
 
