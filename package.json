@@ -13,7 +13,7 @@
         "cli": "npm run build && STATUS=debug npm start",
         "start": "node lib/main.js",
         "lint": "./node_modules/.bin/eslint --fix .",
-        "coala": "coala -n",
+        "coala": "coala --non-interactive",
         "test": "jest",
         "heroku-postbuild": "npm run build"
     },
