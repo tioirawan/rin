@@ -7,6 +7,11 @@ cache:
     - $HOME/.npm
     - $HOME/.cache/pip
 
+branches:
+  only:
+    - master
+    - /^greenkeeper.*$/
+
 before_install:
   - pip3 install coala-bears
   - export PATH=$PATH:./node_modules/.bin
