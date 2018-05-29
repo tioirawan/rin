@@ -1,3 +1,6 @@
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/indmind/rin.svg)](https://greenkeeper.io/)
+
 <h1 align="center">
   Rin
   <br>
