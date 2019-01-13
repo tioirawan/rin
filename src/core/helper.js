@@ -120,7 +120,7 @@ export function isEmpty(arg) {
         case String:
             return !arg || arg.length === 0
         case Number:
-            return number === 0 // is zero
+            return arg === 0 // is zero
         case Array:
             return arg.length <= 0
         case Object:
